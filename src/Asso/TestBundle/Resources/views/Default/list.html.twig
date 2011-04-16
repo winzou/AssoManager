@@ -1,0 +1,13 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+
+	<ul>
+	{% for user in users %}
+		<li>
+		Hello {{user.getName}}!
+		</li>
+	{% endfor %}
+	</ul>
+	
+{% endblock %}

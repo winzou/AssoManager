@@ -51,6 +51,7 @@ doctrine:
             default:
                 mappings:
                     AcmeDemoBundle: ~
+                    AssoTestBundle: ~
 
 # Swiftmailer Configuration
 swiftmailer:
