@@ -15,3 +15,4 @@ Configuration
 -------------
 
 AssoManager is Symfony2-based so please meet the Symfony2 requirements and configuration.
+Don't forget to run bin/build_bootstrap.php after updating vendors.
