@@ -3,7 +3,7 @@
 DIR="."
 VENDOR="$DIR/vendor"
 VERSION=vPR11
-BUNDLES=$VENDOR/bundles
+BUNDLES=bundles
 
 # initialization
 if [ "$1" = "--reinstall" -o "$2" = "--reinstall" ]; then
@@ -72,22 +72,28 @@ install_git twig-extensions https://github.com/fabpot/Twig-extensions.git
 # Monolog
 install_git monolog https://github.com/Seldaek/monolog.git
 
+mkdir -p $BUNDLES && cd $BUNDLES
+
 # SensioFrameworkExtraBundle
-mkdir -p $BUNDLES/Sensio/Bundle
-cd $BUNDLES/Sensio/Bundle
+mkdir -p Sensio/Bundle
+cd Sensio/Bundle
 install_git FrameworkExtraBundle https://github.com/sensio/SensioFrameworkExtraBundle.git
+cd ../..
 
 # SecurityExtraBundle
-mkdir -p $BUNDLES/JMS
-cd $BUNDLES/JMS
+mkdir -p JMS
+cd JMS
 install_git SecurityExtraBundle https://github.com/schmittjoh/SecurityExtraBundle.git
+cd ..
 
 # Symfony bundles
-mkdir -p $BUNDLES/Symfony/Bundle
-cd $BUNDLES/Symfony/Bundle
-
+mkdir -p Symfony/Bundle
+cd Symfony/Bundle
 # WebConfiguratorBundle
 install_git WebConfiguratorBundle https://github.com/symfony/WebConfiguratorBundle.git
+cd ../..
+
+
 
 # Update the bootstrap files
 #$DIR/bin/build_bootstrap.php
