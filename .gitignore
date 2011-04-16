@@ -1,4 +1,4 @@
 .project
 app/cache/*
 app/logs/*
-
+app/config/parameters_db*
