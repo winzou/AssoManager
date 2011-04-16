@@ -14,5 +14,6 @@ As the project is not started yet, and is still in conception stage, contributor
 Configuration
 -------------
 
-AssoManager is Symfony2-based so please meet the Symfony2 requirements and configuration.
-Don't forget to run bin/build_bootstrap.php after updating vendors.
+* AssoManager is Symfony2-based so please meet the Symfony2 requirements and configuration;
+* Don't forget to run bin/build_bootstrap.php after updating vendors;
+* Don't forget to add app/config/parameters_db_prod|dev.ini with these parameters: database_driver|host|name|user|password.
