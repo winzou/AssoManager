@@ -1,7 +1,4 @@
 .project
-web/bundles/
-app/bootstrap*
 app/cache/*
 app/logs/*
-build/
 
