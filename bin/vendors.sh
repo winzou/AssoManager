@@ -2,7 +2,7 @@
 
 DIR="."
 VENDOR="$DIR/vendor"
-VERSION=`cat "$DIR/VERSION"`
+VERSION=vPR11
 BUNDLES=$VENDOR/bundles
 
 # initialization
@@ -49,7 +49,7 @@ install_git()
 install_git assetic https://github.com/kriswallsmith/assetic.git #v1.0.0alpha1
 
 # Symfony
-install_git symfony https://github.com/symfony/symfony.git vPR11
+install_git symfony https://github.com/symfony/symfony.git $VERSION
 
 # Doctrine ORM
 install_git doctrine https://github.com/doctrine/doctrine2.git 2.0.4
