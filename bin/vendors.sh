@@ -99,6 +99,12 @@ cd Elao
 install_git WebProfilerExtraBundle https://github.com/Elao/WebProfilerExtraBundle.git
 cd ..
 
+# UserBundle
+mkdir -p FOS
+cd FOS
+install_git UserBundle https://github.com/FriendsOfSymfony/UserBundle.git
+cd ..
+
 
 
 # Update the bootstrap files

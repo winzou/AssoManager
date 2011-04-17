@@ -10,3 +10,11 @@ _demo:
     resource: "@AcmeDemoBundle/Controller/DemoController.php"
     type:     annotation
     prefix:   /demo
+
+# FOS\UserBundle
+fos_user_security:
+    resource: @FOSUserBundle/Resources/config/routing/security.xml
+
+fos_user_user:
+    resource: @FOSUserBundle/Resources/config/routing/user.xml
+    prefix: /user

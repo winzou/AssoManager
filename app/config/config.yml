@@ -52,6 +52,7 @@ doctrine:
                 mappings:
                     AcmeDemoBundle: ~
                     AssoTestBundle: ~
+                    FOSUserBundle:  ~
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -72,3 +73,11 @@ jms_security_extra:
     # Enabling this setting will add an additional special attribute "IS_IDDQD".
     # Anybody with this attribute will effectively bypass all security checks.
     enable_iddqd_attribute: false
+
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    class:
+        model:
+            user: Asso\TestBundle\Entity\User
+

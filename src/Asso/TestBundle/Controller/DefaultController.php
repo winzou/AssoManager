@@ -17,7 +17,7 @@ class DefaultController extends Controller
     	$em->persist($user);
     	$em->flush();
     	
-        return $this->render('AssoTestBundle:Default:create.html.twig', array('name' => $user->getName()));
+        return $this->render('AssoTestBundle:Default:create.html.twig', array('name' => $user->getUsername()));
     }
     
     public function listAction()

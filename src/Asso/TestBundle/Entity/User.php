@@ -1,11 +1,12 @@
 <?php
 
 namespace Asso\TestBundle\Entity;
+use FOS\UserBundle\Entity\User as FOSUser;
 
 /**
  * @orm:Entity
  */
-class User
+class User extends FOSUser
 {
     /**
      * @orm:Id
@@ -14,19 +15,4 @@ class User
      */
     protected $id;
 
-    /**
-     * @orm:Column(type="string", length="50")
-     */
-    protected $name;
-    
-    
-    public function setName ( $name )
-    {
-    	$this->name = $name;
-    }
-    
-    public function getName ( )
-    {
-    	return $this->name;
-    }
 }
