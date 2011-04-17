@@ -72,6 +72,9 @@ install_git twig-extensions https://github.com/fabpot/Twig-extensions.git
 # Monolog
 install_git monolog https://github.com/Seldaek/monolog.git
 
+# DoctrineExtensions
+install_git doctrine-extensions https://github.com/l3pp4rd/DoctrineExtensions.git
+
 mkdir -p $BUNDLES && cd $BUNDLES
 
 # SensioFrameworkExtraBundle
@@ -105,6 +108,11 @@ cd FOS
 install_git UserBundle https://github.com/FriendsOfSymfony/UserBundle.git
 cd ..
 
+# DoctrineExtensionsBundle
+mkdir -p Stof
+cd Stof
+install_git DoctrineExtensionsBundle https://github.com/stof/DoctrineExtensionsBundle.git
+cd ..
 
 
 # Update the bootstrap files
