@@ -93,6 +93,12 @@ cd Symfony/Bundle
 install_git WebConfiguratorBundle https://github.com/symfony/WebConfiguratorBundle.git
 cd ../..
 
+# WebProfilerExtraBundle
+mkdir -p Elao
+cd Elao
+install_git WebProfilerExtraBundle https://github.com/Elao/WebProfilerExtraBundle.git
+cd ..
+
 
 
 # Update the bootstrap files

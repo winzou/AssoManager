@@ -20,3 +20,10 @@ monolog:
 
 assetic:
     use_controller: true
+
+# application/config/config_dev.yml
+web_profiler_extra:
+    routing:    true
+    container:  true
+    assetic:    true
+    twig:       true

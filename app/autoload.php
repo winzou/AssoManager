@@ -12,6 +12,8 @@ $loader->registerNamespaces(array(
     'Doctrine'         => __DIR__.'/../vendor/doctrine/lib',
     'Monolog'          => __DIR__.'/../vendor/monolog/src',
     'Assetic'          => __DIR__.'/../vendor/assetic/src',
+
+    'Elao'             => __DIR__.'/../vendor/bundles',
 	
     'Acme'             => __DIR__.'/../src',
 	'Asso'             => __DIR__.'/../src',
