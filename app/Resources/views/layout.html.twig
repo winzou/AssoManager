@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        
+        <title>{% block title %}AssoManager{% endblock %}</title>
+        
+        {% block stylesheets %}{% endblock %}
+        
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('app/css/style.css') }}" />
+    </head>
+    
+    <body>
+    	
+    	<div id="header">
+			<h1><a href="index.html">AssoManager</a></h1>
+			<ul>
+				<li><a href="{{ path('_welcome') }}">Accueil</a></li>
+				<li><a href="#menu">Aller au menu</a></li>
+				<li><a href="#content">Aller au contenu</a></li>
+			</ul>
+		</div>
+
+		<div id="menu">
+			<div>
+				<h3>Sentenza</h3>
+				<ul>
+					<li><a href="{{ path('_welcome') }}">Accueil</a></li>
+				</ul>
+			</div>
+
+			<div>
+				<h3>Mon Compte</h3>
+					<ul>
+						<li><a href="{{ path('_security_login') }}">Connexion</a></li>
+					</ul>
+			</div>		
+		</div>
+    	
+    	<div id="content">
+    		{% block body %}BundleTemplate not good enough...{% endblock %}
+    	</div>
+    	
+    	<div id="footer">
+			<p>winzou 2011, GPL - <a href="http://github.com/winzou/AssoManager">Fork it!</a></p>
+		</div>
+    	
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>
