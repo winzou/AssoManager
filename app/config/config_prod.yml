@@ -1,5 +1,5 @@
 imports:
-    - { resource: parameters_db_prod.ini }
+    - { resource: parameters_prod.ini }
     - { resource: config.yml }
 
 monolog:
