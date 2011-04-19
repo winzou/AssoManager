@@ -4,7 +4,7 @@ AssoManager
 What's that?
 --------------
 
-AssoManager is an early-stage project which aims to provide a simple but useful IT system to French Association Loi 1901.
+AssoManager is an early-stage project which aims to provide a simple yet powerful IT system to French Association Loi 1901.
 
 Contribution
 ---------------------
