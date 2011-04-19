@@ -1,12 +1,13 @@
-homepage:
+AssoTestHomepage:
     pattern:  /
     defaults: { _controller: AssoTestBundle:Default:index }
 
-create:
+AssoTestCreate:
     pattern:  /create
     defaults: { _controller: AssoTestBundle:Default:create }
 
-list:
-    pattern:  /list
-    defaults: { _controller: AssoTestBundle:Default:list }
-    
+AssoTestList:
+    pattern:  /list.{_format}
+    defaults: { _controller: AssoTestBundle:Default:list, _format: html }
+    requirements:
+        _format: html|htmlraw

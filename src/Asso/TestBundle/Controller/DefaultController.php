@@ -2,10 +2,11 @@
 
 namespace Asso\TestBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+//use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Asso\TestBundle\DependencyInjection\MyController;
 use Asso\TestBundle\Entity\User;
 
-class DefaultController extends Controller
+class DefaultController extends MyController
 {
     public function createAction()
     {
@@ -27,6 +28,6 @@ class DefaultController extends Controller
     	$dql = 'SELECT u FROM Asso\TestBundle\Entity\User u';
     	$users = $em->createQuery($dql)->getResult();
     	
-    	return $this->render('AssoTestBundle:Default:list.html.twig', array('users' => $users));
+    	return $this->myRender ( 'AssoTestBundle:Default:list' , array('users' => $users) );
     }
 }
