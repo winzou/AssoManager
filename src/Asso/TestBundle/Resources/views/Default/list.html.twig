@@ -1,7 +1,9 @@
-{% extends "AssoTestBundle:Default:_base.html.twig" %}
+{% extends "AssoTestBundle::layout.html.twig" %}
 
 {% block content %}
 
-	{% include "AssoTestBundle:Default:list.htmlraw.twig" %}
+	<h1>Asso\TestBundle\list > Here is the list of...</h1>
+
+	{% include "AssoTestBundle:Default:listBase.html.twig" %}
 	
 {% endblock %}
