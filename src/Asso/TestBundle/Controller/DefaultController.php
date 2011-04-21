@@ -37,4 +37,9 @@ class DefaultController extends MyController
     {
     	return new Response( $user->getUsername() );
     }
+    
+    public function preExecute()
+    {
+    	// do something
+    }
 }
