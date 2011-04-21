@@ -15,6 +15,13 @@ framework:
         lifetime:       3600
         auto_start:     true
 
+services:
+    raw_format:
+        class:     Asso\TestBundle\Listener\RawFormatListener
+        arguments: [@router]
+        tags:
+            - { name: kernel.listener, priority: 0, event: onCoreRequest } 
+
 # Twig Configuration
 twig:
     debug:            %kernel.debug%
@@ -90,4 +97,6 @@ stof_doctrine_extensions:
     orm:
         default: ~
 
-
+# We make sure to activate all features of FrameworkExtraBundle (especially DoctrineParamConverter !)
+# @TODO: understand why AppKernel is not enough
+sensio_framework_extra: ~

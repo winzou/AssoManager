@@ -6,6 +6,8 @@ namespace Asso\TestBundle\Controller;
 use Asso\TestBundle\DependencyInjection\MyController;
 use Asso\TestBundle\Entity\User;
 
+use Symfony\Component\Httpfoundation\Response;
+
 class DefaultController extends MyController
 {
     public function createAction()
@@ -29,5 +31,10 @@ class DefaultController extends MyController
     	$users = $em->createQuery($dql)->getResult();
     	
     	return $this->myRender ( 'AssoTestBundle:Default:list' , array('users' => $users) );
+    }
+    
+    public function viewAction( User $user )
+    {
+    	return new Response( $user->getUsername() );
     }
 }

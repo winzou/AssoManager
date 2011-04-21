@@ -7,7 +7,11 @@ AssoTestCreate:
     defaults: { _controller: AssoTestBundle:Default:create }
 
 AssoTestList:
-    pattern:  /list.{_format}
-    defaults: { _controller: AssoTestBundle:Default:list, _format: html }
+    pattern:  /list/{id}
+    defaults: { _controller: AssoTestBundle:Default:list, _format: aze }
     requirements:
-        _format: html|htmlraw
+        _format: aze|truc
+
+AssoTestView:
+    pattern:  /view/{id}
+    defaults: { _controller: AssoTestBundle:Default:view }
