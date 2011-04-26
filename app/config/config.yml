@@ -16,17 +16,8 @@ framework:
         auto_start:     true
 
 # Services
-services:
-    # These two ones should really be in the Bundle configuration
-    raw_format:
-        class:     Asso\TestBundle\Listener\RawFormatListener
-        arguments: [@router]
-        tags:
-            - { name: kernel.listener, priority: 0, event: onCoreController } 
-    pre_execute:
-        class:  Asso\TestBundle\Listener\PreExecuteListener
-        tags:
-            - { name: kernel.listener, priority: 0, event: onCoreController }
+
+
 
 # Twig Configuration
 twig:
