@@ -22,14 +22,18 @@ class RawFormatListener
 	{
 		// AJAX request ?
 		//if( $event->getRequest()->headers->has('P-AJAX') AND $event->getRequest()->headers->get('P-AJAX') )
-		if( $event->getRequest()->isXmlHttpRequest() or true)
+		if( $event->getRequest()->isXmlHttpRequest() )
 		{
-			// htmlRaw in the route requirements ?
-			// @todo Is there any better way to retrieve current route requirements ?
-			if( in_array ( 'htmlRaw' , explode('|', $this->router->getRouteCollection()->get($event->getRequest()->attributes->get('_route'))->getRequirement('_format')) ) )
-			{
-				$event->getRequest()->setRequestFormat('htmlRaw');
-			}
+		    // matching route exists ?
+		    if( $route = $this->router->getRouteCollection()->get($event->getRequest()->attributes->get('_route')) instanceof Route )
+		    {
+		        // htmlRaw in the route requirements ?
+        		// @todo Is there any better way to retrieve current route requirements ?
+        		if( in_array ( 'htmlRaw' , explode('|', $route->getRequirement('_format')) ) )
+        		{
+        			$event->getRequest()->setRequestFormat('htmlRaw');
+        		}
+		    }
 		}
 	}
 }
