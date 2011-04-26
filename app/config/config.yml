@@ -22,7 +22,7 @@ services:
         class:     Asso\TestBundle\Listener\RawFormatListener
         arguments: [@router]
         tags:
-            - { name: kernel.listener, priority: 0, event: onCoreRequest } 
+            - { name: kernel.listener, priority: 0, event: onCoreController } 
     pre_execute:
         class:  Asso\TestBundle\Listener\PreExecuteListener
         tags:
