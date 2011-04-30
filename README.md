@@ -18,3 +18,4 @@ Configuration
 * Don't forget to run bin/build_bootstrap.php after updating vendors;
 * Don't forget to add app/config/parameters_prod|dev.ini according to parameters_example.ini
 * Hack (sik) assetic vendor if on windows : https://github.com/kriswallsmith/assetic/issues/25
+* test
