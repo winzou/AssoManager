@@ -14,8 +14,20 @@ class MyController extends Controller
 	 *
 	 * @return Response
 	 */
-	protected function myRender ( $templateName, array $vars = array() )
+	public function render($view, array $parameters = array(), Response $response = null)
 	{
-		return $this->render ( $templateName.'.'.$this->get('request')->getRequestFormat().'.twig' , $vars );
+	    if( strpos($view, '.') === false )
+	    {
+	        $request = $this->get('request');
+	        
+	        if( $request->isXmlHttpRequest() AND $request->getRequestFormat() === 'html' )
+            {
+                $view .= 'Base';
+            }
+            
+            $view .= '.'.$request->getRequestFormat().'.twig';
+	    }
+	    
+		return parent::render ( $view , $parameters , $response );
 	}
 }

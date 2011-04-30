@@ -1,10 +1,5 @@
 # Services
 services:
-    asso.raw_format:
-        class:     Asso\TestBundle\Listener\RawFormatListener
-        arguments: [@router]
-        tags:
-            - { name: kernel.listener, priority: 0, event: onCoreController } 
     asso.pre_execute:
         class:  Asso\TestBundle\Listener\PreExecuteListener
         tags:

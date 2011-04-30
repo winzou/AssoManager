@@ -8,9 +8,7 @@ AssoTestCreate:
 
 AssoTestList:
     pattern:  /list.{_format}
-    defaults: { _controller: AssoTestBundle:Default:list, _format: aze }
-    requirements:
-        _format: html|htmlRaw
+    defaults: { _controller: AssoTestBundle:Default:list, _format: html }
 
 AssoTestView:
     pattern:  /view/{id}

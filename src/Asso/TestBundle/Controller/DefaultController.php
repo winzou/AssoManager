@@ -30,7 +30,7 @@ class DefaultController extends MyController
     	$dql = 'SELECT u FROM Asso\TestBundle\Entity\User u';
     	$users = $em->createQuery($dql)->getResult();
     	
-    	return $this->myRender ( 'AssoTestBundle:Default:list' , array('users' => $users) );
+    	return $this->render ( 'AssoTestBundle:Default:list' , array('users' => $users) );
     }
     
     public function viewAction( User $user )
