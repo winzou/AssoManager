@@ -18,3 +18,7 @@ fos_user_security:
 fos_user_user:
     resource: @FOSUserBundle/Resources/config/routing/user.xml
     prefix: /user
+
+asso_test:
+    resource:  "@AssoTestBundle/Resources/config/routing.yml"
+    prefix:    /test

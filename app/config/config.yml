@@ -15,6 +15,10 @@ framework:
         lifetime:       3600
         auto_start:     true
 
+# Services
+
+
+
 # Twig Configuration
 twig:
     debug:            %kernel.debug%
@@ -24,12 +28,13 @@ twig:
 assetic:
     debug:          %kernel.debug%
     use_controller: false
+    java:           %assetic_javapath%
     filters:
         cssrewrite: ~
-        # closure:
-        #     jar: %kernel.root_dir%/java/compiler.jar
-        # yui_css:
-        #     jar: %kernel.root_dir%/java/yuicompressor-2.4.2.jar
+        yui_css:
+            jar: %kernel.root_dir%/ext-utils/yuicompressor.jar
+        yui_js:
+            jar: %kernel.root_dir%/ext-utils/yuicompressor.jar
 
 # Doctrine Configuration
 doctrine:
@@ -90,4 +95,6 @@ stof_doctrine_extensions:
     orm:
         default: ~
 
-
+# We make sure to activate all features of FrameworkExtraBundle (especially DoctrineParamConverter !)
+# @TODO: understand why AppKernel is not enough
+sensio_framework_extra: ~

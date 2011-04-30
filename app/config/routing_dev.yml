@@ -16,7 +16,3 @@ _profiler:
 
 _main:
     resource: routing.yml
-
-_test:
-    resource:  "@AssoTestBundle/Resources/config/routing.yml"
-    prefix:    /test

@@ -6,10 +6,14 @@
         
         <title>{% block title %}AssoManager{% endblock %}</title>
         
-        {% block stylesheets %}{% endblock %}
+        {% stylesheets output='css/min.css' filter='yui_css' debug=false
+        	'@AssoTestBundle/Resources/public/css/*' %}
+        	
+        	<link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="screen" />
+        	
+        {% endstylesheets %}
         
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
-        <link rel="stylesheet" type="text/css" href="{{ asset('app/css/style.css') }}" />
     </head>
     
     <body>
@@ -40,7 +44,7 @@
 		</div>
     	
     	<div id="content">
-    		{% block body %}BundleTemplate not good enough...{% endblock %}
+    		{% block content %}BundleTemplate not good enough...{% endblock %}
     	</div>
     	
     	<div id="footer">

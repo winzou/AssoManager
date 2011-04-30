@@ -1,0 +1,6 @@
+# Services
+services:
+    asso.pre_execute:
+        class:  Asso\TestBundle\Listener\PreExecuteListener
+        tags:
+            - { name: kernel.listener, priority: 0, event: onCoreController }
