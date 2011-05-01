@@ -17,13 +17,16 @@ monolog:
             type:  stream
             path:  %kernel.logs_dir%/%kernel.environment%.log
             level: debug
+        firephp:
+            type:  firephp
+            level: info
 
 assetic:
     use_controller: true
 
 # application/config/config_dev.yml
-web_profiler_extra:
-    routing:    true
-    container:  true
-    assetic:    true
-    twig:       true
+#web_profiler_extra:
+#    routing:    true
+#    container:  true
+#    assetic:    true
+#    twig:       true

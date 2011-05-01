@@ -14,7 +14,7 @@ class MyController extends Controller
 	 *
 	 * @return Response
 	 */
-	public function render($view, array $parameters = array(), Response $response = null)
+	public function myRender($view, array $parameters = array(), Response $response = null)
 	{
 	    if( strpos($view, '.') === false )
 	    {

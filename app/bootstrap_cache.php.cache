@@ -40,14 +40,18 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\DependencyInjection\Loader\IniFileLoader;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\DependencyInjection\Loader\ClosureLoader;
+use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\HttpKernel\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfigurationPass;
+use Symfony\Component\HttpKernel\DependencyInjection\AddClassesToCachePass;
+use Symfony\Component\HttpKernel\DependencyInjection\Extension as DIExtension;
 use Symfony\Component\Config\Loader\LoaderResolver;
 use Symfony\Component\Config\Loader\DelegatingLoader;
 use Symfony\Component\Config\ConfigCache;
+use Symfony\Component\ClassLoader\ClassCollectionLoader;
 abstract class Kernel implements KernelInterface
 {
     protected $bundles;
@@ -59,6 +63,7 @@ abstract class Kernel implements KernelInterface
     protected $booted;
     protected $name;
     protected $startTime;
+    protected $classes;
     const VERSION = '2.0.0-DEV';
     public function __construct($environment, $debug)
     {
@@ -67,6 +72,7 @@ abstract class Kernel implements KernelInterface
         $this->booted = false;
         $this->rootDir = $this->getRootDir();
         $this->name = preg_replace('/[^a-zA-Z0-9_]+/', '', basename($this->rootDir));
+        $this->classes = array();
         if ($this->debug) {
             ini_set('display_errors', 1);
             error_reporting(-1);
@@ -136,9 +142,8 @@ abstract class Kernel implements KernelInterface
         }
         if (true === $first) {
             return $this->bundleMap[$name][0];
-        } elseif (false === $first) {
-            return $this->bundleMap[$name];
         }
+        return $this->bundleMap[$name];
     }
     public function locateResource($name, $dir = null, $first = true)
     {
@@ -206,6 +211,19 @@ abstract class Kernel implements KernelInterface
     {
         return $this->container;
     }
+    public function loadClassCache($name = 'classes', $extension = '.php')
+    {
+        if (!$this->booted) {
+            $this->boot();
+        }
+        if ($this->classes) {
+            ClassCollectionLoader::load($this->classes, $this->getCacheDir(), $name, $this->debug, true, $extension);
+        }
+    }
+    public function addClassesToCache(array $classes)
+    {
+        $this->classes = array_unique(array_merge($this->classes, $classes));
+    }
     public function getStartTime()
     {
         return $this->debug ? $this->startTime : -INF;
@@ -263,6 +281,10 @@ abstract class Kernel implements KernelInterface
     {
         return $this->name.ucfirst($this->environment).($this->debug ? 'Debug' : '').'ProjectContainer';
     }
+    protected function getContainerBaseClass()
+    {
+        return 'Container';
+    }
     protected function initializeContainer()
     {
         $class = $this->getContainerClass();
@@ -270,7 +292,7 @@ abstract class Kernel implements KernelInterface
         $fresh = true;
         if (!$cache->isFresh()) {
             $container = $this->buildContainer();
-            $this->dumpContainer($cache, $container, $class);
+            $this->dumpContainer($cache, $container, $class, $this->getContainerBaseClass());
             $fresh = false;
         }
         require_once $cache;
@@ -313,16 +335,20 @@ abstract class Kernel implements KernelInterface
     }
     protected function buildContainer()
     {
-        $parameterBag = new ParameterBag($this->getKernelParameters());
-        $container = new ContainerBuilder($parameterBag);
-        $container->getCompilerPassConfig()->setMergePass(new MergeExtensionConfigurationPass());
+        $container = new ContainerBuilder(new ParameterBag($this->getKernelParameters()));
+        $extensions = array();
         foreach ($this->bundles as $bundle) {
             $bundle->build($container);
+            if ($extension = $bundle->getContainerExtension()) {
+                $container->registerExtension($extension);
+                $extensions[] = $extension->getAlias();
+            }
             if ($this->debug) {
                 $container->addObjectResource($bundle);
             }
         }
         $container->addObjectResource($this);
+                $container->getCompilerPassConfig()->setMergePass(new MergeExtensionConfigurationPass($extensions));
         if (null !== $cont = $this->registerContainerConfiguration($this->getContainerLoader($container))) {
             $container->merge($cont);
         }
@@ -336,13 +362,15 @@ abstract class Kernel implements KernelInterface
                 exit(sprintf("Unable to write in the %s directory (%s)\n", $name, $dir));
             }
         }
+        $container->addCompilerPass(new AddClassesToCachePass($this));
         $container->compile();
+        $this->addClassesToCache($container->getParameter('kernel.compiled_classes'));
         return $container;
     }
-    protected function dumpContainer(ConfigCache $cache, ContainerBuilder $container, $class)
+    protected function dumpContainer(ConfigCache $cache, ContainerBuilder $container, $class, $baseClass)
     {
                 $dumper = new PhpDumper($container);
-        $content = $dumper->dump(array('class' => $class));
+        $content = $dumper->dump(array('class' => $class, 'base_class' => $baseClass));
         if (!$this->debug) {
             $content = self::stripComments($content);
         }
@@ -356,7 +384,7 @@ abstract class Kernel implements KernelInterface
             new YamlFileLoader($container, $locator),
             new IniFileLoader($container, $locator),
             new PhpFileLoader($container, $locator),
-            new ClosureLoader($container, $locator),
+            new ClosureLoader($container),
         ));
         return new DelegatingLoader($resolver);
     }
@@ -390,6 +418,7 @@ abstract class Kernel implements KernelInterface
 namespace Symfony\Component\HttpKernel
 {
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 interface HttpKernelInterface
 {
     const MASTER_REQUEST = 1;
@@ -425,6 +454,7 @@ class HttpCache implements HttpKernelInterface
             'stale_if_error'         => 60,
         ), $options);
         $this->esi = $esi;
+        $this->traces = array();
     }
     public function getTraces()
     {
@@ -1086,6 +1116,45 @@ class ParameterBag
     {
         return array_key_exists($key, $this->parameters) ? $this->parameters[$key] : $default;
     }
+    public function getDeep($path, $default = null)
+    {
+        if (false === $pos = strpos($path, '[')) {
+            return $this->get($path, $default);
+        }
+        $root = substr($path, 0, $pos);
+        if (!array_key_exists($root, $this->parameters)) {
+            return $default;
+        }
+        $value = $this->parameters[$root];
+        $currentKey = null;
+        for ($i=$pos,$c=strlen($path); $i<$c; $i++) {
+            $char = $path[$i];
+            if ('[' === $char) {
+                if (null !== $currentKey) {
+                    throw new \InvalidArgumentException(sprintf('Malformed path. Unexpected "[" at position %d.', $i));
+                }
+                $currentKey = '';
+            } else if (']' === $char) {
+                if (null === $currentKey) {
+                    throw new \InvalidArgumentException(sprintf('Malformed path. Unexpected "]" at position %d.', $i));
+                }
+                if (!is_array($value) || !array_key_exists($currentKey, $value)) {
+                    return $default;
+                }
+                $value = $value[$currentKey];
+                $currentKey = null;
+            } else {
+                if (null === $currentKey) {
+                    throw new \InvalidArgumentException(sprintf('Malformed path. Unexpected "%s" at position %d.', $char, $i));
+                }
+                $currentKey .= $char;
+            }
+        }
+        if (null !== $currentKey) {
+            throw new \InvalidArgumentException(sprintf('Malformed path. Path must end with "]".'));
+        }
+        return $value;
+    }
     public function set($key, $value)
     {
         $this->parameters[$key] = $value;
@@ -1181,7 +1250,8 @@ class FileBag extends ParameterBag
         foreach (array_keys($data['name']) as $key) {
             $files[$key] = $this->fixPhpFilesArray(array(
                 'error'    => $data['error'][$key],
-                'name'     => $data['name'][$key], 'type' => $data['type'][$key],
+                'name'     => $data['name'][$key],
+                'type'     => $data['type'][$key],
                 'tmp_name' => $data['tmp_name'][$key],
                 'size'     => $data['size'][$key]
             ));
@@ -1258,9 +1328,7 @@ class HeaderBag
     public function set($key, $values, $replace = true)
     {
         $key = strtr(strtolower($key), '_', '-');
-        if (!is_array($values)) {
-            $values = array($values);
-        }
+        $values = (array) $values;
         if (true === $replace || !isset($this->headers[$key])) {
             $this->headers[$key] = $values;
         } else {
@@ -1367,7 +1435,6 @@ class HeaderBag
 namespace Symfony\Component\HttpFoundation
 {
 use Symfony\Component\HttpFoundation\SessionStorage\NativeSessionStorage;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 class Request
 {
     public $attributes;
@@ -1413,7 +1480,7 @@ class Request
         $this->method = null;
         $this->format = null;
     }
-    static public function createfromGlobals()
+    static public function createFromGlobals()
     {
         return new static($_GET, $_POST, array(), $_COOKIE, $_FILES, $_SERVER);
     }
@@ -1537,7 +1604,7 @@ class Request
     }
     public function hasSession()
     {
-        return $this->cookies->has(session_name());
+                return $this->cookies->has(session_name()) && null !== $this->session;
     }
     public function setSession(Session $session)
     {
@@ -1581,7 +1648,7 @@ class Request
     }
     public function getScheme()
     {
-        return ($this->server->get('HTTPS') == 'on') ? 'https' : 'http';
+        return $this->isSecure() ? 'https' : 'http';
     }
     public function getPort()
     {
@@ -1662,8 +1729,8 @@ class Request
                 }
             }
         }
-                $elements = explode(':', $host);
-        return trim($elements[0]);
+                $host = preg_replace('/:\d+$/', '', $host);
+        return trim($host);
     }
     public function setMethod($method)
     {
@@ -1706,10 +1773,10 @@ class Request
         }
         static::$formats[$format] = is_array($mimeTypes) ? $mimeTypes : array($mimeTypes);
     }
-    public function getRequestFormat()
+    public function getRequestFormat($default = 'html')
     {
         if (null === $this->format) {
-            $this->format = $this->get('_format', 'html');
+            $this->format = $this->get('_format', $default);
         }
         return $this->format;
     }
@@ -1762,7 +1829,7 @@ class Request
         }
         $languages = $this->splitHttpAcceptHeader($this->headers->get('Accept-Language'));
         $this->languages = array();
-        foreach ($languages as $lang) {
+        foreach ($languages as $lang => $q) {
             if (strstr($lang, '-')) {
                 $codes = explode('-', $lang);
                 if ($codes[0] == 'i') {
@@ -1788,14 +1855,14 @@ class Request
         if (null !== $this->charsets) {
             return $this->charsets;
         }
-        return $this->charsets = $this->splitHttpAcceptHeader($this->headers->get('Accept-Charset'));
+        return $this->charsets = array_keys($this->splitHttpAcceptHeader($this->headers->get('Accept-Charset')));
     }
     public function getAcceptableContentTypes()
     {
         if (null !== $this->acceptableContentTypes) {
             return $this->acceptableContentTypes;
         }
-        return $this->acceptableContentTypes = $this->splitHttpAcceptHeader($this->headers->get('Accept'));
+        return $this->acceptableContentTypes = array_keys($this->splitHttpAcceptHeader($this->headers->get('Accept')));
     }
     public function isXmlHttpRequest()
     {
@@ -1819,7 +1886,8 @@ class Request
             }
         }
         arsort($values);
-        return array_keys($values);
+        reset($values);
+        return $values;
     }
     protected function prepareRequestUri()
     {
@@ -1921,6 +1989,7 @@ class Request
     static protected function initializeFormats()
     {
         static::$formats = array(
+            'html' => array('text/html', 'application/xhtml+xml'),
             'txt'  => array('text/plain'),
             'js'   => array('application/javascript', 'application/x-javascript', 'text/javascript'),
             'css'  => array('text/css'),
@@ -2078,13 +2147,12 @@ class Response
         $this->setStatusCode($status);
         $this->setProtocolVersion('1.0');
         $this->headers = new ResponseHeaderBag($headers);
+        $this->charset = 'UTF-8';
     }
     public function __toString()
     {
         $content = '';
-        if (!$this->headers->has('Content-Type')) {
-            $this->headers->set('Content-Type', 'text/html; charset='.(null === $this->charset ? 'UTF-8' : $this->charset));
-        }
+        $this->fixContentType();
                 $content .= sprintf('HTTP/%s %s %s', $this->version, $this->statusCode, $this->statusText)."\n";
                 foreach ($this->headers->all() as $name => $values) {
             foreach ($values as $value) {
@@ -2100,9 +2168,7 @@ class Response
     }
     public function sendHeaders()
     {
-        if (!$this->headers->has('Content-Type')) {
-            $this->headers->set('Content-Type', 'text/html; charset='.(null === $this->charset ? 'UTF-8' : $this->charset));
-        }
+        $this->fixContentType();
                 header(sprintf('HTTP/%s %s %s', $this->version, $this->statusCode, $this->statusText));
                 foreach ($this->headers->all() as $name => $values) {
             foreach ($values as $value) {
@@ -2110,7 +2176,7 @@ class Response
             }
         }
                 foreach ($this->headers->getCookies() as $cookie) {
-            setcookie($cookie->getName(), $cookie->getValue(), $cookie->getExpire(), $cookie->getPath(), $cookie->getDomain(), $cookie->isSecure(), $cookie->isHttpOnly());
+            setcookie($cookie->getName(), $cookie->getValue(), $cookie->getExpiresTime(), $cookie->getPath(), $cookie->getDomain(), $cookie->isSecure(), $cookie->isHttpOnly());
         }
     }
     public function sendContent()
@@ -2244,6 +2310,7 @@ class Response
     }
     public function setSharedMaxAge($value)
     {
+        $this->setPublic();
         $this->headers->addCacheControlDirective('s-maxage', $value);
     }
     public function getTtl()
@@ -2397,7 +2464,7 @@ class Response
     }
     public function isRedirect()
     {
-        return in_array($this->statusCode, array(301, 302, 303, 307));
+        return in_array($this->statusCode, array(201, 301, 302, 303, 307));
     }
     public function isEmpty()
     {
@@ -2406,6 +2473,14 @@ class Response
     public function isRedirected($location)
     {
         return $this->isRedirect() && $location == $this->headers->get('Location');
+    }
+    protected function fixContentType()
+    {
+        if (!$this->headers->has('Content-Type')) {
+            $this->headers->set('Content-Type', 'text/html; charset='.$this->charset);
+        } elseif ('text/' === substr($this->headers->get('Content-Type'), 0, 5) && false === strpos($this->headers->get('Content-Type'), 'charset')) {
+                        $this->headers->set('Content-Type', $this->headers->get('Content-Type').'; charset='.$this->charset);
+        }
     }
 }
 }

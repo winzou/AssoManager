@@ -3,13 +3,13 @@ imports:
 
 framework:
     charset:       UTF-8
+    secret:        %secret%
     error_handler: null
     csrf_protection:
         enabled: true
-        secret: %csrf_secret%
     router:        { resource: "%kernel.root_dir%/config/routing.yml" }
     validation:    { enabled: true, annotations: true }
-    templating:    { engines: ['twig'] } #assets_version: SomeVersionScheme
+    templating:    { engines: ['twig'] }
     session:
         default_locale: %locale%
         lifetime:       3600
@@ -39,27 +39,15 @@ assetic:
 # Doctrine Configuration
 doctrine:
     dbal:
-        default_connection: default
-        connections:
-            default:
-                driver:   %database_driver%
-                host:     %database_host%
-                dbname:   %database_name%
-                user:     %database_user%
-                password: %database_password%
+        driver:   %database_driver%
+        host:     %database_host%
+        dbname:   %database_name%
+        user:     %database_user%
+        password: %database_password%
 
     orm:
         auto_generate_proxy_classes: %kernel.debug%
-        default_entity_manager: default
-        entity_managers:
-            default:
-                mappings:
-                    FOSUserBundle:  ~
-                    StofDoctrineExtensionsBundle: ~
-                    
-                    AcmeDemoBundle: ~
-                    AssoTestBundle: ~
-
+        auto_mapping:                true
 
 # Swiftmailer Configuration
 swiftmailer:
