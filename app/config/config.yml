@@ -10,6 +10,7 @@ framework:
     router:        { resource: "%kernel.root_dir%/config/routing.yml" }
     validation:    { enabled: true, annotations: true }
     templating:    { engines: ['twig'] }
+    translator:    { fallback: fr }
     session:
         default_locale: %locale%
         lifetime:       3600
