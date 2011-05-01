@@ -24,16 +24,16 @@ security:
             pattern:  ^/_wdt
             security: false
         
-#        main:
-#            pattern: .*
-#            form-login:
-#                provider:       fos_userbundle
-#                login_path:     /login
-#                use_forward:    false
-#                check_path:     /login_check
-#                failure_path:   null
-#            logout:       true
-#            anonymous:    true
+        main:
+            pattern: .*
+            form-login:
+                provider:       fos_userbundle
+                login_path:     /login
+                use_forward:    false
+                check_path:     /login_check
+                failure_path:   null
+            logout:       true
+            anonymous:    true
 
         # DemoBundle, a enlever des que possible
         login:
