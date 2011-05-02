@@ -16,9 +16,19 @@ class Doc
     
     /**
      * @orm:Column(type="string")
+     *
+     * @assert:NotBlank()
+     * @assert:MinLength(3)
      */
     protected $name;
     
+    /**
+     * @orm:Column(type="integer")
+     *
+     * @assert:NotBlank()
+     * @assert:Min(0)
+     */
+    protected $price;
     
     public function getName()
     {
@@ -28,6 +38,16 @@ class Doc
     public function setName($name)
     {
         $this->name = $name;
+    }
+    
+    public function getPrice()
+    {
+        return $this->price;
+    }
+    
+    public function setPrice($price)
+    {
+        $this->price = $price;
     }
     
     public function getId()

@@ -6,9 +6,8 @@ namespace Asso\TestBundle\Controller;
 use Asso\TestBundle\DependencyInjection\MyController;
 use Asso\TestBundle\Entity\User;
 use Asso\TestBundle\Entity\Doc;
+use Asso\TestBundle\Form\DocType;
 
-use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
-use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 
 use Symfony\Component\Httpfoundation\Response;
@@ -17,27 +16,30 @@ class DefaultController extends MyController
 {
     public function createAction()
     {
-    	$doc = new Doc();
-    	$doc->setName('Greg');
-    	
-    	$em = $this->get('doctrine.orm.entity_manager');
-    	$em->persist($doc);
-    	$em->flush();
-    	
-    	
-    	// creating the ACL
-        $aclProvider = $this->container->get('security.acl.provider');
-        $acl = $aclProvider->createAcl(ObjectIdentity::fromDomainObject($doc));
-
-        // retrieving the security identity of the currently logged-in user
-        $securityContext = $this->container->get('security.context');
-        $securityIdentity = UserSecurityIdentity::fromAccount($securityContext->getToken()->getUser());
-
-        // grant owner access
-        $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_EDIT);
-        $aclProvider->updateAcl($acl);
-    	
-    	return $this->render('AssoTestBundle:Default:create.html.twig', array('name' => $doc->getName()));
+        $form = $this->get('form.factory')->create(new DocType());
+        
+        if($this->request->getMethod() == 'POST')
+        {
+            $form->bindRequest($this->request);
+    
+            if($form->isValid())
+            {
+                $this->em->persist($form->getData());
+            	$this->em->flush();
+            	
+            	// set ACL
+            	$this->addACL($form->getData(), MaskBuilder::MASK_EDIT);
+            	
+                // perform some action, such as save the object to the database
+                $this->get('session')->setFlash('msg', 'OK !');
+                
+                return $this->redirect($this->generateUrl('AssoTestView', array('id' => $form->getData()->getId())));
+            }
+        }
+        
+    	return $this->myRender('AssoTestBundle:Default:create', array(
+    	    'form' => $form->createView()
+    	));
     }
     
     public function listAction()
@@ -60,6 +62,8 @@ class DefaultController extends MyController
     
     public function preExecute()
     {
-    	// do something
+        // do something
+    	$this->request = $this->get('request');
+    	$this->em = $this->get('doctrine.orm.entity_manager');
     }
 }
