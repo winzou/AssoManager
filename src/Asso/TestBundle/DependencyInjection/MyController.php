@@ -4,6 +4,11 @@ namespace Asso\TestBundle\DependencyInjection;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
+use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
+use Symfony\Component\Security\Core\User\UserInterface;
+
+
 class MyController extends Controller
 {
 	/**
@@ -29,5 +34,24 @@ class MyController extends Controller
 	    }
 	    
 		return parent::render ( $view , $parameters , $response );
+	}
+	
+	public function addACL($object, $mask)
+	{
+	    $securityContext = $this->container->get('security.context');
+	    
+	    if( ( $user = $securityContext->getToken()->getUser() ) instanceof UserInterface )
+	    {
+    	    // creating the ACL
+            $aclProvider = $this->container->get('security.acl.provider');
+            $acl = $aclProvider->createAcl(ObjectIdentity::fromDomainObject($object));
+    
+            // retrieving the security identity of the currently logged-in user
+            $securityIdentity = UserSecurityIdentity::fromAccount($user);
+    
+            // grant owner access
+            $acl->insertObjectAce($securityIdentity, $mask);
+            $aclProvider->updateAcl($acl);
+	    }
 	}
 }
