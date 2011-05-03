@@ -8,8 +8,6 @@ use Asso\TestBundle\Entity\User;
 use Asso\TestBundle\Entity\Doc;
 use Asso\TestBundle\Form\DocType;
 
-use Symfony\Component\Security\Acl\Permission\MaskBuilder;
-
 use Symfony\Component\Httpfoundation\Response;
 
 class DefaultController extends MyController
@@ -28,7 +26,7 @@ class DefaultController extends MyController
             	$this->em->flush();
             	
             	// set ACL
-            	$this->addACL($form->getData(), MaskBuilder::MASK_EDIT);
+            	$this->addACL($form->getData(), 'edit');
             	
                 // perform some action, such as save the object to the database
                 $this->get('session')->setFlash('msg', 'OK !');

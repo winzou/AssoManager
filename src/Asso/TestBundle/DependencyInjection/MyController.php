@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
+use Symfony\Component\Security\Acl\Permission\MaskBuilder;
+
 use Symfony\Component\Security\Core\User\UserInterface;
 
 
@@ -38,6 +40,21 @@ class MyController extends Controller
 	
 	public function addACL($object, $mask)
 	{
+	    if( ! in_array($mask, array('view', 'edit', 'delete', 'undelete', 'operator', 'owner')) )
+	    {
+	        throw new \Exception('"'.$mask.'" must be in (view, edit, delete, undelete, operator, owner');
+	    }
+	    
+	    switch($mask)
+	    {
+	        case "view":     $mask = MaskBuilder::MASK_VIEW;     break;
+	        case "edit":     $mask = MaskBuilder::MASK_EDIT;     break;
+	        case "delete":   $mask = MaskBuilder::MASK_DELETE;   break;
+	        case "undelete": $mask = MaskBuilder::MASK_UNDELETE; break;
+	        case "operator": $mask = MaskBuilder::MASK_OPERATOR; break;
+	        case "owner":    $mask = MaskBuilder::MASK_OWNER;    break;
+	    }
+	    
 	    $securityContext = $this->container->get('security.context');
 	    
 	    if( ( $user = $securityContext->getToken()->getUser() ) instanceof UserInterface )
