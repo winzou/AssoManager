@@ -38,7 +38,7 @@ class MyController extends Controller
 		return parent::render ( $view , $parameters , $response );
 	}
 	
-	public function addACL($object, $mask)
+	public function addACL($object, $mask, UserInterface $user = null)
 	{
 	    if( ! in_array($mask, array('view', 'edit', 'delete', 'undelete', 'operator', 'owner')) )
 	    {
@@ -55,9 +55,13 @@ class MyController extends Controller
 	        case "owner":    $mask = MaskBuilder::MASK_OWNER;    break;
 	    }
 	    
-	    $securityContext = $this->container->get('security.context');
+	    if( $user === null )
+	    {
+	        $securityContext = $this->container->get('security.context');
+	        $user = $securityContext->getToken()->getUser();
+	    }
 	    
-	    if( ( $user = $securityContext->getToken()->getUser() ) instanceof UserInterface )
+	    if( $user instanceof UserInterface )
 	    {
     	    // creating the ACL
             $aclProvider = $this->container->get('security.acl.provider');
