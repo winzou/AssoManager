@@ -76,10 +76,10 @@ fos_user:
     firewall_name: main
     class:
         model:
-            user: Asso\TestBundle\Entity\User
+            user: Asso\AMBundle\Entity\User
     group:
         class:
-            model: Asso\TestBundle\Entity\Group
+            model: Asso\AMBundle\Entity\Group
 
 # Stof\DoctrineExtensions
 stof_doctrine_extensions:

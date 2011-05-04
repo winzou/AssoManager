@@ -1,6 +1,6 @@
 <?php
 
-namespace Asso\TestBundle\DependencyInjection;
+namespace Asso\AMBundle\DependencyInjection;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 

@@ -21,8 +21,8 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             
-            new Acme\DemoBundle\AcmeDemoBundle(),
-            new Asso\TestBundle\AssoTestBundle(),
+            new Asso\AMBundle\AssoAMBundle(),
+            new Asso\SiteBundle\AssoSiteBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

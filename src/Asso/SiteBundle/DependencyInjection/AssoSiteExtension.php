@@ -1,13 +1,13 @@
 <?php
 
-namespace Asso\TestBundle\DependencyInjection;
+namespace Asso\SiteBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\Config\FileLocator;
 
-class AssoTestExtension extends Extension
+class AssoSiteExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $container)
     {
@@ -17,6 +17,6 @@ class AssoTestExtension extends Extension
 
     public function getAlias()
     {
-        return 'asso_test';
+        return 'asso_site';
     }
 }

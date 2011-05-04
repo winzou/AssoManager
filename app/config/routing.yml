@@ -1,16 +1,3 @@
-_welcome:
-    pattern:  /
-    defaults: { _controller: AcmeDemoBundle:Welcome:index }
-
-_demo_secured:
-    resource: "@AcmeDemoBundle/Controller/SecuredController.php"
-    type:     annotation
-
-_demo:
-    resource: "@AcmeDemoBundle/Controller/DemoController.php"
-    type:     annotation
-    prefix:   /demo
-
 # FOS\UserBundle
 fos_user_security:
     resource: @FOSUserBundle/Resources/config/routing/security.xml
@@ -23,6 +10,9 @@ fos_user_group:
     resource: @FOSUserBundle/Resources/config/routing/group.xml
     prefix: /group
 
-asso_test:
-    resource:  "@AssoTestBundle/Resources/config/routing.yml"
-    prefix:    /test
+asso_am:
+    resource:  "@AssoAMBundle/Resources/config/routing.yml"
+    prefix:    /am
+
+asso_site:
+    resource:  "@AssoSiteBundle/Resources/config/routing.yml"

@@ -1,6 +1,6 @@
 <?php
 
-namespace Asso\TestBundle\Listener;
+namespace Asso\AMBundle\Listener;
 
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;

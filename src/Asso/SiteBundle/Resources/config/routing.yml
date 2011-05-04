@@ -1,0 +1,3 @@
+AssoSite:
+    pattern:  /
+    defaults: { _controller: AssoSiteBundle:Site:index }

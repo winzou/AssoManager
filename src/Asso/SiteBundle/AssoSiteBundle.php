@@ -1,9 +1,9 @@
 <?php
 
-namespace Asso\TestBundle;
+namespace Asso\SiteBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class AssoTestBundle extends Bundle
+class AssoSiteBundle extends Bundle
 {
 }
