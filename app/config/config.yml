@@ -10,7 +10,7 @@ framework:
     router:        { resource: "%kernel.root_dir%/config/routing.yml" }
     validation:    { enabled: true, annotations: true }
     templating:    { engines: ['twig'] }
-    translator:    { fallback: fr }
+    translator:    { fallback: %locale% }
     session:
         default_locale: %locale%
         lifetime:       3600
@@ -83,7 +83,7 @@ fos_user:
 
 # Stof\DoctrineExtensions
 stof_doctrine_extensions:
-    default_locale: fr_FR
+    default_locale: %locale%
     orm:
         default: ~
 
