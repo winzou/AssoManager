@@ -57,8 +57,7 @@ class MyController extends Controller
 	    
 	    if( $user === null )
 	    {
-	        $securityContext = $this->container->get('security.context');
-	        $user = $securityContext->getToken()->getUser();
+	        $user = $this->container->get('security.context')->getToken()->getUser();
 	    }
 	    
 	    if( $user instanceof UserInterface )

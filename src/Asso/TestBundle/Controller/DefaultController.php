@@ -42,12 +42,9 @@ class DefaultController extends MyController
     
     public function listAction()
     {
-    	$em = $this->get('doctrine.orm.entity_manager');
+    	$users = $this->em->getRepository('Asso\TestBundle\Entity\User')->findAll();
     	
-    	$dql = 'SELECT u FROM Asso\TestBundle\Entity\User u';
-    	$users = $em->createQuery($dql)->getResult();
-    	
-    	return $this->myRender ( 'AssoTestBundle:Default:list' , array('users' => $users) );
+    	return $this->myRender('AssoTestBundle:Default:list', array('users' => $users));
     }
     
     /**

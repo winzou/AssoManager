@@ -19,6 +19,10 @@ fos_user_user:
     resource: @FOSUserBundle/Resources/config/routing/user.xml
     prefix: /user
 
+fos_user_group:
+    resource: @FOSUserBundle/Resources/config/routing/group.xml
+    prefix: /group
+
 asso_test:
     resource:  "@AssoTestBundle/Resources/config/routing.yml"
     prefix:    /test
