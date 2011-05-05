@@ -19,7 +19,7 @@ class AppKernel extends Kernel
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             
             new FOS\UserBundle\FOSUserBundle(),
-            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+            //new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             
             new Asso\AMBundle\AssoAMBundle(),
             new Asso\SiteBundle\AssoSiteBundle(),

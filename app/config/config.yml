@@ -74,6 +74,11 @@ jms_security_extra:
 fos_user:
     db_driver: orm
     firewall_name: main
+    email:
+        from_email: { assomanager@gmail.com: AssoManager }
+        confirmation:
+            enabled:    true
+            template:   FOSUserBundle:User:confirmationEmail
     class:
         model:
             user: Asso\AMBundle\Entity\User
@@ -82,10 +87,10 @@ fos_user:
             model: Asso\AMBundle\Entity\Group
 
 # Stof\DoctrineExtensions
-stof_doctrine_extensions:
-    default_locale: %locale%
-    orm:
-        default: ~
+#stof_doctrine_extensions:
+#    default_locale: %locale%
+#    orm:
+#        default: ~
 
 # We make sure to activate all features of FrameworkExtraBundle (especially DoctrineParamConverter !)
 # @TODO: understand why AppKernel is not enough

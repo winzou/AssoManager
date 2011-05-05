@@ -13,11 +13,11 @@ $loader->registerNamespaces(array(
     'Monolog'          => __DIR__.'/../vendor/monolog/src',
     'Assetic'          => __DIR__.'/../vendor/assetic/src',
 
-    'Gedmo'            => __DIR__.'/../vendor/doctrine-extensions/lib',
+    //'Gedmo'            => __DIR__.'/../vendor/doctrine-extensions/lib',
 
-//    'Elao'             => __DIR__.'/../vendor/bundles',
+    //'Elao'             => __DIR__.'/../vendor/bundles',
     'FOS'              => __DIR__.'/../vendor/bundles',
-    'Stof'             => __DIR__.'/../vendor/bundles',
+    //'Stof'             => __DIR__.'/../vendor/bundles',
 
     'Acme'             => __DIR__.'/../src',
     'Asso'             => __DIR__.'/../src',
