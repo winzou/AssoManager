@@ -16,3 +16,7 @@ asso_am:
 
 asso_site:
     resource:  "@AssoSiteBundle/Resources/config/routing.yml"
+
+asso_book:
+    resource:  "@AssoBookBundle/Resources/config/routing.yml"
+    prefix:    /book

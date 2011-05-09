@@ -25,6 +25,19 @@
 				<li><a href="#menu">Aller au menu</a></li>
 				<li><a href="#content">Aller au contenu</a></li>
 			</ul>
+			<div>
+	            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+	                <a href="{{ path('fos_user_user_show', {'username': app.user.username}) }}">
+	                    {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}
+	                </a> |
+	                <a href="{{ path('_security_logout') }}">
+	                    {{ 'layout.logout'|trans([], 'FOSUserBundle') }}
+	                </a>
+	            {% else %}
+	                <a href="{{ path('_security_login') }}">{{ 'layout.login'|trans([], 'FOSUserBundle') }}</a> |
+	                <a href="{{ path('fos_user_user_new') }}">{{ 'layout.register'|trans([], 'FOSUserBundle') }}</a>
+	            {% endif %}
+        	</div>
 		</div>
 
 		<div id="menu">

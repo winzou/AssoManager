@@ -74,4 +74,10 @@ class MyController extends Controller
             $aclProvider->updateAcl($acl);
 	    }
 	}
+	
+    public function preExecute()
+    {
+    	$this->request = $this->get('request');
+    	$this->em = $this->get('doctrine.orm.entity_manager');
+    }
 }
