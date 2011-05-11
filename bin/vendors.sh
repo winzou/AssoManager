@@ -87,6 +87,7 @@ cd ../..
 mkdir -p JMS
 cd JMS
 install_git SecurityExtraBundle http://github.com/schmittjoh/SecurityExtraBundle.git
+install_git DebuggingBundle http://github.com/schmittjoh/DebuggingBundle.git
 cd ..
 
 # Symfony bundles
