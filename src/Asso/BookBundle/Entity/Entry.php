@@ -2,6 +2,8 @@
 
 namespace Asso\BookBundle\Entity;
 
+use \Symfony\Component\Security\Core\User\UserInterface;
+
 
 /**
  * @orm:Entity
@@ -29,11 +31,6 @@ class Entry
     protected $user;
     
     /**
-     * @orm:ManyToOne(targetEntity="Item")
-     */
-    protected $item;
-    
-    /**
      * @orm:Column(type="date")
      */
     protected $date;
@@ -50,10 +47,12 @@ class Entry
      */
     protected $amount;
     
+    
     public function __construct()
     {
         $this->date = new \Datetime();
     }
+    
     
     public function getId()
     {
@@ -74,18 +73,9 @@ class Entry
     {
         return $this->user;
     }
-    public function setUser(\Symfony\Component\Security\Core\User\UserInterface $user = null)
+    public function setUser(UserInterface $user = null)
     {
         $this->user = $user;
-    }
-    
-    public function getItem()
-    {
-        return $this->item;
-    }
-    public function setItem(Item $item = null)
-    {
-        $this->item = $item;
     }
     
     public function getDate()

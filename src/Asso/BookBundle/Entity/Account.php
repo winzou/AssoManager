@@ -40,6 +40,7 @@ class Account
         $this->entries = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
+    
     public function getId()
     {
         return $this->id;
@@ -49,7 +50,7 @@ class Account
     {
         return $this->wrap;
     }
-    /** @todo get this dynamic */
+    /** @todo Get this dynamic */
     public function setWrap(\Asso\AMBundle\Entity\Asso $wrap)
     {
         $this->wrap = $wrap;
