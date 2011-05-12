@@ -1,0 +1,3 @@
+AssoSite:
+    pattern:  /
+    defaults: { _controller: AssoBookBundle:Book:index }

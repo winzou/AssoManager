@@ -18,5 +18,5 @@ asso_site:
     resource:  "@AssoSiteBundle/Resources/config/routing.yml"
 
 asso_book:
-    resource:  "@AssoBookBundle/Resources/config/routing.yml"
+    resource:  "@winzouBookBundle/Resources/config/routing.yml"
     prefix:    /book

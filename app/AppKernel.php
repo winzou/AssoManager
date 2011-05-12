@@ -24,6 +24,8 @@ class AppKernel extends Kernel
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             */
             
+            new winzou\BookBundle\winzouBookBundle(),
+            
             new Asso\AMBundle\AssoAMBundle(),
             new Asso\SiteBundle\AssoSiteBundle(),
             new Asso\BookBundle\AssoBookBundle(),

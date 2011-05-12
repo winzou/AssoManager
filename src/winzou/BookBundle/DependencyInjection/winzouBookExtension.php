@@ -1,13 +1,13 @@
 <?php
 
-namespace Asso\BookBundle\DependencyInjection;
+namespace winzou\BookBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\Config\FileLocator;
 
-class AssoBookExtension extends Extension
+class winzouBookExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $container)
     {

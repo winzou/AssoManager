@@ -1,6 +1,6 @@
 <?php
 
-namespace Asso\BookBundle\Entity;
+namespace winzou\BookBundle\Entity;
 
 use \Symfony\Component\Security\Core\User\UserInterface;
 
