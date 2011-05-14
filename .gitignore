@@ -1,7 +1,9 @@
 .project
 .settings
+.gitignore
 app/cache/*
 app/logs/*
 app/config/parameters_dev.ini
 app/config/parameters_prod.ini
 vendor
+src/winzou

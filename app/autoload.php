@@ -19,7 +19,7 @@ $loader->registerNamespaces(array(
     'FOS'              => __DIR__.'/../vendor/bundles',
     //'Stof'             => __DIR__.'/../vendor/bundles',
     
-    'winzou'		   => __DIR__.'/../src',
+    'winzou'		   => __DIR__.'/../../winzou',
 
     'Acme'             => __DIR__.'/../src',
     'Asso'             => __DIR__.'/../src',
