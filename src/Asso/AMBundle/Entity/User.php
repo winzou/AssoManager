@@ -38,6 +38,13 @@ class User extends FOSUser
         parent::__construct();
     }
     
+    
+    public function __toString()
+    {
+        return $this->getUsername();
+    }
+    
+    
     public function getAssos()
     {
         return $this->assos;
