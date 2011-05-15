@@ -104,3 +104,13 @@ fos_user:
 # We make sure to activate all features of FrameworkExtraBundle (especially DoctrineParamConverter !)
 # @TODO: understand why AppKernel is not enough
 sensio_framework_extra: ~
+
+
+# winzouBookBundle
+winzou_book:
+    entry:
+        entity:
+            class: Asso\BookBundle\Entity\Entry
+    account:
+        entity:
+            class: Asso\BookBundle\Entity\Account
