@@ -2,9 +2,8 @@
 
 namespace Asso\BookBundle\Entity;
 
-use \winzou\BookBundle\Entity\Entry as BaseEntry;
-
-use \Symfony\Component\Security\Core\User\UserInterface;
+use winzou\BookBundle\Entity\Entry as BaseEntry;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @orm:Entity
