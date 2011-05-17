@@ -21,7 +21,6 @@ class Asso
      *
      * @assert:NotBlank()
      * @assert:MaxLength(32)
-     * @assert:Regex(/\w+/)
      */
     protected $name;
     
@@ -35,6 +34,11 @@ class Asso
     public function __construct()
     {
         $this->users  = new Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    public function __toString()
+    {
+        return $this->getName();
     }
     
     public function getId()
