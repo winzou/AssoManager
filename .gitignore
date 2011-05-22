@@ -1,6 +1,7 @@
 .project
 .settings
 .gitignore
+.buildpath
 app/cache/*
 app/logs/*
 app/config/parameters_dev.ini
