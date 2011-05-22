@@ -27,9 +27,9 @@ class Account extends BaseAccount
     
     public function setWrap($wrap)
     {
-        if( ! $wrap instanceof \Asso\AMBundle\Entity\Asso)
+        if( ! $wrap instanceof Asso\AMBundle\Entity\Asso)
         {
-            throw new InvalidArgumentException();
+            throw new InvalidArgumentException('Expecting instance of Asso\AMBundle\Entity\Asso');
         }
         
         $this->wrap = $wrap;
