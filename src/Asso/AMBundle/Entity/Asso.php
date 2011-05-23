@@ -2,38 +2,42 @@
 
 namespace Asso\AMBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @orm:Entity
- * @orm:Table(name="ass_asso")
+ * @ORM\Entity
+ * @ORM\Table(name="ass_asso")
  */
 class Asso
 {
     /**
-     * @orm:Id
-     * @orm:Column(type="integer")
-     * @orm:GeneratedValue(strategy="AUTO")
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
     
     /**
-     * @orm:Column(type="string",unique="true",length="32")
+     * @ORM\Column(type="string",unique="true",length="32")
      *
-     * @assert:NotBlank()
-     * @assert:MaxLength(32)
+     * @Assert\NotBlank()
+     * @Assert\MaxLength(32)
      */
     protected $name;
     
     /**
-     * @orm:ManyToMany(targetEntity="User", inversedBy="assos")
-     * @orm:JoinTable(name="ass_asso_user")
+     * @ORM\ManyToMany(targetEntity="User", inversedBy="assos")
+     * @ORM\JoinTable(name="ass_asso_user")
      */
     protected $users;
     
     
     public function __construct()
     {
-        $this->users  = new Doctrine\Common\Collections\ArrayCollection();
+        $this->users  = new ArrayCollection();
     }
     
     public function __toString()

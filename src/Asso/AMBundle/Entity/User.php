@@ -5,27 +5,30 @@ namespace Asso\AMBundle\Entity;
 use FOS\UserBundle\Entity\User as FOSUser;
 use Doctrine\Common\Collections\ArrayCollection;
 
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
- * @orm:Entity
- * @orm:Table(name="ass_user")
+ * @ORM\Entity
+ * @ORM\Table(name="ass_user")
  */
 class User extends FOSUser
 {
     /**
-     * @orm:Id
-     * @orm:Column(type="integer")
-     * @orm:GeneratedValue(strategy="AUTO")
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
     
     /**
-     * @orm:ManyToMany(targetEntity="Asso\AMBundle\Entity\Group")
-     * @orm:JoinTable(name="ass_user_group")
+     * @ORM\ManyToMany(targetEntity="Asso\AMBundle\Entity\Group")
+     * @ORM\JoinTable(name="ass_user_group")
      */
     protected $groups;
     
     /**
-     * @orm:ManyToMany(targetEntity="Asso\AMBundle\Entity\Asso", mappedBy="users")
+     * @ORM\ManyToMany(targetEntity="Asso\AMBundle\Entity\Asso", mappedBy="users")
      */
     protected $assos;
     

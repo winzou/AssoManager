@@ -5,27 +5,30 @@ namespace Asso\BookBundle\Entity;
 use winzou\BookBundle\Entity\Entry as BaseEntry;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
- * @orm:Entity
- * @orm:Table(name="ass_book_entry")
+ * @ORM\Entity
+ * @ORM\Table(name="ass_book_entry")
  */
 class Entry extends BaseEntry
 {
     /**
-     * @orm:Id
-     * @orm:Column(type="integer")
-     * @orm:GeneratedValue(strategy="AUTO")
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
     
     /**
-     * @orm:ManyToOne(targetEntity="Asso\AMBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Asso\AMBundle\Entity\User")
      */
     protected $user;
     
     /**
-     * @orm:ManyToOne(targetEntity="Asso\BookBundle\Entity\Account")
-     * @orm:JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="Asso\BookBundle\Entity\Account")
+     * @ORM\JoinColumn(nullable=false)
      */
     protected $account;
 }

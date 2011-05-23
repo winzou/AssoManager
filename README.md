@@ -14,9 +14,8 @@ As the project is not started yet, and is still in conception stage, contributor
 Configuration
 -------------
 
-* AssoManager is Symfony2-based so please meet the Symfony2-beta1 requirements and configuration;
+* AssoManager is Symfony2-based so please meet the Symfony2-beta2 requirements and configuration;
 * Add symfony's vendors
 * Add winzouBookBundle and customize the namespace winzou in app/autoload.php
 * Run bin/build_bootstrap.php after updating vendors;
 * Add app/config/parameters_prod|dev.ini according to parameters_example.ini
-* Hack (sik) assetic vendor if on windows : https://github.com/kriswallsmith/assetic/issues/25

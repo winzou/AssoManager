@@ -2,22 +2,18 @@ imports:
     - { resource: security.yml }
 
 framework:
-    charset:       UTF-8
-    secret:        %secret%
-    error_handler: null
-    csrf_protection:
-        enabled: true
-    router:        { resource: "%kernel.root_dir%/config/routing.yml" }
-    validation:    { enabled: true, annotations: true }
-    templating:    { engines: ['twig'] }
-    translator:    { fallback: %locale% }
+    charset:         UTF-8
+    secret:          %secret%
+    form:            true
+    csrf_protection: true
+    validation:      true
+    router:          { resource: "%kernel.root_dir%/config/routing.yml" }
+    templating:      { engines: ['twig'] }
+    translator:      { fallback: %locale% }
     session:
         default_locale: %locale%
         lifetime:       3600
         auto_start:     true
-
-# Services
-
 
 
 # Twig Configuration

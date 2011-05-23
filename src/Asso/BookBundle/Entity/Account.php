@@ -5,22 +5,24 @@ namespace Asso\BookBundle\Entity;
 use winzou\BookBundle\Entity\Account as BaseAccount;
 use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @orm:Entity
- * @orm:Table(name="ass_book_account")
+ * @ORM\Entity
+ * @ORM\Table(name="ass_book_account")
  */
 class Account extends BaseAccount
 {
     /**
-     * @orm:Id
-     * @orm:Column(type="integer")
-     * @orm:GeneratedValue(strategy="AUTO")
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
     
     /**
-     * @orm:ManyToOne(targetEntity="Asso\AMBundle\Entity\Asso")
+     * @ORM\ManyToOne(targetEntity="Asso\AMBundle\Entity\Asso")
      */
     protected $wrap;
     
