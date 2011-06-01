@@ -28,7 +28,7 @@ class Entry extends BaseEntry
     
     /**
      * @ORM\ManyToOne(targetEntity="Asso\BookBundle\Entity\Account")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="cascade")
      */
     protected $account;
 }
