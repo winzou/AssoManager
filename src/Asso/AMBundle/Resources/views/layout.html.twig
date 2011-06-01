@@ -7,7 +7,8 @@
         <title>{% block title %}AssoManager AM{% endblock %}</title>
         
         {% stylesheets output='css/am.min.css' filter='yui_css' debug=false
-        	'@AssoAMBundle/Resources/public/css/*' %}
+        	'@AssoAMBundle/Resources/public/css/*'
+        	'@winzouBookBundle/Resources/public/css/*' %}
         	
         	<link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="screen" />
         	
@@ -52,7 +53,8 @@
 		</div>
     	
         {% javascripts output='js/am.min.js' debug=false
-        	'@AssoAMBundle/Resources/public/js/*' %}
+        	'@AssoAMBundle/Resources/public/js/*'
+        	'@winzouBookBundle/Resources/public/js/*' %}
         	
         	<script type="text/javascript" src="{{ asset_url }}"></script> 
         	
