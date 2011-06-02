@@ -62,7 +62,7 @@ class Account
      * Set wrap
      * @param Asso $wrap
      */
-    public function setWrap(Asso $wrap)
+    public function setWrap(\Asso\AMBundle\Entity\Asso $wrap)
     {
         $this->wrap = $wrap;
     }
