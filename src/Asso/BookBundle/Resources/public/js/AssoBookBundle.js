@@ -2,27 +2,34 @@
 $(".wbb_ajx_delete_entry").click(function(){
 	//$("#result").html(ajax_load);
 	$(this).fastConfirm({
-		position: "right",
-		questionText: "Sure?",
-		onProceed: function(trigger) {
-			$.getJSON(
-				$(trigger).attr('href') + '.json',
-				null,
-				function(json) {
-					alert(trigger);
-				    $(trigger).parent().remove();
-				    //$("#result").html(result);
-				}
-			);
-			$(trigger).fastConfirm('close');
-		},
-		onCancel: function(trigger) {
+		position:     "right",
+		questionText: "Are you sure?",
+		unique:       true,
+		onProceed:    function(trigger) {
+			$.ajax({
+				type:     'POST',
+				url:      $(trigger).attr('href') + '.json',
+				dataType: 'json',
+				error:    function()     { alert('Something went terribly wrong.'); },
+				success:  function(json) {
+											if(!json.code)
+											{
+												alert( json.message ? json.message : 'Something went terribly wrong, server side.');
+											}
+											else
+											{
+										    	$(trigger).closest('tr').fadeOut('slow');
+											}
+										    //$("#result").html(result);
+										 }
+			});
 			$(trigger).fastConfirm('close');
 		}
 	});
 		
 	return false;
 });
+
 
 
 /*

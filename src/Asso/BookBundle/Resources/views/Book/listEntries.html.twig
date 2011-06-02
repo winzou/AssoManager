@@ -2,6 +2,10 @@
 
 {% block asso_book_body %}
 	
+	<p>
+		{{ app.session.getFlash('asso_book_notice')|trans([], 'AssoBookBundle') }}
+	</p>
+	
 	<table>
 		<colgroup>
 			<col class="wbb_tbl_date" />

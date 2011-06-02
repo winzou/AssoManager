@@ -1,0 +1,12 @@
+{% extends "AssoBookBundle::layout.html.twig" %}
+
+{% block asso_book_body %}
+	<p>
+		Etes-vous certain de vouloir supprimer cette entrée ?<br />
+		<form action="{{ path('asso_book_delete_entry', {'id': entry.id}) }}" method="post">
+			<input type="submit" value="Oui, supprimer" />
+		</form>
+		-
+		<a href="{{ path('asso_book_list_entries') }}">Non, retour</a>
+	</p>
+{% endblock %}

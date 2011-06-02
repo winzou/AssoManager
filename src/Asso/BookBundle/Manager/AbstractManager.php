@@ -24,6 +24,9 @@ use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\EntityRepository;
 
+use Doctrine\ORM\NoResultException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 /**
  * Abstract Entity Manager
  * @author winzou
@@ -65,16 +68,21 @@ abstract class AbstractManager
      * @param bool $array
      * @return $this->class
      */
-    public function findFullOne($id, $array = true)
+    public function getFullOne($id)
     {
-        $qb = $this->repository->createQueryBuilder('e');
-        
-        $qb = $this->addAssociations($qb);
-        
-        $qb ->where('e.id = :id')
-            ->setParameter('id', $id);
-        
-        return $qb->getQuery()->getSingleResult( $array ? Query::HYDRATE_ARRAY : Query::HYDRATE_OBJECT );
+	    try {
+            $qb = $this->repository->createQueryBuilder('e');
+            
+            $qb = $this->addAssociations($qb);
+            
+            $qb ->where('e.id = :id')
+                ->setParameter('id', $id);
+            
+            return $qb->getQuery()->getSingleResult();
+	    }
+	    catch( NoResultException $e ) {
+	        throw new NotFoundHttpException($this->class.'[id='.$id.'] not found', $e->getPrevious());
+	    }
     }
     
     /**

@@ -19,9 +19,12 @@
 
 namespace Asso\BookBundle\Controller;
 
+
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+
 use Symfony\Component\Httpfoundation\Response;
-use Doctrine\ORM\NoResultException;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 
 use Asso\BookBundle\Form\EntryType;
 use Asso\BookBundle\Form\EntryHandler;
@@ -34,6 +37,64 @@ use Asso\BookBundle\Entity\Entry;
  */
 class BookController extends AbstractController
 {
+    /**
+     * Secure(roles="ROLE_TREASURER")
+     */
+    public function deleteEntryAction($id)
+    {
+        /** @todo get this dynamic */
+        $this->get('session')->set('user.asso.id', $this->getUser()->getAssos()->first()->getId());
+        
+        $em = $this->get('asso_book.entry_manager');
+        $request = $this->get('request');
+        
+        // check existence and permission
+        if( ! $entry = $em->getFullOne($id)
+        OR $entry->getAccount()->getWrap()->getId() != $this->get('session')->get('user.asso.id') )
+        {
+            if( $request->getRequestFormat() == 'json' )
+            {
+                return new Response( json_encode(array('message' => 'You dont have access to this resource.')) );
+            }
+            
+            throw new AccessDeniedException('Current user doesnt have access to this entry, or this entry doesnt exist');
+        }
+
+        // post request: we really want to do this action
+        if( $request->getMethod() == 'POST' )
+        {
+            $em->deleteEntry($entry);
+            
+            // ajax request: just return the action state
+            if( $request->getRequestFormat() == 'json')
+            {
+                return new Response( json_encode(array('code' => true)) );
+            }
+            
+            // normal request: set a flash and redirect to entries list
+            $this->get('session')->setFlash('asso_book_notice', 'flash.delete.entry');
+            
+            return $this->redirect( $this->generateUrl('asso_book_list_entries') );
+        }
+        
+        if( $request->getRequestFormat() == 'json')
+        {
+            return new Response( json_encode(array('message' => 'You must use the POST method here.')) );
+        }
+        
+        // get request: we only want the confirmation form
+        return $this->render( 'AssoBookBundle:Book:deleteEntry.html.twig', array('entry' => $entry));
+    }
+    
+    
+    public function listEntriesAction()
+    {
+        return $this->render( 'AssoBookBundle:Book:listEntries.html.twig', array(
+        	'entries' => $this->get('asso_book.service')->getEntries(2)
+        ));
+    }
+    
+    
     public function indexAction()
     {
         /*

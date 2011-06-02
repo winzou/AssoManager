@@ -18,10 +18,14 @@ asso_book_showAccount:
     pattern:  /showAccount/{id}
     defaults: { _controller: AssoBookBundle:Book:showAccount }
 
-asso_book_delete_entry_ajax:
-    pattern:  /deleteEntry/{id}.json
-    defaults: { _controller: AssoBookBundle:Ajax:deleteEntry, _format: json }
-
 asso_book_delete_entry:
-    pattern:  /deleteEntry/{id}
-    defaults: { _controller: AssoBookBundle:Book:deleteEntry }
+    pattern:  /deleteEntry/{id}.{_format}
+    defaults: { _controller: AssoBookBundle:Book:deleteEntry, _format: html }
+    requirements:
+        _format: json
+
+asso_book_list_entries:
+    pattern:  /listEntries.{_format}
+    defaults: { _controller: AssoBookBundle:Book:listEntries, _format: html }
+    requirements:
+        _format: json
