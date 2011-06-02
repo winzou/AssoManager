@@ -1,0 +1,41 @@
+{% extends "AssoBookBundle::layout.html.twig" %}
+
+{% block asso_book_body %}
+	
+	<table>
+		<colgroup>
+			<col class="wbb_tbl_date" />
+			<col class="wbb_tbl_label" />
+			<col class="wbb_tbl_account" />
+			<col class="wbb_tbl_user" />
+			<col class="wbb_tbl_debit" />
+			<col class="wbb_tbl_credit" />
+			<col class="wbb_tbl_actions" />
+		</colgroup>
+		<thead>
+			<tr>
+				<th>Date</th>
+				<th>Label</th>
+				<th>Account</th>
+				<th>User</th>
+				<th>Debit</th>
+				<th>Credit</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for entry in entries %}
+				<tr>
+					<td>{{ entry.created_at|date('d/m/Y') }}</td>
+					<td>{{ entry.label }} ({{ entry.id }})</td>
+					<td>{{ entry.account.name }}</td>
+					<td>{% if entry.user is defined %}<a href="{{ path('fos_user_user_show', {'username': entry.user.username}) }}">{{ entry.user.username }}</a>{% endif %}</td>
+					<td>{% if entry.amount < 0 %}{{ entry.amount }}{% endif %}</td>
+					<td>{% if entry.amount >= 0 %}{{ entry.amount }}{% endif %}</td>
+					<td><a class="wbb_ajx_delete_entry" href="{{ path('asso_book_delete_entry', {"id": entry.id}) }}">Delete</a></td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "AssoBookBundle::layout.html.twig" %}
+
+{% block asso_book_body %}
+
+	{% if app.session.hasFlash('notice') %}
+	    <div class="flash-notice">
+	        {{ app.session.flash('notice') }}
+	    </div>
+	{% endif %}
+
+
+	{{ entry.label }} - {{ entry.amount }} - {{ entry.account }}
+	
+{% endblock %}

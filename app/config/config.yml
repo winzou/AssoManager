@@ -101,12 +101,3 @@ fos_user:
 # @TODO: understand why AppKernel is not enough
 sensio_framework_extra: ~
 
-
-# winzouBookBundle
-winzou_book:
-    entry:
-        entity:
-            class: Asso\BookBundle\Entity\Entry
-    account:
-        entity:
-            class: Asso\BookBundle\Entity\Account

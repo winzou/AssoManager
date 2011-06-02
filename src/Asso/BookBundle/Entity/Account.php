@@ -2,7 +2,6 @@
 
 namespace Asso\BookBundle\Entity;
 
-use winzou\BookBundle\Entity\Account as BaseAccount;
 use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -12,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity
  * @ORM\Table(name="ass_book_account")
  */
-class Account extends BaseAccount
+class Account
 {
     /**
      * @ORM\Id
@@ -26,14 +25,62 @@ class Account extends BaseAccount
      */
     protected $wrap;
     
+    /**
+     * @ORM\Column(type="string")
+     *
+     * @Assert\NotBlank()
+     */
+    protected $name;
     
-    public function setWrap($wrap)
+    
+    /**
+     * Dump the name
+     * @return string
+     */
+    public function __toString()
     {
-        if( ! $wrap instanceof Asso\AMBundle\Entity\Asso)
-        {
-            throw new InvalidArgumentException('Expecting instance of Asso\AMBundle\Entity\Asso');
-        }
-        
+        return $this->getName();
+    }
+    
+    /**
+     * Get id
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+    
+    /**
+     * Get wrap
+     */
+    public function getWrap()
+    {
+        return $this->wrap;
+    }
+    /**
+     * Set wrap
+     * @param Asso $wrap
+     */
+    public function setWrap(Asso $wrap)
+    {
         $this->wrap = $wrap;
+    }
+    
+    /**
+     * Get name
+	 * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+    /**
+     * Set name
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
     }
 }

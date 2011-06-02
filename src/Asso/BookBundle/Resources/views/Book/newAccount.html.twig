@@ -1,0 +1,9 @@
+{% extends "AssoBookBundle::layout.html.twig" %}
+
+{% block asso_book_body %}
+	<form action="{{ path('asso_book_newAccount') }}" method="post" {{ form_enctype(form) }}>
+	    {{ form_widget(form) }}
+	
+	    <input type="submit" />
+	</form>
+{% endblock %}
