@@ -28,7 +28,7 @@ body
 	margin: 1em;
 	height: 100px;
 	/*background-color: #f8f5ca;*/
-	background: url("../img/gpheader.png") no-repeat center;
+	/*background: url("../img/gpheader.png") no-repeat center;*/
 	color: #CC6600;
 	border: 2px solid #4d2a00;
 	min-width: 44em;
