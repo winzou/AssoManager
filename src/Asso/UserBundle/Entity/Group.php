@@ -1,6 +1,6 @@
 <?php
 
-namespace Asso\AMBundle\Entity;
+namespace Asso\UserBundle\Entity;
 
 use FOS\UserBundle\Entity\Group as BaseGroup;
 

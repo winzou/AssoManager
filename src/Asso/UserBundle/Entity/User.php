@@ -1,8 +1,10 @@
 <?php
 
-namespace Asso\AMBundle\Entity;
+namespace Asso\UserBundle\Entity;
 
+use Asso\AMBundle\Entity\Asso;
 use FOS\UserBundle\Entity\User as FOSUser;
+
 use Doctrine\Common\Collections\ArrayCollection;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -22,7 +24,7 @@ class User extends FOSUser
     protected $id;
     
     /**
-     * @ORM\ManyToMany(targetEntity="Asso\AMBundle\Entity\Group")
+     * @ORM\ManyToMany(targetEntity="Asso\UserBundle\Entity\Group")
      * @ORM\JoinTable(name="ass_user_group")
      */
     protected $groups;

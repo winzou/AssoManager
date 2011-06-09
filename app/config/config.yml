@@ -86,10 +86,10 @@ fos_user:
             template:   FOSUserBundle:User:confirmationEmail
     class:
         model:
-            user: Asso\AMBundle\Entity\User
+            user: Asso\UserBundle\Entity\User
     group:
         class:
-            model: Asso\AMBundle\Entity\Group
+            model: Asso\UserBundle\Entity\Group
 
 # Stof\DoctrineExtensions
 #stof_doctrine_extensions:

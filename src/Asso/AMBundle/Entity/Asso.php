@@ -2,6 +2,7 @@
 
 namespace Asso\AMBundle\Entity;
 
+use Asso\UserBundle\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -29,7 +30,7 @@ class Asso
     protected $name;
     
     /**
-     * @ORM\ManyToMany(targetEntity="User", inversedBy="assos")
+     * @ORM\ManyToMany(targetEntity="Asso\UserBundle\Entity\User", inversedBy="assos")
      * @ORM\JoinTable(name="ass_asso_user")
      */
     protected $users;
