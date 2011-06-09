@@ -19,6 +19,8 @@
 
 namespace Asso\BookBundle\Controller;
 
+use Asso\AbstractBundle\Controller\AbstractController;
+
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -176,7 +178,7 @@ class BookController extends AbstractController
 	public function showAction($id)
 	{
 	    try {
-	        $entry = $this->get('asso_book.entry_manager')->findFullOne($id, false);
+	        $entry = $this->get('asso_book.entry_manager')->getFullOne($id, false);
 	    }
 	    catch( NoResultException $e ) {
 	        throw new NotFoundHttpException('Entry[id='.$id.'] not found', $e->getPrevious());
@@ -208,7 +210,7 @@ class BookController extends AbstractController
     public function showAccountAction($id)
 	{
 	    try {
-	        $account = $this->get('asso_book.account_manager')->findFullOne($id, false);
+	        $account = $this->get('asso_book.account_manager')->getFullOne($id, false);
 	    }
 	    catch( NoResultException $e ) {
 	        throw new NotFoundHttpException('Account[id='.$id.'] not found', $e->getPrevious());

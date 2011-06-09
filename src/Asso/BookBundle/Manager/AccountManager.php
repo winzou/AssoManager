@@ -19,6 +19,7 @@
 
 namespace Asso\BookBundle\Manager;
 
+use Asso\AbstractBundle\Manager\AbstractManager;
 use Asso\BookBundle\Entity\Account;
 
 /**
