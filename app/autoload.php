@@ -28,9 +28,16 @@ $loader->registerNamespaces(array(
 $loader->registerPrefixes(array(
     'Twig_Extensions_' => __DIR__.'/../vendor/twig-extensions/lib',
     'Twig_'            => __DIR__.'/../vendor/twig/lib',
-    'Swift_'           => __DIR__.'/../vendor/swiftmailer/lib/classes',
 ));
-$loader->register();
-$loader->registerPrefixFallback(array(
+$loader->registerPrefixFallbacks(array(
     __DIR__.'/../vendor/symfony/src/Symfony/Component/Locale/Resources/stubs',
 ));
+$loader->registerNamespaceFallbacks(array(
+    __DIR__.'/../src',
+));
+$loader->register();
+
+// Swiftmailer needs a special autoloader to allow
+// the lazy loading of the init file (which is expensive)
+require_once __DIR__.'/../vendor/swiftmailer/lib/classes/Swift.php';
+Swift::registerAutoload(__DIR__.'/../vendor/swiftmailer/lib/swift_init.php');
