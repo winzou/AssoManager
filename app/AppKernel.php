@@ -37,9 +37,7 @@ class AppKernel extends Kernel
             $bundles[] = new Symfony\Bundle\WebConfiguratorBundle\SymfonyWebConfiguratorBundle();
             */
             
-            /** @todo Make this bundle working !
             $bundles[] = new Elao\WebProfilerExtraBundle\WebProfilerExtraBundle();
-            */
         }
 
         return $bundles;
