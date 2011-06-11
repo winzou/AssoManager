@@ -77,19 +77,21 @@ jms_security_extra:
 
 # FOS\UserBundle
 fos_user:
-    db_driver: orm
+    db_driver:     orm
     firewall_name: main
-    email:
-        from_email: { assomanager@gmail.com: AssoManager }
+    user_class:    Asso\UserBundle\Entity\User 
+    group:
+        group_class: Asso\UserBundle\Entity\Group
+    from_email: { assomanager@gmail.com: AssoManager }
+    registration:
         confirmation:
             enabled:    true
-            template:   FOSUserBundle:User:confirmationEmail
-    class:
-        model:
-            user: Asso\UserBundle\Entity\User
-    group:
-        class:
-            model: Asso\UserBundle\Entity\Group
+
+
+parameters:
+    asso_user:
+        user_manager:
+            class: Asso\UserBundle\Entity\UserManager
 
 # Stof\DoctrineExtensions
 #stof_doctrine_extensions:
