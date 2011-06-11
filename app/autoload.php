@@ -14,11 +14,11 @@ $loader->registerNamespaces(array(
     'Assetic'          => __DIR__.'/../vendor/assetic/src',
     'Metadata'         => __DIR__.'/../vendor/metadata/src',
 
-    //'Gedmo'            => __DIR__.'/../vendor/doctrine-extensions/lib',
+    'Gedmo'            => __DIR__.'/../vendor/doctrine-extensions/lib',
 
     //'Elao'             => __DIR__.'/../vendor/bundles',
     'FOS'              => __DIR__.'/../vendor/bundles',
-    //'Stof'             => __DIR__.'/../vendor/bundles',
+    'Stof'             => __DIR__.'/../vendor/bundles',
     
     'winzou'		   => __DIR__.'/../../asf2Vendor',
 

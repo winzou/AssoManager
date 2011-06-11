@@ -20,9 +20,7 @@ class AppKernel extends Kernel
             
             new FOS\UserBundle\FOSUserBundle(),
             
-            /** @todo Make this bundle working !
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
-            */
             
             new Asso\AMBundle\AssoAMBundle(),
             new Asso\SiteBundle\AssoSiteBundle(),

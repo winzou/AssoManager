@@ -94,10 +94,10 @@ parameters:
             class: Asso\UserBundle\Entity\UserManager
 
 # Stof\DoctrineExtensions
-#stof_doctrine_extensions:
-#    default_locale: %locale%
-#    orm:
-#        default: ~
+stof_doctrine_extensions:
+    default_locale: %locale%
+    orm:
+        default: ~
 
 # We make sure to activate all features of FrameworkExtraBundle (especially DoctrineParamConverter !)
 # @TODO: understand why AppKernel is not enough
