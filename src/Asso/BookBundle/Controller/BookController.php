@@ -19,6 +19,8 @@
 
 namespace Asso\BookBundle\Controller;
 
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+
 use Asso\AbstractBundle\Controller\AbstractController;
 
 
@@ -40,7 +42,7 @@ use Asso\BookBundle\Entity\Entry;
 class BookController extends AbstractController
 {
     /**
-     * @Secure(roles="ROLE_TREASURER")
+     * ecure(roles="ROLE_TREASURER")
      */
     public function deleteEntryAction($id)
     {
@@ -54,12 +56,7 @@ class BookController extends AbstractController
         if( ! $entry = $em->getFullOne($id)
         OR $entry->getAccount()->getWrap()->getId() != $this->get('session')->get('user.asso.id') )
         {
-            if( $request->getRequestFormat() == 'json' )
-            {
-                return new Response( json_encode(array('message' => 'You dont have access to this resource.')) );
-            }
-            
-            throw new AccessDeniedException('Current user doesnt have access to this entry, or this entry doesnt exist');
+            throw new AccessDeniedException('User doesnt have access to this entry, or this entry doesnt exist');
         }
 
         // post request: we really want to do this action
@@ -81,7 +78,7 @@ class BookController extends AbstractController
         
         if( $request->getRequestFormat() == 'json')
         {
-            return new Response( json_encode(array('message' => 'You must use the POST method here.')) );
+            throw new MethodNotAllowedHttpException(array('POST'), 'You must use the POST method here.');
         }
         
         // get request: we only want the confirmation form

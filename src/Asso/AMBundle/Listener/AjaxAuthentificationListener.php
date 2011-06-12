@@ -27,8 +27,8 @@ class AjaxAuthentificationListener
             if( $exception instanceof AuthenticationException || $exception instanceof AccessDeniedException )
             {
                 $response = array(
-                    'mesage' => 'Access denied (session expired?)',
-                    'type'   => 'error'
+                    'message' => $exception->getMessage(),
+                    'type'    => 'error'
                 );
                 
                 $event->setResponse( new Response(json_encode($response), 403) );
