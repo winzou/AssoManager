@@ -27,7 +27,7 @@ class AjaxAuthentificationListener
             if( $exception instanceof AuthenticationException || $exception instanceof AccessDeniedException )
             {
                 $response = array(
-                    'message' => $exception->getMessage(),
+                    'message' => 'Ajax Authentification: '.$exception->getMessage(),
                     'type'    => 'error'
                 );
                 
