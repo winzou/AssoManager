@@ -33,10 +33,10 @@
 					<td>{{ entry.created_at|date('d/m/Y') }}</td>
 					<td>{{ entry.label }} ({{ entry.id }})</td>
 					<td>{{ entry.account.name }}</td>
-					<td>{% if entry.user is defined %}<a href="{{ path('fos_user_user_show', {'username': entry.user.username}) }}">{{ entry.user.username }}</a>{% endif %}</td>
+					<td>{% if entry.user.username is defined %}<a href="{{ path('asso_user_profile_show', {'username': entry.user.username}) }}">{{ entry.user.username }}</a>{% endif %}</td>
 					<td>{% if entry.amount < 0 %}{{ entry.amount }}{% endif %}</td>
 					<td>{% if entry.amount >= 0 %}{{ entry.amount }}{% endif %}</td>
-					<td><a class="wbb_ajx_delete_entry" href="{{ path('asso_book_delete_entry', {"id": entry.id}) }}">Delete</a></td>
+					<td><a class="wbb_ajx_delete_entry" href="{{ path('asso_book_delete_entry', {'id': entry.id}) }}">Delete</a></td>
 				</tr>
 			{% endfor %}
 		</tbody>

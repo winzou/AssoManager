@@ -21,7 +21,7 @@ class Entry
     protected $id;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Asso\AMBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Asso\UserBundle\Entity\User")
      */
     protected $user;
     

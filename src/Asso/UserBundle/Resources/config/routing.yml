@@ -1,0 +1,3 @@
+asso_user_profile_show:
+    pattern:  /show/{username}
+    defaults: { _controller: AssoUserBundle:User:show }
