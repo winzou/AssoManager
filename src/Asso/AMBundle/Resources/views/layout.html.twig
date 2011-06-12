@@ -5,7 +5,7 @@
         
         <title>{% block title %}AssoManager AM{% endblock %}</title>
         
-        {% stylesheets output='css/am.min.css' filter='yui_css'
+        {% stylesheets output='css/asso.am.min.css' filter='?yui_css'
         	'@AssoAMBundle/Resources/public/css/*'
         	'@AssoBookBundle/Resources/public/css/*' %}
         	
@@ -51,7 +51,8 @@
 			<p>winzou 2011, GPL - <a href="http://github.com/winzou/AssoManager">Fork it!</a></p>
 		</div>
     	
-        {% javascripts output='js/am.min.js'
+        {% javascripts output='js/asso.am.min.js' filter='?yui_js'
+        	'@AssoAMBundle/Resources/public/js/jquery-1.6.1.min.js'
         	'@AssoAMBundle/Resources/public/js/*'
         	'@AssoBookBundle/Resources/public/js/*' %}
         	

@@ -6,7 +6,7 @@
         
         <title>{% block title %}AssoManager Site{% endblock %}</title>
         
-        {% stylesheets output='css/site.min.css' filter='yui_css' debug=false
+        {% stylesheets output='css/asso.site.min.css' filter='?yui_css'
         	'@AssoSiteBundle/Resources/public/css/*' %}
         	
         	<link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="screen" />
@@ -64,6 +64,11 @@
 			<p>winzou 2011, GPL - <a href="http://github.com/winzou/AssoManager">Fork it!</a></p>
 		</div>
     	
-        {% block javascripts %}{% endblock %}
+        {% javascripts output='js/asso.site.min.js' filter='?yui_js'
+        	'@AssoSiteBundle/Resources/public/js/*' %}
+        	
+        	<script type="text/javascript" src="{{ asset_url }}"></script> 
+        	
+        {% endjavascripts %}
     </body>
 </html>
