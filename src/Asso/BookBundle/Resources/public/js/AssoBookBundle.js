@@ -7,7 +7,7 @@ $(".wbb_ajx_delete_entry").click(function(){
 		unique:       true,
 		onProceed:    function(trigger) {
 			$.ajax({
-				type:     'GET',
+				type:     'POST',
 				url:      $(trigger).attr('href') + '.json',
 				dataType: 'json',
 				success:  function(json) {
