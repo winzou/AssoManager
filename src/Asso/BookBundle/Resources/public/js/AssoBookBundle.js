@@ -1,40 +1,4 @@
 
-
-$(document).ready(function() {
-    $(document).ajaxError(function(event, jqXHR) {
-        var message;
-        
-        try {
-            var response = JSON.parse(jqXHR.responseText);
-            message = response.message ? response.message : 'Sf2: ' + response[0].message;
-        }
-        catch(err) {
-            message = jqXHR.responseText;
-        }
-        
-        if(!message)
-        {
-            if(403 === jqXHR.status) {
-                message = 'Acces denied, please login again.';
-            }
-            else if(404 == jqXHR.status) {
-                message = 'Page not found.';
-            }
-            else if(500 == jqXHR.status) {
-                message = 'Server-side error.';
-            }
-            else {
-                message = 'Unknown error!';
-            }
-        }
-        
-        alert(message);
-    });
-});
-
-
-
-
 $(".wbb_ajx_delete_entry").click(function(){
 	//$("#result").html(ajax_load);
 	$(this).fastConfirm({
@@ -48,7 +12,7 @@ $(".wbb_ajx_delete_entry").click(function(){
 				dataType: 'json',
 				success:  function(json) {
 					if(!json.code) {
-						alert( json.message ? json.message : 'Something went terribly wrong, server side.');
+						alert( json[0].message ? json[0].message : 'Something went terribly wrong, server side.');
 					}
 					else {
 				    	$(trigger).closest('tr').fadeOut('slow');
