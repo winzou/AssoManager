@@ -48,7 +48,6 @@ class AppKernel extends Kernel
         $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
     }
     
-    /** @todo Uncomment on DebuggingBundle reactivation
     protected function getContainerBaseClass()
     {
         if ($this->isDebug()) {
@@ -57,5 +56,4 @@ class AppKernel extends Kernel
     
         return parent::getContainerBaseClass();
     }
-    */
 }
