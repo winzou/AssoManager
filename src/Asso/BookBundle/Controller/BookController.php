@@ -40,7 +40,7 @@ use Asso\BookBundle\Entity\Entry;
 class BookController extends AbstractController
 {
     /**
-     * Secure(roles="ROLE_TREASURER")
+     * @Secure(roles="ROLE_TREASURER")
      */
     public function deleteEntryAction($id)
     {
@@ -156,7 +156,7 @@ class BookController extends AbstractController
 	
 	public function newAction()
 	{
-	    $form = $this->get('asso_book.forms.entry');
+        $form = $this->get('asso_book.forms.entry');
         $formHandler = $this->get('asso_book.forms.entry_handler');
 
         if( $formHandler->process() )
