@@ -23,7 +23,7 @@ abstract class AbstractController extends Controller
 	 *
 	 * @return Response
 	 */
-	public function myRender($view, array $parameters = array(), Response $response = null)
+	public function render($view, array $parameters = array(), Response $response = null)
 	{
 	    // if no "." found : we want to use the shorcut
 	    if( strpos($view, '.') === false )

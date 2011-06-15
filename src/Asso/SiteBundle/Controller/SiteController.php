@@ -2,14 +2,14 @@
 
 namespace Asso\SiteBundle\Controller;
 
-use Asso\AMBundle\DependencyInjection\MyController;
+use Asso\AbstractBundle\Controller\AbstractController;
 
 use Symfony\Component\Httpfoundation\Response;
 
-class SiteController extends MyController
+class SiteController extends AbstractController
 {
     public function indexAction()
     {
-		return $this->myRender('AssoSiteBundle:Site:index');
+		return $this->render('AssoSiteBundle:Site:index');
 	}
 }
