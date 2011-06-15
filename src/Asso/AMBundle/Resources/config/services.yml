@@ -5,3 +5,7 @@ services:
         class:  Asso\AMBundle\Listener\PreExecuteListener
         tags:
             - { name: kernel.listener, priority: 0, event: onCoreController }
+            
+    asso_am.asso_manager:
+        class:     Asso\AMBundle\Manager\AssoManager
+        arguments: [@doctrine.orm.entity_manager, Asso\AMBundle\Entity\Asso]
