@@ -1,3 +1,7 @@
 asso_am_home:
     pattern:  /
     defaults: { _controller: AssoAMBundle:Dashboard:index }
+
+asso_am_asso_select:
+    pattern:  /AssoSelect
+    defaults: { _controller: AssoAMBundle:Dashboard:AssoSelect }

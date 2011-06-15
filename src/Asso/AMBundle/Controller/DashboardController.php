@@ -2,42 +2,31 @@
 
 namespace Asso\AMBundle\Controller;
 
-use Asso\AMBundle\DependencyInjection\MyController;
-use Asso\AMBundle\Entity\Asso;
-use Asso\AMBundle\Entity\User;
+use Asso\AbstractBundle\Controller\AbstractController;
 
 use Symfony\Component\Httpfoundation\Response;
 
-class DashboardController extends MyController
+class DashboardController extends AbstractController
 {
+    /**
+     * @Secure(roles="ROLE_USER")
+     */
     public function indexAction()
     {
-        /*
-        $asso = new Asso;
-        $asso->setName('Trefle à 4L');
-        
-        $winzou = $this->em->getRepository('Asso\AMBundle\Entity\User')->find(1);
-        $asso->addUser($winzou);
-        
-        $this->em->persist($asso);
-        $this->em->persist($winzou);
-        $this->em->flush();
-        */
-        
-        /*
-        $trefle = $this->em->getRepository('Asso\AMBundle\Entity\Asso')->find(2);
-        foreach($trefle->getUsers() as $user)
-        {
-            echo $user->getUsername();
-        }
-        
-        $winzou = $this->em->getRepository('Asso\AMBundle\Entity\User')->find(1);
-        foreach($winzou->getAssos() as $asso)
-        {
-            echo $asso->getName();
-        }
-        */
-        
-        return $this->myRender('AssoAMBundle:Dashboard:index');
+        return $this->render('AssoAMBundle:Dashboard:index');
+    }
+    
+    /**
+     * @Secure(roles="ROLE_USER")
+     */
+    public function AssoSelectAction()
+    {
+        return $this->render('AssoAMBundle:Dashboard:AssoSelect');
+    }
+    
+    
+    public function asso_needAssoSelected($action)
+    {
+        return ( $action != 'AssoSelectAction' );
     }
 }
