@@ -1,14 +1,6 @@
-AssoSite:
-    pattern:  /
-    defaults: { _controller: AssoBookBundle:Book:index }
-
 asso_book_new:
     pattern:  /new
     defaults: { _controller: AssoBookBundle:Book:new }
-
-asso_book_show:
-    pattern:  /show/{id}
-    defaults: { _controller: AssoBookBundle:Book:show }
 
 asso_book_newAccount:
     pattern:  /newAccount
