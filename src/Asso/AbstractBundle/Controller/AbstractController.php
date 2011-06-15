@@ -23,7 +23,7 @@ abstract class AbstractController extends Controller
 	 *
 	 * @return Response
 	 */
-	protected function myRender($view, array $parameters = array(), Response $response = null)
+	public function myRender($view, array $parameters = array(), Response $response = null)
 	{
 	    // if no "." found : we want to use the shorcut
 	    if( strpos($view, '.') === false )
@@ -41,6 +41,16 @@ abstract class AbstractController extends Controller
 		return parent::render ( $view , $parameters , $response );
 	}
 	
+	/**
+	 * Do this controller need AssoSelector listener look for an Asso?
+	 * @return false
+	 */
+	public function asso_needAssoSelected()
+	{
+	    $this->get('logger')->debug('Using asso_needAssoSelected() from the AbstractController. "'.get_class($this).'" should define this method itself.');
+	    
+	    return false;
+	}
 	
 	/**
      * Get a user from the security context
