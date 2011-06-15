@@ -1,5 +1,5 @@
 services:
-    asso.am.ajax_authentification:
-        class:  Asso\AMBundle\Listener\AjaxAuthentificationListener
+    asso.am.ajax_authentication:
+        class:  Asso\AMBundle\Listener\AjaxAuthenticationListener
         tags:
             - { name: kernel.listener, priority: 127, event: core.exception, method: onCoreException }

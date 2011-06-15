@@ -10,7 +10,7 @@ use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 /**
  * @author Illya Klymov (xanf on GitHub)
  */
-class AjaxAuthentificationListener
+class AjaxAuthenticationListener
 {
     /**
      * Handles security related exceptions.
@@ -27,7 +27,7 @@ class AjaxAuthentificationListener
             if( $exception instanceof AuthenticationException || $exception instanceof AccessDeniedException )
             {
                 $response = array(
-                    'message' => 'Ajax Authentification: '.$exception->getMessage(),
+                    'message' => 'Ajax Authentication: '.$exception->getMessage(),
                     'type'    => 'error'
                 );
                 
