@@ -78,7 +78,7 @@ class BookController extends AbstractController
         
         // get request: we only want the confirmation form
         return $this->render( 'AssoBookBundle:Book:deleteEntry.html.twig', array(
-        	'entry' => $entry
+            'entry' => $entry
         ));
     }
     
@@ -97,15 +97,15 @@ class BookController extends AbstractController
         }
         
         return $this->render( 'AssoBookBundle:Book:listEntries.html.twig', array(
-        	'entries' => $entries
+            'entries' => $entries
         ));
     }
     
     /**
      * @Secure(roles="ROLE_TREASURER")
      */
-	public function newAction()
-	{
+    public function newAction()
+    {
         $form = $this->get('asso_book.forms.entry');
         $formHandler = $this->get('asso_book.forms.entry_handler');
 
@@ -121,34 +121,34 @@ class BookController extends AbstractController
         return $this->render('AssoBookBundle:Book:new', array(
             'form' => $form->createView()
         ));
-	}
-	
-	/**
+    }
+    
+    /**
      * @Secure(roles="ROLE_TREASURER")
      */
-	public function newAccountAction()
-	{
-	    $form = $this->get('asso_book.forms.account');
-	    $formHandler = $this->get('asso_book.forms.account_handler');
-	    
-	    if( $formHandler->process() )
-	    {
-	        $this->get('session')->setFlash('asso_book_notice', 'flash.account.new');
-	        
-	        return $this->redirect(
-	            $this->get('router')->generate('asso_book_showAccount', array('id' => $form->getData()->getId()))
-	        );
-	    }
-	    
-	    return $this->render('AssoBookBundle:Book:newAccount', array(
-	        'form' => $form->createView()
-	    ));
-	}
-	
+    public function newAccountAction()
+    {
+        $form = $this->get('asso_book.forms.account');
+        $formHandler = $this->get('asso_book.forms.account_handler');
+        
+        if( $formHandler->process() )
+        {
+            $this->get('session')->setFlash('asso_book_notice', 'flash.account.new');
+            
+            return $this->redirect(
+                $this->get('router')->generate('asso_book_showAccount', array('id' => $form->getData()->getId()))
+            );
+        }
+        
+        return $this->render('AssoBookBundle:Book:newAccount', array(
+            'form' => $form->createView()
+        ));
+    }
     
-	
-	public function asso_needAssoSelected()
-	{
-	    return true;
-	}
+    
+    
+    public function asso_needAssoSelected()
+    {
+        return true;
+    }
 }
