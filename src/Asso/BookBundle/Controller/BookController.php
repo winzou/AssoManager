@@ -19,11 +19,9 @@
 
 namespace Asso\BookBundle\Controller;
 
-use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
-
 use Asso\AbstractBundle\Controller\AbstractController;
 
-
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -42,19 +40,16 @@ use Asso\BookBundle\Entity\Entry;
 class BookController extends AbstractController
 {
     /**
-     * ecure(roles="ROLE_TREASURER")
+     * @Secure(roles="ROLE_TREASURER")
      */
     public function deleteEntryAction($id)
     {
-        /** @todo get this dynamic */
-        $this->get('session')->set('user.asso.id', $this->getUser()->getAssos()->first()->getId());
-        
         $em = $this->get('asso_book.entry_manager');
         $request = $this->get('request');
         
         // check existence and permission
         if( ! $entry = $em->getFullOne($id)
-        OR $entry->getAccount()->getWrap()->getId() != $this->get('session')->get('user.asso.id') )
+        OR $entry->getAccount()->getWrap()->getId() != $this->get('asso.am.asso_selector')->getAssoId() )
         {
             throw new AccessDeniedException('User doesnt have access to this entry, or this entry doesnt exist');
         }
@@ -85,11 +80,13 @@ class BookController extends AbstractController
         return $this->render( 'AssoBookBundle:Book:deleteEntry.html.twig', array('entry' => $entry));
     }
     
-    
+    /**
+     * @Secure(roles="ROLE_TREASURER")
+     */
     public function listEntriesAction()
     {
         return $this->render( 'AssoBookBundle:Book:listEntries.html.twig', array(
-        	'entries' => $this->get('asso_book.service')->getEntries(2)
+        	'entries' => $this->get('asso_book.service')->getEntries( $this->get('asso.am.asso_selector')->getAssoId() )
         ));
     }
     
@@ -148,7 +145,7 @@ class BookController extends AbstractController
         
         $wbs = $this->get('asso_book.service');
         
-		return $this->myRender('AssoBookBundle:Book:showEntries', array('entries' => $wbs->getEntries(2)));
+		return $this->render('AssoBookBundle:Book:showEntries', array('entries' => $wbs->getEntries(2)));
 	}
 	
 	public function newAction()
@@ -167,7 +164,7 @@ class BookController extends AbstractController
             );
         }
         
-        return $this->myRender('AssoBookBundle:Book:new', array(
+        return $this->render('AssoBookBundle:Book:new', array(
             'form' => $form->createView()
         ));
 	}
@@ -181,7 +178,7 @@ class BookController extends AbstractController
 	        throw new NotFoundHttpException('Entry[id='.$id.'] not found', $e->getPrevious());
 	    }
 	    $this->get('session')->set('moi', 'par ici !');
-        return $this->myRender('AssoBookBundle:Book:show', array(
+        return $this->render('AssoBookBundle:Book:show', array(
 	        'entry' => $entry
 	    ));
 	}
@@ -199,7 +196,7 @@ class BookController extends AbstractController
 	        );
 	    }
 	    
-	    return $this->myRender('AssoBookBundle:Book:newAccount', array(
+	    return $this->render('AssoBookBundle:Book:newAccount', array(
 	        'form' => $form->createView()
 	    ));
 	}
@@ -213,8 +210,14 @@ class BookController extends AbstractController
 	        throw new NotFoundHttpException('Account[id='.$id.'] not found', $e->getPrevious());
 	    }
 	    
-        return $this->myRender('AssoBookBundle:Book:showAccount', array(
+        return $this->render('AssoBookBundle:Book:showAccount', array(
 	        'account' => $account
 	    ));
+	}
+	
+	
+	public function asso_needAssoSelected()
+	{
+	    return true;
 	}
 }
