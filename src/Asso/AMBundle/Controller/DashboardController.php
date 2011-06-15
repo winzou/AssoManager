@@ -4,6 +4,8 @@ namespace Asso\AMBundle\Controller;
 
 use Asso\AbstractBundle\Controller\AbstractController;
 
+use JMS\SecurityExtraBundle\Annotation\Secure;
+
 use Symfony\Component\Httpfoundation\Response;
 
 class DashboardController extends AbstractController
