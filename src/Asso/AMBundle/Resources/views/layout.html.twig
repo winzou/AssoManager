@@ -38,7 +38,11 @@
 			<div>
 				<h3>Mon Compte</h3>
 					<ul>
-						<li><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
+						{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+							<li><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></li>
+						{% else %}
+							<li><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
+						{% endif %}
 					</ul>
 			</div>		
 		</div>
