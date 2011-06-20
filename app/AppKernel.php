@@ -26,6 +26,8 @@ class AppKernel extends Kernel
             new Asso\SiteBundle\AssoSiteBundle(),
             new Asso\BookBundle\AssoBookBundle(),
             new Asso\UserBundle\AssoUserBundle(),
+            
+            new winzou\CacheBundle\winzouCacheBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
