@@ -67,3 +67,4 @@
 [DebuggingBundle]
     git=http://github.com/schmittjoh/DebuggingBundle.git
     target=/bundles/JMS/DebuggingBundle
+
