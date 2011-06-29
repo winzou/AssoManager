@@ -6,3 +6,5 @@ app/cache/*
 app/logs/*
 app/config/parameters_dev.ini
 app/config/parameters_prod.ini
+app/bootstrap.php.cache
+app/bootstrap_cache.php.cache
