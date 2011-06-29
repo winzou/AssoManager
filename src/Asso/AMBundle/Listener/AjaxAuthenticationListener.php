@@ -17,7 +17,7 @@ class AjaxAuthenticationListener
      *
      * @param GetResponseForExceptionEvent $event An GetResponseForExceptionEvent instance
      */
-    public function onCoreException(GetResponseForExceptionEvent $event)
+    public function onKernelException(GetResponseForExceptionEvent $event)
     {
         $exception = $event->getException();
         $request = $event->getRequest();

@@ -7,7 +7,7 @@ use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 
 class PreExecuteListener
 {
-	public function onCoreController(FilterControllerEvent $event)
+	public function onKernelController(FilterControllerEvent $event)
 	{
 		if( $event->getRequestType() === HttpKernelInterface::MASTER_REQUEST )
 		{

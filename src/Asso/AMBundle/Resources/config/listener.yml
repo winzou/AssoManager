@@ -2,12 +2,12 @@ services:
     asso.am.ajax_authentication:
         class:  Asso\AMBundle\Listener\AjaxAuthenticationListener
         tags:
-            - { name: kernel.listener, priority: 127, event: core.exception, method: onCoreException }
+            - { name: kernel.event_listener, priority: 127, event: kernel.exception, method: onKernelException }
 
     asso.am.asso_selector:
         class:     Asso\AMBundle\Listener\AssoSelectorListener
         arguments: [@session, @security.context, @router]
         tags:
-            - { name: kernel.listener, priority: -256, event: security.interactive_login, method: onSecurityInteractiveLogin }
-            - { name: kernel.listener, priority: -256, event: core.controller,            method: onCoreController }
-            - { name: kernel.listener, priority: -256, event: core.response,              method: onCoreResponse }
+            - { name: kernel.event_listener, priority: -256, event: security.interactive_login, method: onSecurityInteractiveLogin }
+            - { name: kernel.event_listener, priority: -256, event: kernel.controller,          method: onKernelController }
+            - { name: kernel.event_listener, priority: -256, event: kernel.response,            method: onKernelResponse }

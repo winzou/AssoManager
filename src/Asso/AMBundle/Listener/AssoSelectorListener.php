@@ -80,7 +80,7 @@ class AssoSelectorListener
 	 *
 	 * @param FilterControllerEvent $event
 	 */
-	public function onCoreController(FilterControllerEvent $event)
+	public function onKernelController(FilterControllerEvent $event)
 	{
 		if( $event->getRequestType() === HttpKernelInterface::MASTER_REQUEST )
 		{
@@ -103,7 +103,7 @@ class AssoSelectorListener
 		}
 	}
 	
-	public function onCoreResponse(FilterResponseEvent $event)
+	public function onKernelResponse(FilterResponseEvent $event)
 	{
 	    if( $this->willRedirect )
 	    {
