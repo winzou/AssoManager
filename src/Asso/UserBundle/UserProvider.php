@@ -55,9 +55,9 @@ class UserProvider implements UserProviderInterface
     
     /**
      * (non-PHPdoc)
-     * @see Symfony\Component\Security\Core\User.UserProviderInterface::loadUser()
+     * @see Symfony\Component\Security\Core\User.UserProviderInterface::refreshUser()
      */
-    public function loadUser(SecurityUserInterface $user)
+    public function refreshUser(SecurityUserInterface $user)
     {
         if( ! $user instanceof $this->class)
         {
