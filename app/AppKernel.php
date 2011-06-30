@@ -32,8 +32,8 @@ class AppKernel extends Kernel
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
-            
             $bundles[] = new JMS\DebuggingBundle\JMSDebuggingBundle($this);
+            $bundles[] = new Sf2gen\Bundle\ConsoleBundle\Sf2genConsoleBundle();
             
             /** @todo Check if this bundle is really useless
             $bundles[] = new Symfony\Bundle\WebConfiguratorBundle\SymfonyWebConfiguratorBundle();

@@ -14,5 +14,9 @@ _profiler:
 #    resource: "@SymfonyWebConfiguratorBundle/Resources/config/routing/configurator.xml"
 #    prefix:   /_configurator
 
+_sf2gencdt:
+    resource: "@Sf2genConsoleBundle/Resources/config/routing.yml"
+    prefix:   /_sf2gencdt
+
 _main:
     resource: routing.yml
