@@ -45,7 +45,7 @@ abstract class AbstractController extends Controller
 	 * Do this controller need AssoSelector listener look for an Asso?
 	 * @return false
 	 */
-	public function asso_needAssoSelected()
+	public function asso_needAssoSelected($action)
 	{
 	    $this->get('logger')->debug('Using asso_needAssoSelected() from the AbstractController. "'.get_class($this).'" should define this method itself.');
 	    
