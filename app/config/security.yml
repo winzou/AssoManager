@@ -9,14 +9,14 @@ security:
             id: asso.user.user_provider
         
     firewalls:
-        profiler:
-            pattern:  ^/_profiler
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|img|js)/
             security: false
 
-        wdt:
-            pattern:  ^/_wdt
+        login:
+            pattern:  ^/login$
             security: false
-        
+
         main:
             pattern: .*
             form_login:
