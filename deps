@@ -3,6 +3,7 @@
 
 [twig]
     git=http://github.com/fabpot/Twig.git
+    version=v1.1.0
 
 [monolog]
     git=http://github.com/Seldaek/monolog.git
@@ -49,15 +50,15 @@
     git=http://github.com/symfony/AsseticBundle.git
     target=/bundles/Symfony/Bundle/AsseticBundle
 
-[UserBundle]
+[FOSUserBundle]
     git=http://github.com/FriendsOfSymfony/FOSUserBundle.git
     target=/bundles/FOS/UserBundle
 
 [doctrine-extensions]
     git=http://github.com/l3pp4rd/DoctrineExtensions.git
 
-[DoctrineExtensionsBundle]
-    git=http://github.com/stof/DoctrineExtensionsBundle.git
+[StofDoctrineExtensionsBundle]
+    git=http://github.com/stof/StofDoctrineExtensionsBundle.git
     target=/bundles/Stof/DoctrineExtensionsBundle
 
 [WebProfilerExtraBundle]
