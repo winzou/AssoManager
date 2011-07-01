@@ -50,7 +50,7 @@
     target=/bundles/Symfony/Bundle/AsseticBundle
 
 [UserBundle]
-    git=http://github.com/FriendsOfSymfony/UserBundle.git
+    git=http://github.com/FriendsOfSymfony/FOSUserBundle.git
     target=/bundles/FOS/UserBundle
 
 [doctrine-extensions]
