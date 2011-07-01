@@ -26,7 +26,7 @@ security:
                 check_path:     /login_check
                 failure_path:   null
             logout:       true
-            anonymous:    true
+            anonymous:    false
             access_denied_url: /error/403
 
     acl:
