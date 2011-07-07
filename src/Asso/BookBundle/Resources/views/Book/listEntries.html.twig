@@ -6,6 +6,8 @@
 		{{ app.session.getFlash('asso_book_notice')|trans([], 'AssoBookBundle') }}
 	</p>
 	
+	<form action="{{ path('asso_book_new') }}" method="post">
+	
 	<table>
 		<colgroup>
 			<col class="wbb_tbl_date" />
@@ -39,7 +41,19 @@
 					<td><a class="wbb_ajx_delete_entry" href="{{ path('asso_book_delete_entry', {'id': entry.id}) }}">Delete</a></td>
 				</tr>
 			{% endfor %}
+			
+			<tr>
+				<td><input type="text" placeholder="Date" /></td>
+				<td><input type="text" placeholder="Label" /></td>
+				<td><input type="text" placeholder="Account" /></td>
+				<td><input type="text" placeholder="User" /></td>
+				<td><input type="text" placeholder="Debit" /></td>
+				<td><input type="text" placeholder="Credit" /></td>
+				<td><input type="submit" /></td>
+			</tr>
 		</tbody>
 	</table>
+	
+	</form>
 
 {% endblock %}
