@@ -45,9 +45,11 @@ doctrine:
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping:                true
-        metadata_cache_driver:       array 
-        query_cache_driver:          array
-        result_cache_driver:         array
+        metadata_cache_driver:       apc
+        query_cache_driver:          apc
+        result_cache_driver:         apc
+        mappings:
+            StofDoctrineExtensionsBundle: false
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -69,11 +71,6 @@ jms_security_extra:
     # Anybody with this attribute will effectively bypass all security checks.
     enable_iddqd_attribute: false
 
-#jms_debugging:
-    # You can set this to true if you want to automatically retrieve help
-    # messages for public exceptions. If you leave this set to false, you have
-    # to click the "search" button manually each time.
-#    auto_help: false
 
 # FOS\UserBundle
 fos_user:
@@ -87,7 +84,6 @@ fos_user:
         confirmation:
             enabled:    true
 
-
 parameters:
     asso_user:
         user_manager:
@@ -96,8 +92,6 @@ parameters:
 # Stof\DoctrineExtensions
 stof_doctrine_extensions:
     default_locale: %locale%
-    orm:
-        default: ~
 
 # We make sure to activate all features of FrameworkExtraBundle (especially DoctrineParamConverter !)
 # @TODO: understand why AppKernel is not enough

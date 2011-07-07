@@ -33,10 +33,6 @@ use Asso\BookBundle\Form\EntryHandler;
 use Asso\BookBundle\Entity\Entry;
 
 
-/**
- * BookController
- * @author Asso
- */
 class BookController extends AbstractController
 {
     /**
@@ -147,7 +143,7 @@ class BookController extends AbstractController
     
     
     
-    public function asso_needAssoSelected()
+    public function asso_needAssoSelected($action)
     {
         return true;
     }

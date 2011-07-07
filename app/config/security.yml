@@ -15,19 +15,18 @@ security:
 
         login:
             pattern:  ^/login$
-            security: false
+            anonymous: true
 
         main:
-            pattern: .*
+            pattern:            .*
             form_login:
                 provider:       fos_userbundle
                 login_path:     /login
-                use_forward:    false
                 check_path:     /login_check
-                failure_path:   null
-            logout:       true
-            anonymous:    false
-            access_denied_url: /error/403
+            logout:
+                path:           /logout
+                target:         /
+            anonymous:          true
 
     acl:
         connection: default
