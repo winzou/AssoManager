@@ -34,7 +34,7 @@ class Entry
     /**
      * @ORM\Column(type="date")
      */
-    protected $created_at;
+    protected $date;
     
     /**
      * @ORM\Column(type="string")
@@ -54,7 +54,7 @@ class Entry
      */
     public function __construct()
     {
-        $this->created_at = new \Datetime();
+        $this->date = new \Datetime();
     }
     
     /**
@@ -101,20 +101,20 @@ class Entry
     }
     
     /**
-     * Get created_at
+     * Get date
      * @return \Datetime
      */
-    public function getCreatedAt()
+    public function getdate()
     {
-        return $this->created_at;
+        return $this->date;
     }
     /**
-     * Set created_at
-     * @param \Datetime $createdAt
+     * Set date
+     * @param \Datetime $date
      */
-    public function setCreatedAt(\Datetime $createdAt)
+    public function setdate(\Datetime $date)
     {
-        $this->created_at = $createdAt;
+        $this->date = $date;
     }
     
     /**

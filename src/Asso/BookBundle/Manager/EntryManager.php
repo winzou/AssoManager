@@ -72,7 +72,7 @@ class EntryManager extends AbstractManager
         
         $qb ->where($name.' = :param')
                 ->setParameter('param', $value)
-            ->orderBy('e.created_at', 'desc');
+            ->orderBy('e.date', 'desc');
         
         return $qb->getQuery()->getResult( $array ? Query::HYDRATE_ARRAY : Query::HYDRATE_OBJECT );
     }
