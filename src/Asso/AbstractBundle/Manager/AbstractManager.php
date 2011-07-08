@@ -53,7 +53,7 @@ abstract class AbstractManager
      */
     public function getFullOne($id)
     {
-	    try {
+        try {
             $qb = $this->repository->createQueryBuilder('e');
             
             $qb = $this->addAssociations($qb);
@@ -62,10 +62,10 @@ abstract class AbstractManager
                 ->setParameter('id', $id);
             
             return $qb->getQuery()->getSingleResult();
-	    }
-	    catch( NoResultException $e ) {
-	        throw new NotFoundHttpException($this->class.'[id='.$id.'] not found', $e->getPrevious());
-	    }
+        }
+        catch( NoResultException $e ) {
+            throw new NotFoundHttpException($this->class.'[id='.$id.'] not found', $e->getPrevious());
+        }
     }
     
     /**
@@ -78,7 +78,7 @@ abstract class AbstractManager
         return new $class;
     }
     
-	/**
+    /**
      * Delete the given entity
      * @param $this->class $entity
      */
@@ -123,5 +123,14 @@ abstract class AbstractManager
         }
         
         return $qb;
+    }
+    
+    /**
+     * Return the supported class
+     * @return string
+     */
+    public function getClass()
+    {
+        return $this->class;
     }
 }
