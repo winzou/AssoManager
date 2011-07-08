@@ -40,7 +40,7 @@ class AppKernel extends Kernel
             */
             
             $bundles[] = new Elao\WebProfilerExtraBundle\WebProfilerExtraBundle();
-            
+
             $bundles[] = new Symfony\Bundle\DoctrineFixturesBundle\DoctrineFixturesBundle();
         }
 
