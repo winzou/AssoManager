@@ -83,7 +83,8 @@ class BookController extends AbstractController
      */
     public function listEntriesAction()
     {
-        $entries = $this->get('asso_book.service')->getEntries( $this->get('asso.am.asso_selector')->getAssoId() );
+        $entries     = $this->get('asso_book.service')->getEntries( $this->get('asso.am.asso_selector')->getAssoId() );
+        $formHandler = $this->get('asso_book.forms.entry_handler');
         
         if( $this->get('request')->getRequestFormat() == 'json' )
         {
@@ -93,7 +94,8 @@ class BookController extends AbstractController
         }
         
         return $this->render( 'AssoBookBundle:Book:listEntries.html.twig', array(
-            'entries' => $entries
+            'entries' => $entries,
+            'form'    => $formHandler->getFormView()
         ));
     }
     
@@ -102,7 +104,6 @@ class BookController extends AbstractController
      */
     public function newAction()
     {
-        $form = $this->get('asso_book.forms.entry');
         $formHandler = $this->get('asso_book.forms.entry_handler');
 
         if( $formHandler->process() )
@@ -115,7 +116,7 @@ class BookController extends AbstractController
         }
         
         return $this->render('AssoBookBundle:Book:new', array(
-            'form' => $form->createView()
+            'form' => $formHandler->getFormView()
         ));
     }
     

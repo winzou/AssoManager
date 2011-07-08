@@ -20,22 +20,22 @@
 
 namespace Asso\BookBundle\Form;
 
-use Symfony\Component\Form\Form;
-use Symfony\Component\HttpFoundation\Request;
-
+use Asso\AbstractBundle\Form\AbstractFormHandler;
 use Asso\BookBundle\Manager\EntryManager;
 use Asso\BookBundle\Entity\Entry;
+
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * EntryHandler
  * @author winzou
  */
-class EntryHandler
+class EntryHandler extends AbstractFormHandler
 {
-    protected $request;
+    /** @var Asso\BookBundle\Manager\EntryManager */
     protected $entryManager;
-    protected $form;
-
+    
     /**
      * Constructor.
      *
@@ -50,33 +50,18 @@ class EntryHandler
         $this->entryManager = $entryManager;
     }
 
-    /**
-     * Process the form
-     *
-     * @param Entry $entry
-     * @return bool
-     */
-    public function process(Entry $entry = null)
+    public function processValid(Entry $entry)
     {
-        if( $entry === null )
-        {
-            $entry = $this->entryManager->createEntry();
-        }
-
-        $this->form->setData($entry);
-
-        if( 'POST' == $this->request->getMethod() )
-        {
-            $this->form->bindRequest($this->request);
-
-            if( $this->form->isValid() )
-            {
-                $this->entryManager->updateEntry($entry);
-
-                return true;
-            }
-        }
-
-        return false;
+        $this->entryManager->updateEntry($entry);
+    }
+    
+    protected function getDefaultObject()
+    {
+        return $this->entryManager->createEntry();
+    }
+    
+    protected function getClass()
+    {
+        return $this->entryManager->getClass();
     }
 }

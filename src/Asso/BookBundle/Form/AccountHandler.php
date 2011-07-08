@@ -17,24 +17,23 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Asso\BookBundle\Form;
+
+use Asso\AbstractBundle\Form\AbstractFormHandler;
+use Asso\BookBundle\Manager\AccountManager;
+use Asso\BookBundle\Entity\Account;
 
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
-
-use Asso\BookBundle\Manager\AccountManager;
-use Asso\BookBundle\Entity\Account;
 
 /**
  * AccountHandler
  * @author winzou
  */
-class AccountHandler
+class AccountHandler extends AbstractFormHandler
 {
-    protected $request;
+    /** @var Asso\BookBundle\Manager\AccountManager */
     protected $accountManager;
-    protected $form;
 
     /**
      * Constructor.
@@ -50,33 +49,18 @@ class AccountHandler
         $this->accountManager = $accountManager;
     }
 
-    /**
-     * Process the form
-     *
-     * @param Account $Account
-     * @return bool
-     */
-    public function process(Account $Account = null)
+    public function processValid(Account $Account)
     {
-        if( $Account === null )
-        {
-            $Account = $this->accountManager->createAccount();
-        }
-
-        $this->form->setData($Account);
-
-        if( 'POST' == $this->request->getMethod() )
-        {
-            $this->form->bindRequest($this->request);
-
-            if( $this->form->isValid() )
-            {
-                $this->accountManager->updateAccount($Account);
-
-                return true;
-            }
-        }
-
-        return false;
+        $this->accountManager->updateAccount($Account);
+    }
+    
+    protected function getDefaultObject()
+    {
+        return $this->accountManager->createAccount();
+    }
+    
+    protected function getClass()
+    {
+        return $this->accountManager->getClass();
     }
 }

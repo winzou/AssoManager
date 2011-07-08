@@ -30,6 +30,14 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  */
 class EntryType extends AbstractType
 {
+    /** @var AmountTransformer */
+    private $amountTransformer;
+    
+    public function __construct($amountTransformer)
+    {
+        $this->amountTransformer = $amountTransformer;
+    }
+    
     /**
      * @see Symfony\Component\Form.AbstractType::buildForm()
      */
@@ -37,8 +45,9 @@ class EntryType extends AbstractType
     {
         $builder
             ->add('label')
-            ->add('amount')
+            ->add('amount', new AmountType($this->amountTransformer))
             ->add('account')
-            ->add('created_at');
+            ->add('date')
+            ;
     }
 }

@@ -6,7 +6,7 @@
 		{{ app.session.getFlash('asso_book_notice')|trans([], 'AssoBookBundle') }}
 	</p>
 	
-	<form action="{{ path('asso_book_new') }}" method="post">
+	<form action="{{ path('asso_book_new') }}" method="post" {{ form_enctype(form) }}>
 	
 	<table>
 		<colgroup>
@@ -32,7 +32,7 @@
 		<tbody>
 			{% for entry in entries %}
 				<tr>
-					<td>{{ entry.created_at|date('d/m/Y') }}</td>
+					<td>{{ entry.date|date('d/m/Y') }}</td>
 					<td>{{ entry.label }} ({{ entry.id }})</td>
 					<td>{{ entry.account.name }}</td>
 					<td>{% if entry.user.username is defined %}<a href="{{ path('asso_user_profile_show', {'username': entry.user.username}) }}">{{ entry.user.username }}</a>{% endif %}</td>
@@ -40,16 +40,25 @@
 					<td>{% if entry.amount >= 0 %}{{ entry.amount }}{% endif %}</td>
 					<td><a class="wbb_ajx_delete_entry" href="{{ path('asso_book_delete_entry', {'id': entry.id}) }}">Delete</a></td>
 				</tr>
+			{% else %}
+				<tr>
+					<td colspan="7">No entry found.</td>
+				</tr>
 			{% endfor %}
 			
 			<tr>
-				<td><input type="text" placeholder="Date" /></td>
-				<td><input type="text" placeholder="Label" /></td>
-				<td><input type="text" placeholder="Account" /></td>
-				<td><input type="text" placeholder="User" /></td>
+				<td colspan="7">
+					{{ form_errors(form) }}
+				</td>
+			</tr>
+			<tr>
+				<td>{{ form_widget(form.date, { 'attr': {'placeholder': 'Date'} }) }} {{ form_errors(form.date) }}</td>
+				<td>{{ form_widget(form.label, { 'attr': {'placeholder': 'Libelle'} }) }} {{ form_errors(form.label) }}</td>
+				<td>{{ form_widget(form.account, { 'attr': {'placeholder': 'Compte'} }) }} {{ form_errors(form.account) }}</td>
+				<td>{# {{ form_widget(form.user, { 'attr': {'placeholder': 'Membre'} }) }} {{ form_errors(form.user) }} #}</td>
 				<td><input type="text" placeholder="Debit" /></td>
 				<td><input type="text" placeholder="Credit" /></td>
-				<td><input type="submit" /></td>
+				<td>{{ form_rest(form) }} <input type="submit" /></td>
 			</tr>
 		</tbody>
 	</table>

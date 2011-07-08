@@ -6,8 +6,12 @@ parameters:
     asso_book.forms.account.handler.class: asso\BookBundle\Form\AccountHandler
 
 services:
+    asso_book.data_transformers.amount:
+        class: Asso\BookBundle\Form\AmountTransformer
+
     asso_book.forms.entry_type:
         class:           %asso_book.forms.entry.type.class%
+        arguments:       [@asso_book.data_transformers.amount]
         
     asso_book.forms.entry:
         factory_service: form.factory
@@ -19,7 +23,6 @@ services:
         class:     %asso_book.forms.entry.handler.class%
         scope:     request
         arguments: [@asso_book.forms.entry, @request, @asso_book.entry_manager]
-    
     
     asso_book.forms.account_type:
         class:           %asso_book.forms.account.type.class%
