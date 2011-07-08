@@ -76,10 +76,9 @@ jms_security_extra:
 fos_user:
     db_driver:     orm
     firewall_name: main
-    user_class:    Asso\UserBundle\Entity\User 
+    user_class:    Asso\UserBundle\Entity\User
     group:
         group_class: Asso\UserBundle\Entity\Group
-    from_email: { assomanager@gmail.com: AssoManager }
     registration:
         confirmation:
             enabled:    true
