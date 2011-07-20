@@ -5,50 +5,44 @@
         
         <title>{% block title %}AssoManager AM{% endblock %}</title>
         
-        {% stylesheets output='css/asso.am.min.css' filter='?yui_css'
-        	'@AssoAMBundle/Resources/public/css/*'
-        	'@AssoBookBundle/Resources/public/css/*' %}
+        {% stylesheets output='css/asso.am.min.css' filter='?yui_css, cssrewrite'
+        	'bundles/assoam/css/*'
+        	'bundles/assobook/css/*' %}
         	
         	<link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="screen" />
         	
         {% endstylesheets %}
-        
-        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
     </head>
     
     <body>
     	
     	<div id="header">
-			<h1><a href="{{ path('asso_am_home') }}">AssoManager</a></h1>
-			<ul>
-				<li><a href="{{ path('asso_am_home') }}">Accueil</a></li>
-				<li><a href="#menu">Aller au menu</a></li>
-				<li><a href="#content">Aller au contenu</a></li>
-			</ul>
-		</div>
-
-		<div id="menu">
 			<div>
-				<h3>Sentenza</h3>
-				<ul>
-					<li><a href="{{ path('asso_am_home') }}">Accueil</a></li>
-				</ul>
-			</div>
-
-			<div>
-				<h3>Mon Compte</h3>
-					<ul>
-						{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-							<li><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></li>
-						{% else %}
-							<li><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
-						{% endif %}
-					</ul>
-			</div>
+                <h3>Mon Compte</h3>
+                <ul>
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        <li><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></li>
+                    {% else %}
+                        <li><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
+                    {% endif %}
+                </ul>
+            </div>
 		</div>
-    	
-    	<div id="content">
-    		{% block body %}BundleTemplate not good enough...{% endblock %}
+		
+    	<div id="container">
+    	    <nav>
+    	       <ul>
+    	           <li>Lien 1</li>
+    	           <li>Lien 2</li>
+    	           <li>Lien 3</li>
+    	           <li>Lien 4</li>
+    	           <li>Lien 5</li>
+    	       </ul>
+    	    </nav>
+    	    
+    	    <div id="content">
+    		  {% block body %}BundleTemplate not good enough...{% endblock %}
+    		</div>
     	</div>
     	
     	<div id="footer">
@@ -56,9 +50,10 @@
 		</div>
     	
         {% javascripts output='js/asso.am.min.js' filter='?yui_js'
-        	'@AssoAMBundle/Resources/public/js/jquery-1.6.1.min.js'
-        	'@AssoAMBundle/Resources/public/js/*'
-        	'@AssoBookBundle/Resources/public/js/*' %}
+        	'bundles/assoam/js/jquery-1.6.1.min.js'
+        	'bundles/assoam/js/*'
+        	'bundles/assobook/js/*'
+			'bundles/assomaterial/js/*' %}
         	
         	<script type="text/javascript" src="{{ asset_url }}"></script>
         	
