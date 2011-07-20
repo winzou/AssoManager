@@ -26,21 +26,22 @@ use Symfony\Component\Validator\ExecutionContext;
  * AmountModel
  * @author winzou
  *
- * @Assert\Callback({"method": "isAmountValid"})
+ * @Annotation
+ * @Assert\Callback(methods={"isCreditValid"})
  */
 class AmountModel
 {
-    /*
-     * @Assert\Min(0)
+    /**
+     * @Assert\Min(5)
      */
     private $debit;
-    
-    /*
+
+    /**
      * @Assert\Min(0)
      */
     private $credit;
-    
-    
+
+
     public function setDebit($debit)
     {
         $this->debit = $debit;
@@ -49,7 +50,7 @@ class AmountModel
     {
         return $this->debit;
     }
-    
+
     public function setCredit($credit)
     {
         $this->credit = $credit;
@@ -58,9 +59,12 @@ class AmountModel
     {
         return $this->credit;
     }
-    
-    public function isAmountValid(ExecutionContext $context)
-    {
+
+    /**
+     * @Assert\True(message = "The token is invalid")
+     */
+    public function isCreditValid()
+    {exit('lala');return false;
         if( $this->getDebit() != 0 AND $this->getCredit() != 0 )
         {
             //$property_path = $context->getPropertyPath() . '.firstName';

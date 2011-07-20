@@ -17,37 +17,27 @@
  * file that was distributed with this source code.
  */
 
+namespace Asso\UserBundle\Manager;
 
-namespace Asso\BookBundle\Form;
-
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilder;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Doctrine\ORM\EntityRepository;
 
 /**
- * AccountType
+ * UserManager
  * @author winzou
  */
-class AccountType extends AbstractType
+class UserManager extends EntityRepository
 {
     /**
-     * @see Symfony\Component\Form.AbstractType::buildForm()
+     * Return a querybuilder for EntityChoiceList
+     * @param integer $asso_id
      */
-    public function buildForm(FormBuilder $builder, array $options)
+    public function getQueryChoicelist($asso_id)
     {
-        $builder
-            ->add('name')
-            ->add('wrap');
-    }
+        $qb = $this->createQueryBuilder('u')
+            ->join('u.assos', 'a')
+            ->where('a.id = :asso_id')
+                ->setParameter('asso_id', $asso_id);
 
-    /**
-     * (non-PHPdoc)
-     * @see Symfony\Component\Form.AbstractType::getDefaultOptions()
-     */
-    public function getDefaultOptions(array $options)
-    {
-        return array(
-            'data_class' => 'Asso\BookBundle\Entity\Account',
-        );
+        return $qb;
     }
 }

@@ -7,12 +7,12 @@ parameters:
 
 services:
     asso_book.entry_manager:
-        class:     %asso_book.entry.manager.class%
-        arguments: [@doctrine.orm.entity_manager, %asso_book.entry.entity.class%]
-    
+        parent:    asso_abstract.repo
+        arguments: [%asso_book.entry.entity.class%]
+        
     asso_book.account_manager:
-        class:     %asso_book.account.manager.class%
-        arguments: [@doctrine.orm.entity_manager, %asso_book.account.entity.class%]
+        parent:    asso_abstract.repo
+        arguments: [%asso_book.account.entity.class%]
 
     asso_book.service:
         class:     Asso\BookBundle\BookService

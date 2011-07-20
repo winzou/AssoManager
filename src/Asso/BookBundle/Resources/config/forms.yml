@@ -1,39 +1,14 @@
 parameters:
-    asso_book.forms.entry.type.class:    asso\BookBundle\Form\EntryType
-    asso_book.forms.entry.handler.class: asso\BookBundle\Form\EntryHandler
-    
-    asso_book.forms.account.type.class:    asso\BookBundle\Form\AccountType
-    asso_book.forms.account.handler.class: asso\BookBundle\Form\AccountHandler
+    asso_book.forms.entry.class: Asso\BookBundle\Form\EntryHandler
+    asso_book.forms.account.class: Asso\BookBundle\Form\AccountHandler
 
 services:
-    asso_book.data_transformers.amount:
-        class: Asso\BookBundle\Form\AmountTransformer
-
-    asso_book.forms.entry_type:
-        class:           %asso_book.forms.entry.type.class%
-        arguments:       [@asso_book.data_transformers.amount]
-        
     asso_book.forms.entry:
-        factory_service: form.factory
-        factory_method:  create
-        class:           %form.factory.class%
-        arguments:       [@asso_book.forms.entry_type, null, { 'data_class': %asso_book.entry.entity.class% } ]
-    
-    asso_book.forms.entry_handler:
-        class:     %asso_book.forms.entry.handler.class%
+        class:     %asso_book.forms.entry.class%
         scope:     request
-        arguments: [@asso_book.forms.entry, @request, @asso_book.entry_manager]
-    
-    asso_book.forms.account_type:
-        class:           %asso_book.forms.account.type.class%
-        
+        arguments: [@request, @asso_book.entry_manager]
+
     asso_book.forms.account:
-        factory_service: form.factory
-        factory_method:  create
-        class:           %form.factory.class%
-        arguments:       [@asso_book.forms.account_type, null, { 'data_class': %asso_book.account.entity.class% } ]
-    
-    asso_book.forms.account_handler:
-        class:     %asso_book.forms.account.handler.class%
+        class:     %asso_book.forms.account.class%
         scope:     request
-        arguments: [@asso_book.forms.account, @request, @asso_book.account_manager]
+        arguments: [@request, @asso_book.account_manager]

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Asso\BookBundle\Manager\EntryManager")
  * @ORM\Table(name="ass_book_entry")
  */
 class Entry
@@ -19,36 +19,40 @@ class Entry
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Asso\UserBundle\Entity\User")
      */
     protected $user;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Asso\BookBundle\Entity\Account")
      * @ORM\JoinColumn(nullable=false, onDelete="cascade")
      */
     protected $account;
-    
+
     /**
      * @ORM\Column(type="date")
+     *
+     * @Assert\NotBlank
      */
     protected $date;
-    
+
     /**
      * @ORM\Column(type="string")
      *
-     * @Assert\NotBlank()
+     * @Assert\NotBlank
      */
     protected $label;
-    
+
     /**
      * @ORM\Column(type="decimal", scale="2")
+     *
+     * @Assert\NotBlank
      */
     protected $amount;
-    
-    
+
+
     /**
      * Constructor.
      */
@@ -56,7 +60,7 @@ class Entry
     {
         $this->date = new \Datetime();
     }
-    
+
     /**
      * Get id
      * @return int
@@ -65,7 +69,7 @@ class Entry
     {
         return $this->id;
     }
-    
+
     /**
      * Get Account
      * @return Account
@@ -82,7 +86,7 @@ class Entry
     {
         $this->account = $account;
     }
-    
+
     /**
      * Get user
      * @return UserInterface
@@ -99,7 +103,7 @@ class Entry
     {
         $this->user = $user;
     }
-    
+
     /**
      * Get date
      * @return \Datetime
@@ -116,7 +120,7 @@ class Entry
     {
         $this->date = $date;
     }
-    
+
     /**
      * Get label
      * @return string
@@ -133,7 +137,7 @@ class Entry
     {
         $this->label = $label;
     }
-    
+
     /**
      * Get amount
      * @return float
@@ -142,7 +146,7 @@ class Entry
     {
         return $this->amount;
     }
-    
+
     /**
      * Set amount
      * @param float $amount

@@ -30,24 +30,49 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  */
 class EntryType extends AbstractType
 {
-    /** @var AmountTransformer */
-    private $amountTransformer;
-    
-    public function __construct($amountTransformer)
+    /** @var integer */
+    protected $wrap_id;
+
+
+    /**
+     * Constructor
+     * @param integer $wrap_id
+     */
+    public function __construct($wrap_id)
     {
-        $this->amountTransformer = $amountTransformer;
+        $this->wrap_id = $wrap_id;
     }
-    
+
     /**
      * @see Symfony\Component\Form.AbstractType::buildForm()
      */
     public function buildForm(FormBuilder $builder, array $options)
     {
+        $wrap_id = $this->wrap_id;
+
         $builder
             ->add('label')
-            ->add('amount', new AmountType($this->amountTransformer))
-            ->add('account')
+            ->add('amount', new AmountType)
             ->add('date')
+            ->add('account', 'entity', array(
+                'class'         => 'AssoBookBundle:Account',
+                'query_builder' => function($repo) use($wrap_id) { return $repo->getQueryChoicelist($wrap_id); },
+            ))
+            ->add('user', 'entity', array(
+                'class'         => 'AssoUserBundle:User',
+                'query_builder' => function($repo) use($wrap_id) { return $repo->getQueryChoicelist($wrap_id); },
+                'required'		=> false
+            ))
             ;
+    }
+
+	/**
+     * @see Symfony\Component\Form.AbstractType::getDefaultOptions()
+     */
+    public function getDefaultOptions(array $options)
+    {
+        return array(
+            'data_class' => 'Asso\BookBundle\Entity\Entry',
+        );
     }
 }

@@ -35,32 +35,30 @@ class EntryHandler extends AbstractFormHandler
 {
     /** @var Asso\BookBundle\Manager\EntryManager */
     protected $entryManager;
-    
+
     /**
      * Constructor.
      *
-     * @param Form $form
      * @param Request $request
      * @param EntryManager $entryManager
      */
-    public function __construct(Form $form, Request $request, EntryManager $entryManager)
+    public function __construct(Request $request, EntryManager $entryManager)
     {
-        $this->form         = $form;
         $this->request      = $request;
         $this->entryManager = $entryManager;
     }
 
     public function processValid(Entry $entry)
     {
-        $this->entryManager->updateEntry($entry);
+        $this->entryManager->update($entry);
     }
-    
-    protected function getDefaultObject()
+
+    public function getDefaultObject()
     {
-        return $this->entryManager->createEntry();
+        return $this->entryManager->create();
     }
-    
-    protected function getClass()
+
+    public function getClass()
     {
         return $this->entryManager->getClass();
     }

@@ -2,6 +2,8 @@
 
 namespace Asso\AbstractBundle\Form;
 
+use Symfony\Component\Form\Form;
+
 /**
  * AbstractFormHandler
  * @author winzou
@@ -10,77 +12,54 @@ abstract class AbstractFormHandler
 {
     /* @var Symfony\Component\HttpFoundation\Request */
     protected $request;
-    
-    /* @var Symfony\Component\Form\Form */
-    protected $form;
-    
-    
+
+
     /**
      * Return an instance of the currently handled object, filled in with the default values
+     *
+     * @return instanceof $this->getClass()
      */
-    abstract protected function getDefaultObject();
-    
+    abstract public function getDefaultObject();
+
     /**
      * Return the class of the currently handled object
      *
      * @return string
      */
-    abstract protected function getClass();
-    
-    
+    abstract public function getClass();
+
+
     /**
      * Process the form
      *
      * @param $object
      * @return bool
      */
-    public function process($object = null)
+    public function process(Form $form, $object = null)
     {
-        // if null we fill
-        if( $object === null )
+        if( $object !== null )
         {
-            $object = $this->getDefaultObject();
+            // check if $object is handled by this handler
+            if( ! is_a($object, $this->getClass()) )
+            {
+                throw new \InvalidArgumentException('Argument must be an instance of "'.$this->getClass().'", "'.get_class($object).'" given.');
+            }
+
+            $form->setData($object);
         }
-        // elseif not handled by this handler, exception
-        elseif( ! is_a($object, $this->getClass()) )
-        {
-            throw new InvalidExceptionArgument('Argument must be an instance of '.$class);
-        }
-        
-        $this->form->setData($object);
 
         if( $this->request->getMethod() == 'POST' )
         {
-            $this->form->bindRequest($this->request);
+            $form->bindRequest($this->request);
 
-            if( $this->form->isValid() )
+            if( $form->isValid() )
             {
-                $this->processValid($object);
+                $this->processValid($form->getData());
 
                 return true;
             }
         }
 
         return false;
-    }
-
-    /**
-     * Return the object handled
-     *
-     * @return instanceof $this->getClass()
-     */
-    public function getFormData()
-    {
-        return $this->form->getData();
-    }
-    
-    /**
-     * Return the view of the form
-     *
-     * @return Symfony\Component\Form\FormView
-     */
-    public function getFormView()
-    {
-        return $this->form->createView();
     }
 }

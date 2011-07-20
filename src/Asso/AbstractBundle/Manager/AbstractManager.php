@@ -14,96 +14,79 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  * Abstract Entity Manager
  * @author winzou
  */
-abstract class AbstractManager
+abstract class AbstractManager extends EntityRepository
 {
-    /**
-     * @var Doctrine\ORM\EntityManager
-     */
-    protected $em;
-    
-    /**
-     * @var Doctrine\ORM\EntityRepository
-     */
-    protected $repository;
-    
-    /**
-     * @var string
-     */
-    protected $class;
-
-    /**
-     * Constructor.
-     *
-     * @param EntityManager  $em
-     * @param string         $class
-     */
-    public function __construct(EntityManager $em, $class)
-    {
-        $this->em         = $em;
-        $this->repository = $em->getRepository($class);
-        
-        $this->class = $em->getClassMetadata($class)->name;
-    }
-    
     /**
      * Return one row with all associations done
      * @param int $id
      * @param bool $array
-     * @return $this->class
+     * @return instanceof $this->_entityName
      */
     public function getFullOne($id)
     {
+        $qb = $this->createQueryBuilder('e');
+
+        $qb = $this->addAssociations($qb);
+
+        $qb ->where('e.id = :id')
+            ->setParameter('id', $id);
+
         try {
-            $qb = $this->repository->createQueryBuilder('e');
-            
-            $qb = $this->addAssociations($qb);
-            
-            $qb ->where('e.id = :id')
-                ->setParameter('id', $id);
-            
             return $qb->getQuery()->getSingleResult();
         }
         catch( NoResultException $e ) {
-            throw new NotFoundHttpException($this->class.'[id='.$id.'] not found', $e->getPrevious());
+            throw new NotFoundHttpException($this->_entityName.'[id='.$id.'] not found', $e->getPrevious());
         }
     }
-    
+
     /**
      * Create an instance of the managed entity
-     * @return $this->class
+     * @return instanceof $this->_entityName
      */
-    protected function create()
+    public function create()
     {
-        $class = $this->class;
+        $class = $this->_entityName;
         return new $class;
     }
-    
+
     /**
      * Delete the given entity
-     * @param $this->class $entity
+     * @param $this->_entityName $entity
+     * @throws \InvalidArgumentException
      */
-    protected function delete($entity)
+    public function delete($entity)
     {
-        $this->em->remove($entity);
-        $this->em->flush();
+        if( ! $entity instanceof $this->_entityName )
+        {
+            throw new \InvalidArgumentException('Except instanceof "'.$this->_entityName.'", received instanceof "'.get_class($entity).'".');
+        }
+
+        $this->_em->remove($entity);
+        $this->_em->flush();
     }
-    
+
     /**
      * Update the given entity, and flush the EM if asked to
      *
-     * @param $this->class $entity
+     * @param $this->_entityName $entity
      * @param bool $andFlush
+     * @throws \InvalidArgumentException
      */
-    protected function update($entity, $andFlush = true)
+    public function update($entity, $andFlush = true)
     {
-        $this->em->persist($entity);
-        
+        if( ! $entity instanceof $this->_entityName )
+        {
+            throw new \InvalidArgumentException('Except instanceof "'.$this->_entityName.'", received instanceof "'.get_class($entity).'".');
+        }
+
+        $this->_em->persist($entity);
+
         if( $andFlush )
         {
-            $this->em->flush();
+            $this->_em->flush();
         }
     }
-    
+
     /**
      * Add requested associations to given QueryBuilder
      * @param QueryBuilder $qb
@@ -112,25 +95,26 @@ abstract class AbstractManager
      */
     protected function addAssociations(QueryBuilder $qb, array $associations = array())
     {
-        foreach( $this->em->getClassMetadata($this->class)->associationMappings as $name => $rel )
+        foreach( $this->_class->associationMappings as $name => $rel )
         {
             // check if @param is empty (means we join all associations) or if current $name is requested by @param
             if( ! $associations OR in_array($name, $associations) )
             {
-                $qb->leftJoin($qb->getRootAlias().'.'.$rel['fieldName'], $rel['fieldName']);
+                /** @todo check if column can be null, and if so only, use leftjoin */
+                $qb->leftJoin(current($qb->getRootAliases()).'.'.$rel['fieldName'], $rel['fieldName']);
                 $qb->addSelect($rel['fieldName']);
             }
         }
-        
+
         return $qb;
     }
-    
+
     /**
      * Return the supported class
      * @return string
      */
     public function getClass()
     {
-        return $this->class;
+        return $this->_entityName;
     }
 }

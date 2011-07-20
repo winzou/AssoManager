@@ -21,7 +21,6 @@ namespace Asso\BookBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * AmountType
@@ -29,28 +28,35 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  */
 class AmountType extends AbstractType
 {
-    /** @var AmountTransformer */
-    private $amountTransformer;
-    
-    public function __construct($amountTransformer)
-    {
-        $this->amountTransformer = $amountTransformer;
-    }
-    
     /**
      * @see Symfony\Component\Form.AbstractType::buildForm()
      */
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
-            ->add('debit', 'integer')
-            ->add('credit', 'integer');
-        
-        $builder->appendClientTransformer($this->amountTransformer);
+            ->add('debit', 'integer', array('required' => false))
+            ->add('credit', 'integer', array('required' => false));
+
+        $builder->appendClientTransformer(new AmountTransformer);
+
+        return parent::buildForm($builder, $options);
     }
-    
+
+    /**
+     * @see Symfony\Component\Form.AbstractType::getDefaultOptions()
+     */
+    public function getDefaultOptions(array $options)
+    {
+        return array(
+            'data_class' => 'Asso\BookBundle\Form\AmountModel',
+        );
+    }
+
+    /**
+     * @see Symfony\Component\Form.AbstractType::getName()
+     */
     public function getName()
     {
-        return 'winzou_book.amount';
+        return 'asso_book.amount';
     }
 }

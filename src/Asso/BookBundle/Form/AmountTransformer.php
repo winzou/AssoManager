@@ -20,6 +20,7 @@
 namespace Asso\BookBundle\Form;
 
 use Symfony\Component\Form\DataTransformerInterface;
+use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class AmountTransformer implements DataTransformerInterface
 {
@@ -31,7 +32,20 @@ class AmountTransformer implements DataTransformerInterface
      */
     public function transform($value)
     {
-        return ( $value['credit'] - $value['debit'] );
+        $amount = new AmountModel;
+
+        if( $value < 0 )
+        {
+            $amount->setDebit(-$value);
+            $amount->setCredit(0);
+        }
+        else
+        {
+            $amount->setCredit($value);
+            $amount->setDebit(0);
+        }
+
+        return $amount;
     }
 
     /**
@@ -42,19 +56,11 @@ class AmountTransformer implements DataTransformerInterface
      */
     public function reverseTransform($value)
     {
-        $amount = array();
-        
-        if( $value < 0 )
+        if( $value->getCredit() != 0 AND $value->getDebit() != 0 )
         {
-            $amount['debit'] = -$value;
-            $amount['credit'] = 0;
+            throw new TransformationFailedException('lala');
         }
-        else
-        {
-            $amount['credit'] = $value;
-            $amount['debit'] = 0;
-        }
-        
-        return $amount;
+
+        return ( $value->getCredit() - $value->getDebit() );
     }
 }

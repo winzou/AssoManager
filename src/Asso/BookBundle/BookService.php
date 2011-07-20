@@ -28,76 +28,72 @@ use Asso\BookBundle\Manager\AccountManager;
  */
 class BookService
 {
-    /**
-     * @var Asso\BookBundle\Manager\EntryManager
-     */
+    /** @var Asso\BookBundle\Manager\EntryManager */
     protected $em;
-    
-    /**
-     * @var Asso\BookBundle\Manager\AccountManager
-     */
+
+    /** @var Asso\BookBundle\Manager\AccountManager */
     protected $am;
-    
-    
+
+
     /**
      * Constructor.
      *
      * @param EntryManager $em
      * @param AccountManager $am
      */
-    public function __construct(EntryManager $em, AccountManager $am)
+    public function __construct($em, $am)
     {
         $this->em = $em;
         $this->am = $am;
     }
-    
+
     public function getEntries($wrap)
     {
-        return $this->em->getEntriesByWrap($wrap);
+        return $this->em->getByWrap($wrap);
     }
-    
+
     public function getAccounts($wrap)
     {
-        return $this->am->findAccountsBy(array('wrap' => $wrap));
+        return $this->am->findBy(array('wrap' => $wrap));
     }
-    
+
     public function createEntry()
     {
-        return $this->em->createEntry();
+        return $this->em->create();
     }
-    
+
     public function createAccount()
     {
-        return $this->am->createAccount();
+        return $this->am->create();
     }
-    
+
     public function updateEntry(Entry $entry)
     {
         if( ! $entry->getAccount()->getId() )
         {
             $this->am->update($entry->getAccount(), false);
         }
-        
+
         return $this->em->update($entry);
     }
-    
+
     public function updateAccount(Account $account)
     {
         return $this->am->update($account);
     }
-    
+
     public function deleteEntry(Entry $entry)
     {
-        return $this->em->deleteEntry($entry);
+        return $this->em->delete($entry);
     }
-    
+
     public function deleteAccount(Account $account)
     {
-        return $this->am->deleteAccount($account);
+        return $this->am->delete($account);
     }
-    
-    public function deleteByWrap($wrap)
+
+    public function deleteAccountsByWrap($wrap)
     {
-        return $this->am->deleteAccountsByWrap($wrap);
+        return $this->am->deleteByWrap($wrap);
     }
 }

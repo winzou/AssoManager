@@ -28,16 +28,16 @@ class AssoSelectorListener
 {
     /** @var Session */
     protected $session;
-    
+
     /** @var SecurityContext */
     protected $security;
-    
+
     /** @var Router */
     protected $router;
-    
+
     /** var Asso */
     protected $Asso;
-    
+
     /** var bool */
     protected $willRedirect;
 
@@ -53,7 +53,7 @@ class AssoSelectorListener
         $this->security = $security;
         $this->router   = $router;
     }
-    
+
     /**
      * Retrieve the Asso id on login event
      *
@@ -70,11 +70,11 @@ class AssoSelectorListener
 	        /** @todo Handle multiple assos */
 	        throw new \LogicException('Case not handled yet');
 	    }
-	    
+
 	    $this->Asso = $user->getAssos()->first();
 	    $this->_setAssoId( $this->Asso->getId() );
 	}
-	
+
 	/**
 	 * Check if the Asso id is available on each request
 	 *
@@ -88,7 +88,7 @@ class AssoSelectorListener
 		    if( ! $this->_hasAssoId() )
 		    {
 		        $controller = $event->getController();
-		        
+
 		        if( is_array($controller) AND method_exists ( $controller[0] , 'asso_needAssoSelected' ) )
 			    {
 			        // and if we need it
@@ -102,7 +102,7 @@ class AssoSelectorListener
 	        }
 		}
 	}
-	
+
 	public function onKernelResponse(FilterResponseEvent $event)
 	{
 	    if( $this->willRedirect )
@@ -110,7 +110,7 @@ class AssoSelectorListener
 	        $event->setResponse( new RedirectResponse($this->router->generate('asso_am_asso_select')) );
 	    }
 	}
-    
+
 	/**
 	 * Return the current Asso
 	 *
@@ -130,7 +130,7 @@ class AssoSelectorListener
                 {
                     throw new \LogicException('User not available in AssoSelector::getAsso. Maybe you called this method out the backend scope covered by a user firewall?');
                 }
-            
+
                 // ArrayCollections are not indexed by the primary key, we have to iterate over it
                 foreach( $user->getAssos() as $asso )
                 {
@@ -139,17 +139,17 @@ class AssoSelectorListener
                         return $this->Asso = $asso;
                     }
                 }
-                
+
                 if( ! $this->Asso )
                 {
                     throw new \Exception('Unable to load Asso[id='.$this->_getAssoId().'] from User[id='.$user->getId().']');
                 }
             }
         }
-        
+
         return $this->Asso;
     }
-    
+
     /**
      * Return the current Asso id
      * @throws \LogicException
@@ -162,12 +162,12 @@ class AssoSelectorListener
             return $this->_getAssoId();
         }
     }
-    
+
     protected function _getAssoId()
     {
-        return $this->session->get('asso.am.asso_id');
+        return $this->session->get('asso_am.asso_id');
     }
-    
+
     /**
      * Ensure that an Asso is defined for the session
      * @todo Handle the case where it's not
@@ -179,29 +179,29 @@ class AssoSelectorListener
         {
             throw new \LogicException('Asso id not defined ??');
         }
-        
+
         return true;
     }
-    
+
     protected function _hasAssoId()
     {
-        return $this->session->has('asso.am.asso_id');
+        return $this->session->has('asso_am.asso_id');
     }
-    
+
     protected function _setAssoId($asso_id)
     {
-        $this->session->set('asso.am.asso_id', $asso_id);
+        $this->session->set('asso_am.asso_id', $asso_id);
     }
-    
+
     protected function _getUser()
     {
         return $this->security->getToken()->getUser();
     }
-    
+
     public function __toString()
     {
         return '[asso_listener] AssoSelectorListener';
     }
-    
-    
+
+
 }

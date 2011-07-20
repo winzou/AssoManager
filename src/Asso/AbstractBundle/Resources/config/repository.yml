@@ -1,0 +1,6 @@
+services:
+    asso_abstract.repo:
+        factory_service: doctrine.orm.entity_manager
+        factory_method:  getRepository
+        class:           Doctrine\ORM\EntityRepository
+        abstract:        true

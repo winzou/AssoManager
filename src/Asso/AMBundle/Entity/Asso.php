@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Asso\AMBundle\Manager\AssoManager")
  * @ORM\Table(name="ass_asso")
  */
 class Asso
@@ -20,7 +20,7 @@ class Asso
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-    
+
     /**
      * @ORM\Column(type="string",unique="true",length="32")
      *
@@ -28,29 +28,29 @@ class Asso
      * @Assert\MaxLength(32)
      */
     protected $name;
-    
+
     /**
      * @ORM\ManyToMany(targetEntity="Asso\UserBundle\Entity\User", inversedBy="assos")
      * @ORM\JoinTable(name="ass_asso_user")
      */
     protected $users;
-    
-    
+
+
     public function __construct()
     {
         $this->users  = new ArrayCollection();
     }
-    
+
     public function __toString()
     {
         return $this->getName();
     }
-    
+
     public function getId()
     {
         return $this->id;
     }
-    
+
     public function getName()
     {
         return $this->name;
@@ -59,7 +59,7 @@ class Asso
     {
         $this->name = $name;
     }
-    
+
     public function getUsers()
     {
         return $this->users;

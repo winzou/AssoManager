@@ -45,9 +45,9 @@ doctrine:
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping:                true
-        metadata_cache_driver:       apc
-        query_cache_driver:          apc
-        result_cache_driver:         apc
+        metadata_cache_driver:       array
+        query_cache_driver:          array
+        result_cache_driver:         array
         mappings:
             StofDoctrineExtensionsBundle: false
 

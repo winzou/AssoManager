@@ -38,27 +38,25 @@ class AccountHandler extends AbstractFormHandler
     /**
      * Constructor.
      *
-     * @param Form $form
      * @param Request $request
      * @param AccountManager $accountManager
      */
-    public function __construct(Form $form, Request $request, AccountManager $accountManager)
+    public function __construct(Request $request, AccountManager $accountManager)
     {
-        $this->form           = $form;
         $this->request        = $request;
         $this->accountManager = $accountManager;
     }
 
     public function processValid(Account $Account)
     {
-        $this->accountManager->updateAccount($Account);
+        $this->accountManager->update($Account);
     }
-    
+
     protected function getDefaultObject()
     {
-        return $this->accountManager->createAccount();
+        return $this->accountManager->create();
     }
-    
+
     protected function getClass()
     {
         return $this->accountManager->getClass();

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Asso\BookBundle\Manager\AccountManager")
  * @ORM\Table(name="ass_book_account")
  */
 class Account
@@ -19,20 +19,20 @@ class Account
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Asso\AMBundle\Entity\Asso")
      */
     protected $wrap;
-    
+
     /**
      * @ORM\Column(type="string")
      *
      * @Assert\NotBlank()
      */
     protected $name;
-    
-    
+
+
     /**
      * Dump the name
      * @return string
@@ -41,7 +41,7 @@ class Account
     {
         return $this->getName();
     }
-    
+
     /**
      * Get id
      * @return int
@@ -50,7 +50,7 @@ class Account
     {
         return $this->id;
     }
-    
+
     /**
      * Get wrap
      */
@@ -66,7 +66,7 @@ class Account
     {
         $this->wrap = $wrap;
     }
-    
+
     /**
      * Get name
 	 * @return string

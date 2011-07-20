@@ -29,67 +29,49 @@ use Asso\BookBundle\Entity\Account;
 class AccountManager extends AbstractManager
 {
     /**
-     * Create and return an Account
-     * @return Account
+     * Delete accounts linked to this wrap
+     * @param string|array $wrap
      */
-    public function createAccount()
-    {
-        return parent::create();
-    }
-    
-    /**
-     * Delete the given Account
-     * @param Account $Account
-     */
-    public function deleteAccount(Account $account)
-    {
-        return parent::delete($account);
-    }
-    
-    public function deleteAccountsByWrap($wrap)
+    public function deleteByWrap($wrap)
     {
         $wraps = (int) $wrap > 0 ? (array) $wrap : $wrap;
-        
-        $qb = $this->em->createQueryBuilder();
+
+        $qb = $this->createQueryBuilder();
         $qb ->delete($this->class, 'a')
             ->join('a.entries', 'e')
             ->where($qb->expr()->in('a.wrap', $wraps));
-    
-    return $qb->getQuery()->execute();
+
+        return $qb->getQuery()->execute();
     }
-    
+
     /**
-     * Update the given Account
-     * @param Account $account
-     * @param bool $andFlush
+     * Check if the wrap is already flushed
+     * @see Asso\AbstractBundle\Manager.AbstractManager::update()
      */
-    public function updateAccount(Account $account, $andFlush = true)
+    public function update($account, $andFlush = true)
     {
+        if( ! $account instanceof $this->_entityName )
+        {
+            throw new \InvalidArgumentException('Except instanceof "'.$this->_entityName.'", received instanceof "'.get_class($entity).'".');
+        }
+
         if( is_object($account->getWrap()) AND ! $account->getWrap()->getId() )
         {
             throw new \Exception('Wrap has to be flushed before adding an account.');
         }
-        
+
         return parent::update($account, $andFlush);
-    }
-    
-    /**
-     * Return a Account according to criteria
-     * @param array $criteria
-     * @return Account
-     */
-    public function findAccountBy(array $criteria)
-    {
-        return $this->repository->findOneBy($criteria);
     }
 
     /**
-     * Return a list of Account according to criteria
-     * @param array $criteria
-     * @return ArrayCollection
+     * Return a querybuilder for EntityChoiceList
+     * @param integer $wrap_id
      */
-    public function findAccountsBy(array $criteria = array())
+    public function getQueryChoicelist($wrap_id)
     {
-        return $this->repository->findBy($criteria);
+        return $this
+            ->createQueryBuilder('a')
+            ->where('a.wrap = :wrap')
+                ->setParameter('wrap', $wrap_id);
     }
 }

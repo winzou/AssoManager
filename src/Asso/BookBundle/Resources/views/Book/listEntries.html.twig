@@ -55,9 +55,9 @@
 				<td>{{ form_widget(form.date, { 'attr': {'placeholder': 'Date'} }) }} {{ form_errors(form.date) }}</td>
 				<td>{{ form_widget(form.label, { 'attr': {'placeholder': 'Libelle'} }) }} {{ form_errors(form.label) }}</td>
 				<td>{{ form_widget(form.account, { 'attr': {'placeholder': 'Compte'} }) }} {{ form_errors(form.account) }}</td>
-				<td>{# {{ form_widget(form.user, { 'attr': {'placeholder': 'Membre'} }) }} {{ form_errors(form.user) }} #}</td>
-				<td><input type="text" placeholder="Debit" /></td>
-				<td><input type="text" placeholder="Credit" /></td>
+				<td>{{ form_widget(form.user, { 'attr': {'placeholder': 'Membre'} }) }} {{ form_errors(form.user) }}</td>
+				<td>{{ form_widget(form.amount.debit, { 'attr': {'placeholder': 'Debit'} }) }} {{ form_errors(form.amount.debit) }}</td>
+				<td>{{ form_widget(form.amount.credit, { 'attr': {'placeholder': 'Credit'} }) }} {{ form_errors(form.amount.credit) }}</td>
 				<td>{{ form_rest(form) }} <input type="submit" /></td>
 			</tr>
 		</tbody>
