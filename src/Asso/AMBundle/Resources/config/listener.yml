@@ -1,10 +1,10 @@
 services:
-    asso.am.ajax_authentication:
+    asso_am.ajax_authentication:
         class:  Asso\AMBundle\Listener\AjaxAuthenticationListener
         tags:
             - { name: kernel.event_listener, priority: 127, event: kernel.exception, method: onKernelException }
 
-    asso.am.asso_selector:
+    asso_am.asso_selector:
         class:     Asso\AMBundle\Listener\AssoSelectorListener
         arguments: [@session, @security.context, @router]
         tags:

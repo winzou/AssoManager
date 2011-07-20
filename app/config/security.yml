@@ -6,7 +6,7 @@ security:
 
     providers:
         fos_userbundle:
-            id: asso.user.user_provider
+            id: asso_user.user_provider
         
     firewalls:
         dev:

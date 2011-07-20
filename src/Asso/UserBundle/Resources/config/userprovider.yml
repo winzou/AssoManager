@@ -1,4 +1,4 @@
 services:
-    asso.user.user_provider:
+    asso_user.user_provider:
         class:     Asso\UserBundle\UserProvider
         arguments: [@doctrine.orm.entity_manager, @fos_user.util.username_canonicalizer, %fos_user.model.user.class%]
