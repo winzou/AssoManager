@@ -38,7 +38,7 @@
 					<td>{% if entry.user.username is defined %}<a href="{{ path('asso_user_profile_show', {'username': entry.user.username}) }}">{{ entry.user.username }}</a>{% endif %}</td>
 					<td>{% if entry.amount < 0 %}{{ entry.amount }}{% endif %}</td>
 					<td>{% if entry.amount >= 0 %}{{ entry.amount }}{% endif %}</td>
-					<td><a class="wbb_ajx_delete_entry" href="{{ path('asso_book_delete_entry', {'id': entry.id}) }}">Delete</a></td>
+					<td><a class="wbb_ajx_delete" href="{{ path('asso_book_delete_entry', {'id': entry.id}) }}">Delete</a></td>
 				</tr>
 			{% else %}
 				<tr>

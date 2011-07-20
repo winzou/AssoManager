@@ -30,3 +30,31 @@ $(document).ready(function() {
         alert(message);
     });
 });
+
+$(".wbb_ajx_delete").click(function(){
+	//$("#result").html(ajax_load);
+	$(this).fastConfirm({
+		position:     "right",
+		questionText: "Are you sure?",
+		unique:       true,
+		onProceed:    function(trigger) {
+			$.ajax({
+				type:     'POST',
+				url:      $(trigger).attr('href') + '.json',
+				dataType: 'json',
+				success:  function(json) {
+					if(!json.code) {
+						alert( json[0].message ? json[0].message : 'Something went terribly wrong, server side.');
+					}
+					else {
+				    	$(trigger).closest('tr').fadeOut('slow');
+					}
+				    //$("#result").html(result);
+				 }
+			});
+			$(trigger).fastConfirm('close');
+		}
+	});
+		
+	return false;
+});
