@@ -7,7 +7,8 @@
         
         {% stylesheets output='css/asso.am.min.css' filter='?yui_css, cssrewrite'
         	'bundles/assoam/css/*'
-        	'bundles/assobook/css/*' %}
+        	'bundles/assobook/css/*'
+        	'bundles/assomaterial/css/*' %}
         	
         	<link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="screen" />
         	
@@ -32,11 +33,11 @@
     	<div id="container">
     	    <nav>
     	       <ul>
-    	           <li>Lien 1</li>
-    	           <li>Lien 2</li>
-    	           <li>Lien 3</li>
-    	           <li>Lien 4</li>
-    	           <li>Lien 5</li>
+    	           <li><a href="{{ path('asso_am_home') }}">Tableau de bord</a></li>
+    	           <li><a href="{{ path('asso_book_home') }}">Comptabilite</a></li>
+    	           <li><a href="{{ path('asso_material_home') }}">Materiel</a></li>
+    	           <li><a href="#">Lien 4</a></li>
+    	           <li><a href="#">Lien 5</a></li>
     	       </ul>
     	    </nav>
     	    

@@ -1,688 +1,113 @@
-/*----------------------------------------*/
-/*           Gangsta-Paradise
-/*----------------------------------------*/
-/* tpl/css/1/style.css
-/* version : 0.1
-/*----------------------------------------*/
-/* Auteur : winzou
-/* Date de creation : 05/11/06
-/* Date de r�vision : 15/05/07
-/*----------------------------------------*/
-
-
-/* design */
-html
-{
-	background-color: #4d2a00;
+html {
+	font-size: 100%;
 }
 
-body
-{
-	margin: 1em;
-	background-color: #eee1a5;
-	border: 1px solid #8a5c2f;
-}
-
-#header
-{
-	margin: 1em;
-	height: 100px;
-	/*background-color: #f8f5ca;*/
-	/*background: url("../img/gpheader.png") no-repeat center;*/
-	color: #CC6600;
-	border: 2px solid #4d2a00;
-	min-width: 44em;
-}
-
-#header ul, #header h1
-{
-	float: left;
-}
-
-#header p
-{
-	padding: 0;
-	margin: 0;
-}
-
-#header form
-{
-	margin: 5px;
-	padding: 5px;
-	float: right;
-	border: 1px dashed black;
-	width: 16em;
-}
-
-#header form label
-{
-	width: 5em;
-	float: left;
-	margin-right: 8px;
-	text-align: right;
-	font-weight: bold;
-}
-
-#menu
-{
-	float: left;
-	width: 11em;
-	margin-left: 1em;
-}
-
-#menu div
-{
-	border: 2px solid black;
-	margin-bottom: 20px;
-	background-color: #f8f5ca;
-}
-
-#menu h3
-{
-    text-align: center;
-    font-weight: bold;
-    border-bottom: 1px solid #4d2a00;
-    font-size: 1.1em;
+body {
+	font-family: calibri;
+    background-color: #E6E0EC;
+    color: #376092;
+    padding: 10%;
+	padding-top: 1em;
     margin: 0;
-    background-color: #643600;
-	color: #9f7954;
+    height: 100%;
+    vertical-align: baseline;
 }
 
-#menu ul
-{
-	list-style: none;
-	padding: 0px;
-	margin: 0px;
+ul, ol {
+    margin: .75em 0 .75em 24px;
+    padding: 0;
 }
 
-#menu li
-{
-	border-top: 1px solid black;
+#header {
+	background: url('../img/css/logo.png') no-repeat left;
+	margin-bottom: 2em;
 }
 
-#menu a:hover
-{
-	background-color: #eee1a5;
+#header div {
+	margin-left: 70%;
+	padding: 0.2em;
+	border: 3px solid white;
 }
 
-#menu a
-{
-	display: block;
-	text-decoration: none;
-	padding: 2px;
-	padding-left: 20px;
-}
-
-#content
-{
-	margin-left: 13em;
-	margin-right: 1em;
-	padding: 5px;
-	background-color: #f8f5ca;
-	border: 2px solid #4d2a00;
-	min-width: 31em;
-}
-
-
-#footer
-{
+#container {
 	clear: both;
-	margin: 1em;
-	padding: 5px;
-	text-align: center;
-	background-color: #f8f5ca;
-	border: 2px solid black;
-	min-width: 43em;
-}
-#req
-{
-	text-align: left;
+	border: 3px solid white;
+	background-color: #EEEEEE;
+	margin: auto;
+	-webkit-box-shadow: #CCC 4px 0px 10px, #CCC -4px 0px 10px, #AAA 0px 38px 36px -24px;
+    -moz-box-shadow: #CCC 4px 0px 10px, #CCC -4px 0px 10px, #AAA 0px 38px 36px -24px;
+    box-shadow: #CCC 4px 0px 10px, #CCC -4px 0px 10px, #AAA 0px 38px 36px -24px;
 }
 
-
-/* general */
-
-/*
-h1:first-letter, h2:first-letter, h3:first-letter, thead th:first-letter, tfoot th:first-letter
-{
-	color: #FF6600;
-	font-size: 1.2em;
-}
-*/
-
-a
-{
-	color: #FF6600;
+#container nav {
+	height: 2em;
+	border-bottom: 2px solid white;
 }
 
-a img
-{
-	border: 0px none;
-}
-
-.clear
-{
-	clear: both;
+#container nav ul {
 	margin: 0;
 	padding: 0;
-	border: 0px none;
+	list-style-type: none;
 }
 
-#content p
-{
-	text-align: justify;
-}
-
-#req
-{
-	text-align: left;
-}
-
-
-/* general - form */
-
-#content form .col1
-{
+#container nav li {
 	float: left;
+    background-color: #CCCCFF;
+    border-right: 1px solid white;
+}
+#container nav li a {
+	height: 2em;
+	display: block;
+	padding-left: 0.7em;
+	padding-right: 0.7em;
+	text-align: center;
+	text-decoration: none;
 }
 
-#content form .col2
-{
-	margin-left: 40%;
-}
-
-#content form label
-{
-	width: 10em;
-	float: left;
-	margin-right: 1em;
-	text-align: right;
-	font-weight: bold;
-}
-
-#content form p
-{
-	text-indent: 0;
-	text-align: left;
-}
-
-.submit
-{
-	margin: 0;
-	margin-top: 3px;
-	margin-left: 10em;
-}
-
-input[type=text], input[type=password], textarea, select
-{
-	border:1px solid #aaaaaa;	
-	padding: 2px;
-	background: #ffffff url("../../img/css/1/inputbg.gif") repeat-x;
-	margin-top: 2px;
-}
-
-
-.form-box
-{
-	margin: 1em;
-	/*margin-left: 11em;*/
+#content {
 	padding: 1em;
-	border: 2px solid #4d2a00;
+	overflow: auto;
 }
 
-.preview-box
-{
-	overflow: hidden;
-	margin: 3px;
-	padding: 3px;
-	border: 1px solid #4d2a00;
-}
 
-div#smileys-list
-{
-	margin: 1em;
-}
-div#smileys-list img:hover
-{
-	cursor: pointer;
+#footer {
+	margin-top: 2em;
+	text-align: center;
 }
 
 
 
-/* general - table */
+
+
+
+
+
+
 
 #content table
 {
-	border: 1px solid black;
-	border-collapse: collapse;
-	margin: 5px auto;
-	background-color: #f6eec0;
+    border: 1px solid black;
+    border-collapse: collapse;
+    margin: 0.5em auto;
 }
 
 #content td, #content th
 {
-	border: 1px solid black;
-	padding: 2px;
+    border: 1px solid black;
+    padding: 0.2em;
 }
 
 #content thead th, #content tfoot th
 {
-	text-align: center;
-	font-weight: bold;
-	background-color: #eee1a5;
-	color: #9f7954;
-	padding: 3px;
-}
-/*
-#content tr:hover
-{
-	background-color: #eee1a5;
-}
-*/
-#content table a
-{
-	text-decoration: none;
-}
-
-#content .tbl_msg th.tbl_msg_col1
-{
-	width: 8em;
-}
-#content .tbl_msg tr.tbl_msg_separator
-{
-	background-color: #eee1a5;
-}
-/*
-#content .tbl_msg tr.tbl_msg_message:hover
-{
-	background-color: #f6eec0;
-}
-*/
-
-
-
-/* msg */
-#msg
-{
-    padding: 3px;
-    margin: 10px auto;
-    width: 75%;
-    border: 1px solid;
-    background-color: #DADADA;
-}
-
-#msg p.msg_id, #msg p.msg_redir
-{
-    font-style: italic;
-}
-
-.msg_1
-{
-    color: red;
-    border-color: red;
-}
-
-.msg_2
-{
-    color: green;
-    border-color: green;
-}
-
-
-
-/* artiste - album */
-
-img#a-img
-{
-	float: left;
-	margin-left: 10%;
-}
-
-div#a-desc
-{
-	margin-left: 30%;
-}
-
-div#a-desc table
-{
-	margin: 5px;
-}
-
-tr.art_tr
-{
-	background-color: #DADADA;
-}
-
-#content tr.art_tr td
-{
-	padding: 5px;
-}
-
-td.alb_td a
-{
-	margin-left: 3em;
-}
-
-td.col_time
-{
-	text-align: right;
-}
-
-#content p.letter_list
-{
-	text-align: center;
-}
-
-
-/* news */
-
-div.news-item
-{
-	border: 1px dashed black;
-	margin: 15px;
-}
-
-div.news-item h3
-{
+    text-align: center;
     font-weight: bold;
-    border-bottom: 1px solid #4d2a00;
-    font-size: 1.1em;
-    margin: 0;
-    background-color: #F3DEBC;
-    color: #9f8060;
-	padding-left: 2%;
+    background-color: #E6E0EC;
+    padding: 0.2em;
 }
 
-div.news-author
-{
-    font-style: italic;
-    font-size: 0.9em;
-    margin: 0;
-    padding: 0 10px;
-    text-align: right;
+tr:nth-child(even) {
+	background: #FAFAFA;
 }
-
-p.news-content
-{
-	padding: 5px;
+tr:nth-child(odd) {
+	/*background: #FFF;*/
 }
-
-
-/* calendrier */
-
-.calendar
-{
-	position: absolute;
-}
-
-.calendar table
-{
-	border-collapse: separate;
-	border-spacing: 1px;
-}
-
-.calendar tr
-{
-	height: 1em;
-}
-
-.calendar td
-{
-	padding: 0px;
-	margin: 0px;
-	width: 1.5em;
-	text-align: center;
-	border: none; /*1px solid #EAEAEA;*/
-	background-color: #DADADA;
-	font-size: 0.9em;
-}
-
-.calendar thead .days
-{
-	font-size: 0.8em;
-}
-
-.calendar table a
-{
-	color: black;
-	text-decoration: none;
-}
-
-.calendar table tbody a
-{
-	display: block
-}
-
-.calendar table tbody a:hover
-{
-	background-color: #eee1a5;
-}
-
-
-
-/* index */
-
-#index_txt
-{
-	margin-right: 27%;
-}
-
-#quick_lists
-{
-	width: 25%;
-	float: right;
-}
-
-.quick_list
-{
-	border: 1px dashed black;
-	padding: 2px;
-	margin: 2px;
-}
-
-.quick_list h3
-{
-	margin: 2px;
-}
-
-
-
-/* general - javascript */
-
-div.autocomplete {
-  position:absolute;
-  width:250px;
-  background-color:white;
-  border:1px solid #888;
-  margin:0px;
-  padding:0px;
-}
-div.autocomplete ul {
-  list-style-type:none;
-  margin:0px;
-  padding:0px;
-}
-div.autocomplete ul li.selected { background-color: #ffffbb;}
-div.autocomplete ul li {
-  list-style-type:none;
-  display:block;
-  margin:0;
-  padding:2px;
-  height:32px;
-  cursor:pointer;
-}
-
-
-.LV_validation_message{
-    font-weight:bold;
-    margin:0 0 0 5px;
-}
-
-.LV_valid {
-    color:#00CC00;
-}
-	
-.LV_invalid {
-    color:#CC0000;
-}
-    
-.LV_valid_field,
-input.LV_valid_field:hover, 
-input.LV_valid_field:active,
-textarea.LV_valid_field:hover, 
-textarea.LV_valid_field:active {
-    border: 1px solid #00CC00 !important;
-}
-    
-.LV_invalid_field, 
-input.LV_invalid_field:hover, 
-input.LV_invalid_field:active,
-textarea.LV_invalid_field:hover, 
-textarea.LV_invalid_field:active {
-    border: 1px solid #CC0000 !important;
-}
-
-
-/* Calendrier */
-.ctx         {border-left:3px solid #003366; border-right:3px solid #000000; border-top:3px solid #003366; border-bottom:3px solid #000000;
-              position:absolute; text-align:left; font-family: Arial; font-size:10pt; background-color:#336699;
-              color:#FFFFFF; visibility:hidden; font-style:normal; font-variant:normal; font-weight:bold;  white-space: nowrap}
-.ctxl        {padding-left:15px; padding-right:10px}
-.ctxl2       {padding-left:15px; padding-right:10px; background-color:highlight; color:#003366}
-
-.calh        {background-color: #336699; color:#FFFFFF; font-family: Arial; font-size:8pt; text-align:center; font-weight:bold}
-.calh .sel   {background-color: #003366; color:#ffcc00; cursor:pointer}
-.calh td     {color:#ffffff}
-
-.calm        {background-color: #5588bb; color:#FFFFFF; font-family: Arial; font-size:8pt; text-align:center}
-.calm .sel   {background-color: #003366; color:#ffcc00; font-weight:bold; cursor:pointer}
-.calm td     {color:#ffffff}
-
-.caly        {background-color: #5588bb; color:#FFFFFF; font-family: Arial; font-size:8pt; text-align:center}
-.caly .sel   {background-color: #003366; color:#ffcc00; font-weight:bold; cursor:pointer}
-.caly td     {color:#ffffff}
-
-.cal         {background-color: #336699 !important; color:#FFFFFF; font-family: Arial; font-size:8pt; text-align:center}
-.cal .pas    {background-color: #ddddcc; color:#336699; font-family: Arial; font-size:8pt; text-align:center}
-.cal .tod    {background-color: #336699; color:#ffcc00; font-family: Arial; font-size:8pt; text-align:center; font-weight:bold}
-.cal .sel    {background-color: #003366; color:#ffcc00; cursor:pointer; font-weight:bold}
-.cal .selpas {background-color: #aaaa99; color:#ffcc00; cursor:pointer; font-weight:bold}
-.cal .seltod {background-color: #ffcc00; color:#003366; cursor:pointer; font-weight:bold}
-
-#cal         {visibility:hidden}
-
-img.but      {width:16; height:16; cursor:pointer}
-img.but_cal  {width:16; height:14; cursor:pointer}
-
-
-div.calendar
-{
-  font-size: smaller;
-  color: #000;
-}
-
-div.calendar.popup
-{
-  margin-left: -40px;
-  margin-top: -100px;
-}
-
-div.calendar table
-{
-  background-color: #eee;
-  border: 1px solid #aaa;
-  border-collapse: collapse;
-}
-
-div.calendar thead {
-  background-color: white;
-}
-
-div.calendar td,
-div.calendar th
-{
-  padding: 3px;
-  text-align: center;
-}
-
-div.calendar td.title
-{
-  font-weight: bold;
-}
-
-div.calendar th
-{
-  background: #ddd;
-  border-bottom: 1px solid #ccc;
-  border-top: 1px solid #ccc;
-  font-weight: bold;
-  color: #555;
-}
-
-div.calendar tr.days td {
-  width: 2em;
-  color: #555;
-  text-align: center;
-  cursor: pointer;
-}
-
-div.calendar tr.days td:hover,
-div.calendar td.button:hover
-{
-  background-color: #34ABFA;
-  cursor: pointer;
-}
-
-div.calendar tr.days td:active
-div.calendar td.button:active
-{
-  background-color: #cde;
-}
-
-div.calendar td.selected
-{
-  font-weight: bold;
-  background-color: #fff;
-  color: #000;
-}
-
-div.calendar td.today
-{
-  font-weight: bold;
-  color: #D50000;
-  border: 1px solid black;
-}
-
-div.calendar td.otherDay
-{
-  color: #bbb;
-  background-color: #EAEAEA;
-}
-
-
-
-
-
-.cls-admin-grp table label
-	{
-	width: 15em !important;
-	/*float: none;*/
-	margin: 0;
-	text-align: left !important;
-	font-weight: normal !important;
-	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

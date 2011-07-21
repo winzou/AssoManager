@@ -6,10 +6,13 @@
 		{{ app.session.getFlash('asso_book_notice')|trans([], 'AssoBookBundle') }}
 	</p>
 	
-	<form action="{{ path('asso_book_new') }}" method="post" {{ form_enctype(form) }}>
+	<p>
+		{{ form_errors(form) }}
+	</p>
 	
-	<table>
+	<table class="asso_book_datatables">
 		<colgroup>
+			<col class="wbb_tbl_check" />
 			<col class="wbb_tbl_date" />
 			<col class="wbb_tbl_label" />
 			<col class="wbb_tbl_account" />
@@ -20,6 +23,7 @@
 		</colgroup>
 		<thead>
 			<tr>
+				<th><input type="checkbox" class="asso_ajx_checkbox" /></th>
 				<th>Date</th>
 				<th>Label</th>
 				<th>Account</th>
@@ -28,10 +32,24 @@
 				<th>Credit</th>
 				<th>Actions</th>
 			</tr>
+			<tr>
+				<form action="{{ path('asso_book_new') }}" method="post" {{ form_enctype(form) }}>
+					<td></td>
+					<td>{{ form_widget(form.date, { 'attr': {'placeholder': 'Date'} }) }} {{ form_errors(form.date) }}</td>
+					<td>{{ form_widget(form.label, { 'attr': {'placeholder': 'Libelle'} }) }} {{ form_errors(form.label) }}</td>
+					<td>{{ form_widget(form.account, { 'attr': {'placeholder': 'Compte'} }) }} {{ form_errors(form.account) }}</td>
+					<td>{{ form_widget(form.user, { 'attr': {'placeholder': 'Membre'} }) }} {{ form_errors(form.user) }}</td>
+					<td>{{ form_widget(form.amount.debit, { 'attr': {'placeholder': 'Debit'} }) }} {{ form_errors(form.amount.debit) }}</td>
+					<td>{{ form_widget(form.amount.credit, { 'attr': {'placeholder': 'Credit'} }) }} {{ form_errors(form.amount.credit) }}</td>
+					<td>{{ form_rest(form) }} <input type="submit" /></td>
+				</form>
+			</tr>
 		</thead>
+		<form action="{{ path('asso_book_actions') }}" method="post">
 		<tbody>
 			{% for entry in entries %}
 				<tr>
+					<td><input type="checkbox" name="checkboxes[{{ entry.id }}]" /></td>
 					<td>{{ entry.date|date('d/m/Y') }}</td>
 					<td>{{ entry.label }} ({{ entry.id }})</td>
 					<td>{{ entry.account.name }}</td>
@@ -42,27 +60,16 @@
 				</tr>
 			{% else %}
 				<tr>
-					<td colspan="7">No entry found.</td>
+					<td colspan="8">No entry found.</td>
 				</tr>
 			{% endfor %}
-			
-			<tr>
-				<td colspan="7">
-					{{ form_errors(form) }}
-				</td>
-			</tr>
-			<tr>
-				<td>{{ form_widget(form.date, { 'attr': {'placeholder': 'Date'} }) }} {{ form_errors(form.date) }}</td>
-				<td>{{ form_widget(form.label, { 'attr': {'placeholder': 'Libelle'} }) }} {{ form_errors(form.label) }}</td>
-				<td>{{ form_widget(form.account, { 'attr': {'placeholder': 'Compte'} }) }} {{ form_errors(form.account) }}</td>
-				<td>{{ form_widget(form.user, { 'attr': {'placeholder': 'Membre'} }) }} {{ form_errors(form.user) }}</td>
-				<td>{{ form_widget(form.amount.debit, { 'attr': {'placeholder': 'Debit'} }) }} {{ form_errors(form.amount.debit) }}</td>
-				<td>{{ form_widget(form.amount.credit, { 'attr': {'placeholder': 'Credit'} }) }} {{ form_errors(form.amount.credit) }}</td>
-				<td>{{ form_rest(form) }} <input type="submit" /></td>
-			</tr>
 		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="8">lala</td>
+			</tr>
+		</tfoot>
+		</form>
 	</table>
 	
-	</form>
-
 {% endblock %}

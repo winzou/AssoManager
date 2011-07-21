@@ -66,7 +66,7 @@ class EntryType extends AbstractType
             ;
     }
 
-	/**
+    /**
      * @see Symfony\Component\Form.AbstractType::getDefaultOptions()
      */
     public function getDefaultOptions(array $options)

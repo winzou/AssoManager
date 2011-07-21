@@ -21,3 +21,11 @@ asso_book_list_entries:
     defaults: { _controller: AssoBookBundle:Book:listEntries, _format: html }
     requirements:
         _format: json
+
+asso_book_home:
+    pattern:  /listEntries
+    defaults: { _controller: AssoBookBundle:Book:listEntries }
+
+asso_book_actions:
+    pattern:  /actions
+    defaults: { _controller: AssoBookBundle:Book:actions }
