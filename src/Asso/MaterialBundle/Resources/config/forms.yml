@@ -1,0 +1,14 @@
+parameters:
+    asso_material.forms.material.class: Asso\MaterialBundle\Form\MaterialHandler
+    asso_material.forms.lease.class: Asso\MaterialBundle\Form\LeaseHandler
+
+services:
+    asso_material.forms.material:
+        class:     %asso_material.forms.material.class%
+        scope:     request
+        arguments: [@request, @asso_material.material_manager]
+
+    asso_material.forms.lease:
+        class:     %asso_material.forms.lease.class%
+        scope:     request
+        arguments: [@request, @asso_material.lease_manager]

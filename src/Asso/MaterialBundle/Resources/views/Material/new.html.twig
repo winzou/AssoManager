@@ -1,0 +1,9 @@
+{% extends "AssoMaterialBundle::layout.html.twig" %}
+
+{% block asso_material_body %}
+	<form action="{{ path('asso_material_new') }}" method="post" {{ form_enctype(form) }}>
+	    {{ form_widget(form) }}
+	
+	    <input type="submit" />
+	</form>
+{% endblock %}

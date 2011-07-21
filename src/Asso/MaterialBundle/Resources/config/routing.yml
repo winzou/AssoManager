@@ -1,0 +1,19 @@
+asso_material_new:
+    pattern:  /new
+    defaults: { _controller: AssoMaterialBundle:Material:new }
+
+asso_material_delete:
+    pattern:  /delete/{id}.{_format}
+    defaults: { _controller: AssoMaterialBundle:Material:delete, _format: html }
+    requirements:
+        _format: json
+
+asso_material_list:
+    pattern:  /list.{_format}
+    defaults: { _controller: AssoMaterialBundle:Material:list, _format: html }
+    requirements:
+        _format: json
+
+asso_material_home:
+    pattern:  /list
+    defaults: { _controller: AssoMaterialBundle:Material:list }

@@ -1,0 +1,47 @@
+{% extends "AssoMaterialBundle::layout.html.twig" %}
+
+{% block asso_material_body %}
+	
+	<p>
+		{{ app.session.getFlash('asso_material_notice')|trans([], 'AssoMaterialBundle') }}
+	</p>
+	
+	<form action="{{ path('asso_material_new') }}" method="post" {{ form_enctype(form) }}>
+	
+	<table>
+		<colgroup>
+			<col class="wbb_tbl_name" />
+		</colgroup>
+		<thead>
+			<tr>
+				<th>Nom</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for material in materials %}
+				<tr>
+					<td>{{ material.name }}</td>
+					<td><a class="wbb_ajx_delete" href="{{ path('asso_material_delete', {'id': material.id}) }}">Delete</a></td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="2">No material found.</td>
+				</tr>
+			{% endfor %}
+			
+			<tr>
+				<td colspan="2">
+					{{ form_errors(form) }}
+				</td>
+			</tr>
+			<tr>
+				<td>{{ form_widget(form.name, { 'attr': {'placeholder': 'Nom'} }) }} {{ form_errors(form.name) }}</td>
+				<td>{{ form_rest(form) }} <input type="submit" /></td>
+			</tr>
+		</tbody>
+	</table>
+	
+	</form>
+
+{% endblock %}

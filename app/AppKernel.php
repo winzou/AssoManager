@@ -27,6 +27,7 @@ class AppKernel extends Kernel
             new Asso\BookBundle\AssoBookBundle(),
             new Asso\UserBundle\AssoUserBundle(),
             new Asso\AbstractBundle\AssoAbstractBundle(),
+            new Asso\MaterialBundle\AssoMaterialBundle(),
 
             new winzou\CacheBundle\winzouCacheBundle(),
         );
