@@ -29,3 +29,5 @@ asso_book_home:
 asso_book_actions:
     pattern:  /actions
     defaults: { _controller: AssoBookBundle:Book:actions }
+    requirements:
+        _method: post

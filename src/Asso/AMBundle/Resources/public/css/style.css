@@ -109,5 +109,5 @@ tr:nth-child(even) {
 	background: #FAFAFA;
 }
 tr:nth-child(odd) {
-	/*background: #FFF;*/
+	background: #EEEEEE;
 }

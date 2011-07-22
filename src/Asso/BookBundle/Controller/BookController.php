@@ -61,7 +61,7 @@ class BookController extends AbstractController
             }
 
             // normal request: set a flash and redirect to entries list
-            $this->get('session')->setFlash('asso_book_notice', 'flash.entry.delete');
+            $this->get('session')->setFlash('asso_book_notice', 'book.flash.entry.delete');
 
             return $this->redirect( $this->generateUrl('asso_book_list_entries') );
         }
@@ -103,6 +103,34 @@ class BookController extends AbstractController
     /**
      * @Secure(roles="ROLE_TREASURER")
      */
+    public function actionsAction()
+    {
+        $request = $this->get('request');
+
+        // in the case where new is defined, we actually want to add a new entry, let's forward to the good action
+        if( $request->request->has('new') )
+        {
+            return $this->forward('AssoBookBundle:Book:new');
+        }
+
+        if( ! $request->request->has('entry_chk') )
+        {
+            $this->get('session')->setFlash('asso_book_error', 'book.flash.request.bad');
+            $this->redirect( $this->generateUrl('asso_book_list_entries') );
+        }
+
+        $assoId = $this->getAssoId();
+
+        $this->get('asso_book.service')->deleteEntries($request->request->get('entry_chk'), $assoId);
+
+        $this->get('session')->setFlash('asso_book_notice', 'book.flash.actions.delete');
+
+        return $this->redirect( $this->generateUrl('asso_book_list_entries') );
+    }
+
+    /**
+     * @Secure(roles="ROLE_TREASURER")
+     */
     public function newAction()
     {
         $assoId = $this->get('asso_am.asso_selector')->getAssoId();
@@ -112,7 +140,7 @@ class BookController extends AbstractController
 
         if( $formHandler->process($form) )
         {
-            $this->get('session')->setFlash('asso_book_notice', 'flash.entry.new');
+            $this->get('session')->setFlash('asso_book_notice', 'book.flash.entry.new');
 
             return $this->redirect(
                 $this->get('router')->generate('asso_book_list_entries')
@@ -134,7 +162,7 @@ class BookController extends AbstractController
 
         if( $formHandler->process() )
         {
-            $this->get('session')->setFlash('asso_book_notice', 'flash.account.new');
+            $this->get('session')->setFlash('asso_book_notice', 'book.flash.account.new');
 
             return $this->redirect(
                 $this->get('router')->generate('asso_book_showAccount', array('id' => $form->getData()->getId()))

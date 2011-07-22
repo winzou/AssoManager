@@ -1,0 +1,9 @@
+{% set notice_name = 'asso_' ~ bundle ~ '_notice' %}
+{% set error_name  = 'asso_' ~ bundle ~ '_error'  %}
+
+{% if app.session.hasFlash(notice_name) or app.session.hasFlash(error_name) %}
+    <div class="asso_message asso_message_{% if app.session.hasFlash(notice_name) %}notice{% else %}error{% endif %}">
+        {{ app.session.getFlash(notice_name)|trans([], 'Asso' ~ bundle|title ~ 'Bundle') }}
+        {{ app.session.getFlash(error_name)|trans([], 'Asso' ~ bundle|title ~ 'Bundle') }}
+    </div>
+{% endif %}

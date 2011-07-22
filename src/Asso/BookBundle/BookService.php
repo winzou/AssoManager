@@ -87,6 +87,11 @@ class BookService
         return $this->em->delete($entry);
     }
 
+    public function deleteEntries($ids, $asso_id)
+    {
+        return $this->em->deleteByIds($ids, $asso_id);
+    }
+
     public function deleteAccount(Account $account)
     {
         return $this->am->delete($account);

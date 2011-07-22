@@ -1,5 +1,7 @@
-﻿flash.entry.delete: Opération bien supprimée
-flash.entry.new:    Opération bien ajoutée
+﻿book.flash.entry.delete: Opération bien supprimée
+book.flash.entry.new:    Opération bien ajoutée
 
-flash.account.delete: Compte bien supprimé
-flash.account.new:    Compte bien ajouté
+book.flash.account.delete: Compte bien supprimé
+book.flash.account.new:    Compte bien ajouté
+
+book.flash.actions.delete: Opérations bien supprimées

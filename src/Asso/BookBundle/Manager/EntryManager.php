@@ -59,4 +59,16 @@ class EntryManager extends AbstractManager
     {
         return $this->getBy('account', $account, $array);
     }
+
+    public function deleteByIds($ids, $asso_id)
+    {
+        $qb = $this->_em->createQueryBuilder();
+
+        $qb ->delete($this->_entityName, 'e')
+            ->where($qb->expr()->in('e.id', $ids))
+            ->andWhere('e.account IN(SELECT a.id FROM Asso\BookBundle\Entity\Account AS a WHERE a.wrap = :asso_id)')
+                ->setParameter('asso_id', $asso_id);
+
+        return $qb->getQuery()->execute();
+    }
 }
