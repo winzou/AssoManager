@@ -76,6 +76,9 @@ jms_security_extra:
 fos_user:
     db_driver:     orm
     firewall_name: main
+    from_email:
+        address:     contact@assomanager.fr
+        sender_name: AssoManager
     user_class:    Asso\UserBundle\Entity\User
     group:
         group_class: Asso\UserBundle\Entity\Group
