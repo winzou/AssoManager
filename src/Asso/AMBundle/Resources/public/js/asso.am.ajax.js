@@ -5,7 +5,7 @@ $(document).ready(function() {
         
         try {
             var response = JSON.parse(jqXHR.responseText);
-            message = response.message ? response.message : 'Sf2: ' + response[0].message;
+            message = response.message ? response.message : 'Sf2 said: ' + response[0].message;
         }
         catch(err) {
             message = jqXHR.responseText;
@@ -31,30 +31,34 @@ $(document).ready(function() {
     });
 });
 
-$(".wbb_ajx_delete").click(function(){
+function asso_ajx_callback($this, url, callback) {
 	//$("#result").html(ajax_load);
-	$(this).fastConfirm({
+	$.ajax({
+		type:     'POST',
+		url:      url,
+		dataType: 'json',
+		success:  function(json) {
+			if(!json.code) {
+				alert( json[0].message ? json[0].message : 'Something went terribly wrong, server side.');
+			}
+			else {
+				callback($this);
+			}
+		    //$("#result").html(result);
+		 }
+	});
+}
+
+function asso_ajx_confirm($this, url, callback) {
+	$this.fastConfirm({
 		position:     "right",
 		questionText: "Are you sure?",
 		unique:       true,
 		onProceed:    function(trigger) {
-			$.ajax({
-				type:     'POST',
-				url:      $(trigger).attr('href') + '.json',
-				dataType: 'json',
-				success:  function(json) {
-					if(!json.code) {
-						alert( json[0].message ? json[0].message : 'Something went terribly wrong, server side.');
-					}
-					else {
-				    	$(trigger).closest('tr').fadeOut('slow');
-					}
-				    //$("#result").html(result);
-				 }
-			});
+			asso_ajx_callback($(trigger), url, callback);
 			$(trigger).fastConfirm('close');
 		}
 	});
-		
-	return false;
-});
+}
+
+
