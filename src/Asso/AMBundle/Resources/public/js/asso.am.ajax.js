@@ -62,3 +62,22 @@ function asso_ajx_confirm($this, url, callback) {
 }
 
 
+function asso_ajx_formSubmit($this, postCallback, preCallback) {
+	var options = { 
+        beforeSubmit: preCallback,  // pre-submit callback 
+        success:      postCallback,  // post-submit callback
+        dataType:     'json',
+        url:          $this.attr('action') + '.json'
+	};
+	//attach handler to form's submit event 
+	$this.submit(function() { 
+	    // submit the form 
+	    $(this).ajaxSubmit(options); 
+	    // return false to prevent normal browser submit and page navigation 
+	    return false; 
+	});
+}
+
+
+
+

@@ -27,7 +27,8 @@ asso_book_home:
     defaults: { _controller: AssoBookBundle:Book:listEntries }
 
 asso_book_actions:
-    pattern:  /actions
-    defaults: { _controller: AssoBookBundle:Book:actions }
+    pattern:  /actions.{_format}
+    defaults: { _controller: AssoBookBundle:Book:actions, _format: html }
     requirements:
         _method: post
+        _format: json

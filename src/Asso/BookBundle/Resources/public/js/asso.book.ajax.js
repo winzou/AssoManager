@@ -7,3 +7,11 @@ $(".asso_book_ajx_delete").click(function(){
 function asso_book_ajx_delete($this) {
 	$this.closest('tr').fadeOut('slow');
 }
+
+$("form.asso_book_ajx_new").each(function(){
+	asso_ajx_formSubmit($(this), asso_book_ajx_new);
+});
+
+function asso_book_ajx_new(data, statusText, xhr, $form) {
+	alert(data.code);
+}

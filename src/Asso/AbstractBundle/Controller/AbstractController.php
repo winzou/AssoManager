@@ -26,20 +26,43 @@ abstract class AbstractController extends Controller
      */
     public function render($view, array $parameters = array(), Response $response = null)
     {
+        $view = $this->getCustomView($view);
+
+        return parent::render ( $view , $parameters , $response );
+    }
+
+     /**
+     * Provide a shortcut to handle request format and engine guessing
+     *
+     * @param string $view
+     * @param array $parameters
+     * @param Response $response
+     *
+     * @return Response
+     */
+    public function renderView($view, array $parameters = array())
+    {
+        $view = $this->getCustomView($view);
+
+        return parent::renderView ( $view , $parameters );
+    }
+
+    private function getCustomView($view)
+    {
         // if no "." found : we want to use the shorcut
         if( strpos($view, '.') === false )
         {
             $request = $this->get('request');
 
-            if( $request->isXmlHttpRequest() AND $request->getRequestFormat() === 'html' )
+            /*if( $request->isXmlHttpRequest() AND $request->getRequestFormat() === 'html' )
             {
                 $view .= 'Base';
-            }
+            }*/
 
             $view .= '.'.$request->getRequestFormat().'.twig';
         }
 
-        return parent::render ( $view , $parameters , $response );
+        return $view;
     }
 
     /**

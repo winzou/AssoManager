@@ -10,6 +10,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass="Asso\BookBundle\Manager\EntryManager")
  * @ORM\Table(name="ass_book_entry")
+ *
+ * @Annotation
  */
 class Entry
 {

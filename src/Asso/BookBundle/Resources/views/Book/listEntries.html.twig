@@ -8,9 +8,9 @@
 		{{ form_errors(form) }}
 	</p>
 
-	<form action="{{ path('asso_book_actions') }}" method="post" {{ form_enctype(form) }} novalidate="novalidate">
+	<form action="{{ path('asso_book_actions') }}" method="post" {{ form_enctype(form) }} novalidate="novalidate" id="asso_book_ajx_new">
 
-	<table class="asso_book_datatables">
+	<table class="asso_book_datatables" id="asso_book_entries_table">
 		<colgroup>
 			<col class="wbb_tbl_check" />
 			<col class="wbb_tbl_date" />
@@ -40,22 +40,13 @@
 					<td>{{ form_widget(form.user, { 'attr': {'placeholder': 'Membre'} }) }} {{ form_errors(form.user) }}</td>
 					<td>{{ form_widget(form.amount.debit, { 'attr': {'placeholder': 'Debit'} }) }} {{ form_errors(form.amount.debit) }}</td>
 					<td>{{ form_widget(form.amount.credit, { 'attr': {'placeholder': 'Credit'} }) }} {{ form_errors(form.amount.credit) }}</td>
-					<td>{{ form_rest(form) }} <input type="submit" name="new" /></td>
+					<td>{{ form_rest(form) }} <input type="submit" name="new" id="asso_book_new" /></td>
 
 			</tr>
 		</thead>
 		<tbody>
 			{% for entry in entries %}
-				<tr>
-					<td><input type="checkbox" name="entry_chk[]" class="entry_chk" value="{{ entry.id }}" /></td>
-					<td>{{ entry.date|date('d/m/Y') }}</td>
-					<td>{{ entry.label }} ({{ entry.id }})</td>
-					<td>{{ entry.account.name }}</td>
-					<td>{% if entry.user.username is defined %}<a href="{{ path('asso_user_profile_show', {'username': entry.user.username}) }}">{{ entry.user.username }}</a>{% endif %}</td>
-					<td>{% if entry.amount < 0 %}{{ entry.amount }}{% endif %}</td>
-					<td>{% if entry.amount >= 0 %}{{ entry.amount }}{% endif %}</td>
-					<td><a class="asso_book_ajx_delete" href="{{ path('asso_book_delete_entry', {'id': entry.id}) }}">Delete</a></td>
-				</tr>
+				{% include "AssoBookBundle:Book:entry.html.twig" %}
 			{% else %}
 				<tr>
 					<td colspan="8">No entry found.</td>

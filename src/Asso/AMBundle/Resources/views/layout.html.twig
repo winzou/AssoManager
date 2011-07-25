@@ -5,10 +5,8 @@
         
         <title>{% block title %}AssoManager AM{% endblock %}</title>
         
-        {% stylesheets output='css/asso.am.min.css' filter='?yui_css, cssrewrite'
-        	'bundles/assoam/css/*'
-        	'bundles/assobook/css/*'
-        	'bundles/assomaterial/css/*' %}
+        {% stylesheets output='css/asso.am.min.css' filter='cssrewrite' debug=false
+        	'bundles/assoam/css/*' %}
         	
         	<link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="screen" />
         	
@@ -50,11 +48,10 @@
 			<p>winzou 2011, GPL - <a href="http://github.com/winzou/AssoManager">Fork it!</a></p>
 		</div>
     	
-        {% javascripts output='js/asso.am.min.js' filter='?yui_js'
+        {% javascripts output='js/asso.am.min.js' debug=false
         	'bundles/assoam/js/jquery-1.6.1.min.js'
         	'bundles/assoam/js/*'
-        	'bundles/assobook/js/*'
-			'bundles/assomaterial/js/*' %}
+        	'bundles/assobook/js/*' %}
         	
         	<script type="text/javascript" src="{{ asset_url }}"></script>
         	

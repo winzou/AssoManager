@@ -115,8 +115,7 @@ class BookController extends AbstractController
 
         if( ! $request->request->has('entry_chk') )
         {
-            $this->get('session')->setFlash('asso_book_error', 'book.flash.request.bad');
-            $this->redirect( $this->generateUrl('asso_book_list_entries') );
+            throw new \Exception('book.flash.request.bad');
         }
 
         $assoId = $this->getAssoId();
@@ -135,8 +134,26 @@ class BookController extends AbstractController
     {
         $assoId = $this->get('asso_am.asso_selector')->getAssoId();
 
+        /** @var Asso\BookBundle\Form\EntryHandler */
         $form        = $this->createForm( new EntryType($assoId) , $this->get('asso_book.entry_manager')->create() );
         $formHandler = $this->get('asso_book.forms.entry');
+
+        if( $this->getRequest()->isXmlHttpRequest() )
+        {
+            if( $formHandler->process($form) )
+            {
+                return new Response( json_encode(array(
+                    'code'   => true,
+                    'notice' => $this->get('translator')->trans('book.flash.entry.new', array(), 'AssoBookBundle'),
+                    'tr'     => $this->renderView('AssoBookBundle:Book:entry', array('entry' => $form->getData()))
+                )) );
+            }
+
+            return new Response( json_encode(array(
+                'code' => false,
+                'error' => 'Erreur' /** @todo How to retrieve all error messages here? */
+            )) );
+        }
 
         if( $formHandler->process($form) )
         {
