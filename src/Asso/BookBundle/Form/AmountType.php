@@ -57,6 +57,6 @@ class AmountType extends AbstractType
      */
     public function getName()
     {
-        return 'asso_book.amount';
+        return 'asso_book_amount_new';
     }
 }

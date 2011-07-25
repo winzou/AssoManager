@@ -75,4 +75,12 @@ class EntryType extends AbstractType
             'data_class' => 'Asso\BookBundle\Entity\Entry',
         );
     }
+
+    /**
+     * @see Symfony\Component\Form.AbstractType::getName()
+     */
+    public function getName()
+    {
+        return 'asso_book_entry_new';
+    }
 }
