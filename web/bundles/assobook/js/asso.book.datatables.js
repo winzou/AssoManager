@@ -19,10 +19,11 @@ $(document).ready(function() {
 
 
 function asso_book_datatables_delete(trigger) {alert($(trigger).closest('tr').get());
+	/** @todo why is this deleting the wrong entry? */
 	asso_book_entries_table.fnDeleteRow( $(trigger).closest('tr').get() );
 }
 
 function asso_book_datatables_add(entry) {
-	/** @todo why is this entry added at the end of the table ? */
+	/** @todo why is this entry added at the end of the table? */
 	asso_book_entries_table.fnAddData(entry);
 }
