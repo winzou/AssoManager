@@ -10,6 +10,6 @@ app/bootstrap.php.cache
 app/bootstrap_cache.php.cache
 vendor/*
 *.db
-web/css
-web/js
-web/img
+web/css/*
+web/js/*
+web/img/*
