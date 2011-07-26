@@ -29,7 +29,9 @@ use Symfony\Component\Httpfoundation\Response;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 
 use Asso\BookBundle\Form\EntryType;
+use Asso\BookBundle\Form\AccountType;
 use Asso\BookBundle\Entity\Entry;
+use Asso\BookBundle\Entity\Account;
 
 
 class BookController extends AbstractController
@@ -37,7 +39,7 @@ class BookController extends AbstractController
     /**
      * @Secure(roles="ROLE_TREASURER")
      */
-    public function deleteEntryAction($id)
+    public function delete_entryAction($id)
     {
         $em = $this->get('asso_book.entry_manager');
         $request = $this->get('request');
@@ -72,7 +74,7 @@ class BookController extends AbstractController
         }
 
         // get request: we only want the confirmation form
-        return $this->render( 'AssoBookBundle:Book:deleteEntry.html.twig', array(
+        return $this->render( 'AssoBookBundle:Book:delete_entry.html.twig', array(
             'entry' => $entry
         ));
     }
@@ -80,12 +82,13 @@ class BookController extends AbstractController
     /**
      * @Secure(roles="ROLE_TREASURER")
      */
-    public function listEntriesAction()
+    public function list_entriesAction()
     {
         $assoId = $this->getAssoId();
 
-        $entries = $this->get('asso_book.service')->getEntries( $assoId );
-        $form    = $this->createForm( new EntryType($assoId) , $this->get('asso_book.entry_manager')->create() );
+        $entries     = $this->get('asso_book.service')->getEntries( $assoId );
+        $form        = $this->createForm( new EntryType($assoId) , $this->get('asso_book.entry_manager')->create() );
+        $formAccount = $this->createForm( new AccountType , $this->get('asso_book.account_manager')->create() );
 
         if( $this->getRequest()->getRequestFormat() == 'json' )
         {
@@ -94,9 +97,10 @@ class BookController extends AbstractController
             throw new NotFoundHttpException('You must not request the json format, try with html.');
         }
 
-        return $this->render( 'AssoBookBundle:Book:listEntries.html.twig', array(
-            'entries' => $entries,
-            'form'    => $form->createView()
+        return $this->render( 'AssoBookBundle:Book:list_entries.html.twig', array(
+            'entries'     => $entries,
+            'form'        => $form->createView(),
+            'formAccount' => $formAccount->createView()
         ));
     }
 
@@ -110,7 +114,7 @@ class BookController extends AbstractController
         // in the case where new is defined, we actually want to add a new entry, let's forward to the good action
         if( $request->request->has('new') )
         {
-            return $this->forward('AssoBookBundle:Book:new');
+            return $this->forward('AssoBookBundle:Book:new_entry');
         }
 
         if( ! $request->request->has('entry_chk') )
@@ -130,9 +134,9 @@ class BookController extends AbstractController
     /**
      * @Secure(roles="ROLE_TREASURER")
      */
-    public function newAction()
+    public function new_entryAction()
     {
-        $assoId = $this->get('asso_am.asso_selector')->getAssoId();
+        $assoId = $this->getAssoId();
 
         /** @var Asso\BookBundle\Form\EntryHandler */
         $form        = $this->createForm( new EntryType($assoId) , $this->get('asso_book.entry_manager')->create() );
@@ -164,30 +168,100 @@ class BookController extends AbstractController
             );
         }
 
-        return $this->render('AssoBookBundle:Book:new', array(
+        return $this->render('AssoBookBundle:Book:new_entry', array(
             'form' => $form->createView()
+        ));
+    }
+    
+	/**
+     * @Secure(roles="ROLE_TREASURER")
+     */
+    public function edit_entryAction( Entry $entry )
+    {
+        $assoId = $this->getAssoId();
+        
+        if( $entry->getAccount()->getWrap()->getId() != $assoId )
+        {
+            throw new AccessDeniedException('User doesnt have access to this entry, or this entry doesnt exist.');
+        }
+
+        /** @var Asso\BookBundle\Form\EntryHandler */
+        $form        = $this->createForm( new EntryType($assoId) , $entry );
+        $formHandler = $this->get('asso_book.forms.entry');
+
+        if( $formHandler->process($form) )
+        {
+            $this->get('session')->setFlash('asso_book_notice', 'book.flash.entry.edit');
+
+            return $this->redirect(
+                $this->get('router')->generate('asso_book_list_entries')
+            );
+        }
+
+        return $this->render('AssoBookBundle:Book:edit_entry', array(
+            'form'  => $form->createView(),
+            'entry' => $entry
         ));
     }
 
     /**
      * @Secure(roles="ROLE_TREASURER")
      */
-    public function newAccountAction()
+    public function new_accountAction()
     {
-        $form = $this->get('asso_book.forms.account');
+        $account = $this->get('asso_book.account_manager')->create();
+        $account->setWrap($this->getAsso());
+        
+        $form        = $this->createForm( new AccountType , $account );
         $formHandler = $this->get('asso_book.forms.account_handler');
 
-        if( $formHandler->process() )
+        if( $formHandler->process($form) )
         {
             $this->get('session')->setFlash('asso_book_notice', 'book.flash.account.new');
 
             return $this->redirect(
-                $this->get('router')->generate('asso_book_showAccount', array('id' => $form->getData()->getId()))
+                $this->get('router')->generate('asso_book_list_entries', array('id' => $form->getData()->getId()))
             );
         }
 
-        return $this->render('AssoBookBundle:Book:newAccount', array(
+        return $this->render('AssoBookBundle:Book:new_account', array(
             'form' => $form->createView()
+        ));
+    }
+    
+	/**
+     * @Secure(roles="ROLE_TREASURER")
+     */
+    public function delete_accountAction( Account $account )
+    {
+        $am = $this->get('asso_book.account_manager');
+        $request = $this->get('request');
+
+        // check existence and permission
+        if( $account->getWrap()->getId() != $this->getAssoId() )
+        {
+            throw new AccessDeniedException('User doesnt have access to this account, or this account doesnt exist.');
+        }
+
+        // post request: we really want to do this action
+        if( $request->getMethod() == 'POST' )
+        {
+            $am->delete($account);
+
+            // normal request: set a flash and redirect to entries list
+            $this->get('session')->setFlash('asso_book_notice', 'book.flash.entry.delete');
+
+            return $this->redirect( $this->generateUrl('asso_book_list_entries') );
+        }
+
+        if( $request->getRequestFormat() == 'json')
+        {
+            throw new MethodNotAllowedHttpException(array('POST'), 'You must use the POST method here.');
+        }
+
+        // get request: we only want the confirmation form
+        return $this->render( 'AssoBookBundle:Book:delete_entry.html.twig', array(
+            'entry' => $entry
         ));
     }
 

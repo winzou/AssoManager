@@ -36,8 +36,7 @@ class AccountType extends AbstractType
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('wrap');
+            ->add('name');
     }
 
     /**
@@ -49,5 +48,13 @@ class AccountType extends AbstractType
         return array(
             'data_class' => 'Asso\BookBundle\Entity\Account',
         );
+    }
+    
+	/**
+     * @see Symfony\Component\Form.AbstractType::getName()
+     */
+    public function getName()
+    {
+        return 'asso_book_account_new';
     }
 }

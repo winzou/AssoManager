@@ -52,11 +52,6 @@ class AccountHandler extends AbstractFormHandler
         $this->accountManager->update($Account);
     }
 
-    protected function getDefaultObject()
-    {
-        return $this->accountManager->create();
-    }
-
     protected function getClass()
     {
         return $this->accountManager->getClass();

@@ -53,11 +53,6 @@ class EntryHandler extends AbstractFormHandler
         $this->entryManager->update($entry);
     }
 
-    public function getDefaultObject()
-    {
-        return $this->entryManager->create();
-    }
-
     public function getClass()
     {
         return $this->entryManager->getClass();

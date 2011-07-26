@@ -62,63 +62,63 @@ class AssoSelectorListener
      * @throws \LogicException
      */
     public function onSecurityInteractiveLogin(InteractiveLoginEvent $event)
-	{
-	    $user = $event->getAuthenticationToken()->getUser();
+    {
+        $user = $event->getAuthenticationToken()->getUser();
 
         if( count($user->getAssos()) > 1 )
-	    {
-	        /** @todo Handle multiple assos */
-	        throw new \LogicException('Case not handled yet');
-	    }
+        {
+            /** @todo Handle multiple assos */
+            throw new \LogicException('Case not handled yet');
+        }
 
-	    $this->Asso = $user->getAssos()->first();
-	    $this->_setAssoId( $this->Asso->getId() );
-	}
+        $this->Asso = $user->getAssos()->first();
+        $this->_setAssoId( $this->Asso->getId() );
+    }
 
-	/**
-	 * Check if the Asso id is available on each request
-	 *
-	 * @param FilterControllerEvent $event
-	 */
-	public function onKernelController(FilterControllerEvent $event)
-	{
-		if( $event->getRequestType() === HttpKernelInterface::MASTER_REQUEST )
-		{
-		    // if there is no Asso id
-		    if( ! $this->_hasAssoId() )
-		    {
-		        $controller = $event->getController();
+    /**
+     * Check if the Asso id is available on each request
+     *
+     * @param FilterControllerEvent $event
+     */
+    public function onKernelController(FilterControllerEvent $event)
+    {
+        if( $event->getRequestType() === HttpKernelInterface::MASTER_REQUEST )
+        {
+            // if there is no Asso id
+            if( ! $this->_hasAssoId() )
+            {
+                $controller = $event->getController();
+                
+                if( is_array($controller) AND method_exists ( $controller[0] , 'asso_needAssoSelected' ) )
+                {
+                    // and if we need it
+                    if( $controller[0]->asso_needAssoSelected($controller[1]) )
+                    {
+                        // then we redirect to the selection page
+                        $this->willRedirect = true;
+                        $event->setController(null);
+                    }
+                }
+            }
+        }
+    }
 
-		        if( is_array($controller) AND method_exists ( $controller[0] , 'asso_needAssoSelected' ) )
-			    {
-			        // and if we need it
-			        if( $controller[0]->asso_needAssoSelected($controller[1]) )
-			        {
-			            // then we redirect to the selection page
-			            $this->willRedirect = true;
-			            $event->setController(null);
-			        }
-			    }
-	        }
-		}
-	}
+    public function onKernelResponse(FilterResponseEvent $event)
+    {
+        if( $this->willRedirect )
+        {
+            $event->setResponse( new RedirectResponse($this->router->generate('asso_am_asso_select')) );
+        }
+    }
 
-	public function onKernelResponse(FilterResponseEvent $event)
-	{
-	    if( $this->willRedirect )
-	    {
-	        $event->setResponse( new RedirectResponse($this->router->generate('asso_am_asso_select')) );
-	    }
-	}
-
-	/**
-	 * Return the current Asso
-	 *
-	 * @throws \LogicException
-	 * @throws \Exception
-	 *
-	 * @return Asso
-	 */
+    /**
+     * Return the current Asso
+     *
+     * @throws \LogicException
+     * @throws \Exception
+     *
+     * @return Asso
+     */
     public function getAsso()
     {
         if( ! $this->Asso )
@@ -163,6 +163,10 @@ class AssoSelectorListener
         }
     }
 
+    /**
+     * Return the current Asso id
+     * @return int
+     */
     protected function _getAssoId()
     {
         return $this->session->get('asso_am.asso_id');
@@ -183,16 +187,28 @@ class AssoSelectorListener
         return true;
     }
 
+    /**
+     * Check if we have the Asso id
+     * @return bool
+     */
     protected function _hasAssoId()
     {
         return $this->session->has('asso_am.asso_id');
     }
 
+    /**
+     * Set the Asso id
+     * @param int $asso_id
+     */
     protected function _setAssoId($asso_id)
     {
         $this->session->set('asso_am.asso_id', $asso_id);
     }
 
+    /**
+     * Return the currenet user
+     * @return Symfony\Component\Security\Core\User\UserInterface
+     */
     protected function _getUser()
     {
         return $this->security->getToken()->getUser();

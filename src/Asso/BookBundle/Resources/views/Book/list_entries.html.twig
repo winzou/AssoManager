@@ -6,7 +6,15 @@
 
 	<p>
 		{{ form_errors(form) }}
+		{{ form_errors(formAccount) }}
 	</p>
+	
+	<form action="{{ path('asso_book_new_account') }}" method="post" {{ form_enctype(formAccount) }}>
+		<fieldset>
+			{{ form_widget(formAccount) }}
+			<input type="submit" value="Ajouter le nouveau Compte" />
+		</fieldset>
+	</form>
 
 	<form action="{{ path('asso_book_actions') }}" method="post" {{ form_enctype(form) }} novalidate="novalidate" id="asso_book_ajx_new">
 

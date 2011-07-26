@@ -1,16 +1,21 @@
 
-$(".asso_book_ajx_delete").click(function(){
-	asso_ajx_confirm($(this), $(this).attr('href') + '.json', asso_book_datatables_delete);
-	return false;
+$(document).ready(function() {
+
+    // delete links for each entry
+    $(".asso_book_ajx_delete").click(function() {
+        asso_ajx_confirm($(this), $(this).attr('href') + '.json', asso_book_datatables_delete);
+        return false;
+    });
+    
+    // submit button to add an entry
+    $("input#asso_book_new").click(function() {
+        $form = $('form#asso_book_ajx_new');
+        asso_ajx_form_submit($form, $form.attr('action') + '.json', asso_book_ajx_new, asso_book_ajx_new_pre);
+        return false;
+    });
 });
 
 // ------------------------------------
-
-$("input#asso_book_new").click(function() {
-	$form = $(this).closest('form');
-	asso_ajx_form_submit($form, $form.attr('action') + '.json', asso_book_ajx_new, asso_book_ajx_new_pre);
-	return false;
-});
 
 function asso_book_ajx_new(data, statusText, xhr, $form) {
 	if(data.code == true) {
@@ -34,12 +39,6 @@ function asso_book_ajx_new(data, statusText, xhr, $form) {
 }
 
 function asso_book_ajx_new_pre(formData, jqForm, options) {
-	// just add 22
+	// just add the 'new' value so that PHP will know we want to add an entry
 	formData.push({'name': 'new', 'value':'true' });
 }
-
-// ------------------------------------
-
-$("form#asso_book_ajx_new tfoot input[type=submit]").click(function() {
-	
-});

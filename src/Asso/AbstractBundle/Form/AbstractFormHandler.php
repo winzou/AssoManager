@@ -15,13 +15,6 @@ abstract class AbstractFormHandler
 
 
     /**
-     * Return an instance of the currently handled object, filled in with the default values
-     *
-     * @return instanceof $this->getClass()
-     */
-    abstract public function getDefaultObject();
-
-    /**
      * Return the class of the currently handled object
      *
      * @return string

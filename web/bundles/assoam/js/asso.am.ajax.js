@@ -95,7 +95,7 @@ function asso_ajx_form_submit($this, url, postCallback, preCallback) {
 			url:          url ? url : $this.attr('action')
 		};
 	
-	$(this).ajaxSubmit(options); 
+	$this.ajaxSubmit(options); 
 }
 
 
