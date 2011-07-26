@@ -21,6 +21,7 @@ $loader->registerNamespaces(array(
     'Elao'             => __DIR__.'/../vendor/bundles',
     'FOS'              => __DIR__.'/../vendor/bundles',
     'Stof'             => __DIR__.'/../vendor/bundles',
+    'CoreSphere'       => __DIR__.'/../vendor/bundles',
     
     'winzou'           => __DIR__.'/../../asf2Vendor',
 

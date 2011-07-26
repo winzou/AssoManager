@@ -10,6 +10,9 @@ _profiler:
     resource: "@WebProfilerBundle/Resources/config/routing/profiler.xml"
     prefix:   /_profiler
 
+console:
+    resource: "@CoreSphereConsoleBundle/Resources/config/routing.yml"
+
 #_configurator:
 #    resource: "@SymfonyWebConfiguratorBundle/Resources/config/routing/configurator.xml"
 #    prefix:   /_configurator

@@ -82,3 +82,7 @@
 [DoctrineFixturesBundle]
     git=http://github.com/symfony/DoctrineFixturesBundle.git
     target=/bundles/Symfony/Bundle/DoctrineFixturesBundle
+
+[CoreSphereConsoleBundle]
+    git=http://github.com/CoreSphere/ConsoleBundle.git
+    target=/bundles/CoreSphere/ConsoleBundle

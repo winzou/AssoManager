@@ -39,6 +39,9 @@ class AppKernel extends Kernel
             $bundles[] = new JMS\DebuggingBundle\JMSDebuggingBundle($this);
             $bundles[] = new Elao\WebProfilerExtraBundle\WebProfilerExtraBundle();
             $bundles[] = new Symfony\Bundle\DoctrineFixturesBundle\DoctrineFixturesBundle();
+            $bundles[] = new CoreSphere\ConsoleBundle\CoreSphereConsoleBundle();
+            $bundles[] = new Asso\ConsoleBundle\AssoConsoleBundle();
+            
         }
 
         return $bundles;
