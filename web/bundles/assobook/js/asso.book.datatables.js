@@ -3,8 +3,7 @@
 var asso_book_datatables = {
 	
 	'datatable': null,
-	'accounts':  new Array(),
-	'truc': 'moi',
+	'accounts':  [],
 	
 	'ids': {},
 	
@@ -41,7 +40,7 @@ var asso_book_datatables = {
 	},
 	
 	'save_datatable_content': function() {
-		this.accounts[$(this.ids.datatable).attr('data-id')] = this.datatable.fnGetData();
+		this.accounts[$(this.ids.table).attr('data-id')] = this.datatable.fnGetData();
 	},
 	
 	'listen_switch_clicks': function() {
@@ -64,7 +63,7 @@ var asso_book_datatables = {
 				// update the table
 				asso_book_datatables.datatable.fnAddData( asso_book_datatables.accounts[clicked_id] );
 			}
-			// ptherwise we go and retrieve it from the server
+			// otherwise we go and retrieve it from the server
 			else {
 				// load the new data and update the table with it
 				$.get($(this).attr('href'), function(data) {
