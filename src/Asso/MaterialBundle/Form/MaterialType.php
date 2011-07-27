@@ -31,4 +31,12 @@ class MaterialType extends AbstractType
             'data_class' => 'Asso\MaterialBundle\Entity\Material',
         );
     }
+    
+	/**
+     * @see Symfony\Component\Form.AbstractType::getName()
+     */
+    public function getName()
+    {
+        return 'asso_material_material_new';
+    }
 }
