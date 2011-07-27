@@ -9,7 +9,7 @@ var asso_book_datatables = {
 	'ids': {},
 	
 	'is_active': function() {
-		return ( $(this.ids.table) != null );
+		return $(this.ids.table).length;
 	},
 	
 	'init': function(init_ids) {
