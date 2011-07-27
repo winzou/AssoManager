@@ -16,13 +16,17 @@ asso_book_delete_entry:
     requirements:
         _format: json
 
+asso_book_delete_account:
+    pattern:  /deleteAccount/{id}
+    defaults: { _controller: AssoBookBundle:Book:delete_account }
+
 asso_book_edit_entry:
     pattern:  /editEntry/{id}
     defaults: { _controller: AssoBookBundle:Book:edit_entry, _format: html }
 
 asso_book_list_entries:
-    pattern:  /listEntries.{_format}
-    defaults: { _controller: AssoBookBundle:Book:list_entries, _format: html }
+    pattern:  /listEntries/{id}.{_format}
+    defaults: { _controller: AssoBookBundle:Book:list_entries, _format: html, id: 0 }
     requirements:
         _format: json
 

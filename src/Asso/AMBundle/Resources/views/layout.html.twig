@@ -2,19 +2,20 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        
+
         <title>{% block title %}AssoManager AM{% endblock %}</title>
-        
+
         {% stylesheets output='css/asso.am.min.css' filter='cssrewrite' debug=false
-        	'bundles/assoam/css/*' %}
-        	
+        	'bundles/assoam/css/*'
+        	'bundles/assobook/css/*' %}
+
         	<link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="screen" />
-        	
+
         {% endstylesheets %}
     </head>
-    
+
     <body>
-    	
+
     	<div id="header">
 			<div>
                 <h3>Mon Compte</h3>
@@ -27,7 +28,7 @@
                 </ul>
             </div>
 		</div>
-		
+
     	<div id="container">
     	    <nav>
     	       <ul>
@@ -38,23 +39,23 @@
     	           <li><a href="#">Lien 5</a></li>
     	       </ul>
     	    </nav>
-    	    
+
     	    <div id="content">
     		  {% block body %}BundleTemplate not good enough...{% endblock %}
     		</div>
     	</div>
-    	
+
     	<div id="footer">
 			<p>winzou 2011, GPL - <a href="http://github.com/winzou/AssoManager">Fork it!</a></p>
 		</div>
-    	
+
         {% javascripts output='js/asso.am.min.js' debug=false
         	'bundles/assoam/js/jquery-1.6.1.min.js'
         	'bundles/assoam/js/*'
         	'bundles/assobook/js/*' %}
-        	
+
         	<script type="text/javascript" src="{{ asset_url }}"></script>
-        	
+
         {% endjavascripts %}
     </body>
 </html>

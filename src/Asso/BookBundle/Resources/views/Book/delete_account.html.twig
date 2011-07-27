@@ -1,0 +1,20 @@
+{% extends "AssoBookBundle::layout.html.twig" %}
+
+{% block asso_book_body %}
+	<p>
+		Etes-vous certain de vouloir supprimer le compte "{{ account.name }}" ?<br />
+
+		{% if nb_entries > 0 %}
+			Attention, ce compte contient encore <strong>{{ nb_entries }}</strong> entrées qui seront supprimées également !
+		{% else %}
+			Ce compte ne contient plus d'entrées, vous pouvez le supprimer en toute sécurité.
+		{% endif %}
+
+
+		<form action="{{ path('asso_book_delete_account', {'id': account.id}) }}" method="post">
+			<input type="submit" value="Oui, supprimer" />
+		</form>
+		-
+		<a href="{{ path('asso_book_list_entries') }}">Non, retour</a>
+	</p>
+{% endblock %}

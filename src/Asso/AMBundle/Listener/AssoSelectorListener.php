@@ -88,7 +88,7 @@ class AssoSelectorListener
             if( ! $this->_hasAssoId() )
             {
                 $controller = $event->getController();
-                
+
                 if( is_array($controller) AND method_exists ( $controller[0] , 'asso_needAssoSelected' ) )
                 {
                     // and if we need it

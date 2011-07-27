@@ -8,17 +8,24 @@
 		{{ form_errors(form) }}
 		{{ form_errors(formAccount) }}
 	</p>
-	
+
 	<form action="{{ path('asso_book_new_account') }}" method="post" {{ form_enctype(formAccount) }}>
-		<fieldset>
-			{{ form_widget(formAccount) }}
-			<input type="submit" value="Ajouter le nouveau Compte" />
-		</fieldset>
+    	<fieldset>
+    		<legend>Comptes</legend>
+        	<ul class="asso_buttons">
+        	    {% for account in accounts %}
+        	    	<li>
+        	    		<a href="{{ path('asso_book_list_entries', {'id': account.id}) }}" class="asso_button {% if account.id == cur_account.id %}asso_button_checked{% endif %} asso_book_account_switch" data-id="{{ account.id }}">{{ account.name }}</a>
+        	    		<a href="{{ path('asso_book_delete_account', {'id': account.id}) }}" class="asso_button asso_button_delete">X</a>
+        	    	</li>
+        	    {% endfor %}
+        	</ul>
+        </fieldset>
 	</form>
 
 	<form action="{{ path('asso_book_actions') }}" method="post" {{ form_enctype(form) }} novalidate="novalidate" id="asso_book_ajx_new">
 
-	<table class="asso_book_datatables" id="asso_book_entries_table">
+	<table class="asso_book_datatables" id="asso_book_entries_table" data-id="{{ cur_account.id }}">
 		<colgroup>
 			<col class="wbb_tbl_check" />
 			<col class="wbb_tbl_date" />
@@ -46,8 +53,7 @@
 					<td>{{ form_widget(form.label, { 'attr': {'placeholder': 'Libelle'} }) }} {{ form_errors(form.label) }}</td>
 					<td>{{ form_widget(form.account, { 'attr': {'placeholder': 'Compte'} }) }} {{ form_errors(form.account) }}</td>
 					<td>{{ form_widget(form.user, { 'attr': {'placeholder': 'Membre'} }) }} {{ form_errors(form.user) }}</td>
-					<td>{{ form_widget(form.amount.debit, { 'attr': {'placeholder': 'Debit'} }) }} {{ form_errors(form.amount.debit) }}</td>
-					<td>{{ form_widget(form.amount.credit, { 'attr': {'placeholder': 'Credit'} }) }} {{ form_errors(form.amount.credit) }}</td>
+					<td colspan="2">{{ form_widget(form.amount, { 'attr': {'placeholder': 'Debit'} }) }} {{ form_errors(form.amount) }}</td>
 					<td>{{ form_rest(form) }} <input type="submit" name="new" id="asso_book_new" /></td>
 
 			</tr>

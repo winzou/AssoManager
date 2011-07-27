@@ -22,6 +22,9 @@ namespace Asso\BookBundle;
 use Asso\BookBundle\Manager\EntryManager;
 use Asso\BookBundle\Manager\AccountManager;
 
+use Asso\BookBundle\Entity\Entry;
+use Asso\BookBundle\Entity\Account;
+
 /**
  * Base book service
  * @author winzou
@@ -41,15 +44,25 @@ class BookService
      * @param EntryManager $em
      * @param AccountManager $am
      */
-    public function __construct($em, $am)
+    public function __construct(EntryManager $em, AccountManager $am)
     {
         $this->em = $em;
         $this->am = $am;
     }
 
-    public function getEntries($wrap)
+    public function getEntry($id)
     {
-        return $this->em->getByWrap($wrap);
+        return $this->em->getFullOne($id);
+    }
+
+    public function getAccount($id)
+    {
+        return $this->am->find($id);
+    }
+
+    public function getEntries(Account $account)
+    {
+        return $this->em->getByAccount($account);
     }
 
     public function getAccounts($wrap)
@@ -94,11 +107,22 @@ class BookService
 
     public function deleteAccount(Account $account)
     {
-        return $this->am->delete($account);
+        return ( $this->em->deleteByAccount($account, false)
+            AND $this->am->delete($account) );
     }
 
     public function deleteAccountsByWrap($wrap)
     {
         return $this->am->deleteByWrap($wrap);
+    }
+
+    public function countEntries(Account $account)
+    {
+        return $this->em->countByAccount($account);
+    }
+
+    public function filterEntries(array $list_ids, $asso_id)
+    {
+        return $this->em->filter($list_ids, $asso_id);
     }
 }

@@ -54,10 +54,10 @@ abstract class AbstractController extends Controller
         {
             $request = $this->get('request');
 
-            /*if( $request->isXmlHttpRequest() AND $request->getRequestFormat() === 'html' )
+            if( $request->isXmlHttpRequest() AND $request->getRequestFormat() === 'html' )
             {
-                $view .= 'Base';
-            }*/
+                $view .= '_base';
+            }
 
             $view .= '.'.$request->getRequestFormat().'.twig';
         }

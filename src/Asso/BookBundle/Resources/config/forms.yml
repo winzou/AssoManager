@@ -1,6 +1,7 @@
 parameters:
     asso_book.forms.entry.class: Asso\BookBundle\Form\EntryHandler
     asso_book.forms.account.class: Asso\BookBundle\Form\AccountHandler
+    asso_book.forms.account_delete.class: Asso\BookBundle\Form\AccountDeleteHandler
 
 services:
     asso_book.forms.entry:
@@ -12,3 +13,8 @@ services:
         class:     %asso_book.forms.account.class%
         scope:     request
         arguments: [@request, @asso_book.account_manager]
+
+    asso_book.forms.account_delete:
+        class:     %asso_book.forms.account_delete.class%
+        scope:     request
+        arguments: [@request, @asso_book.service]

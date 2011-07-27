@@ -52,7 +52,7 @@ class EntryType extends AbstractType
 
         $builder
             ->add('label')
-            ->add('amount', new AmountType)
+            ->add('amount')
             ->add('date')
             ->add('account', 'entity', array(
                 'class'         => 'AssoBookBundle:Account',

@@ -20,7 +20,9 @@
 namespace Asso\BookBundle\Manager;
 
 use Asso\AbstractBundle\Manager\AbstractManager;
+
 use Asso\BookBundle\Entity\Entry;
+use Asso\BookBundle\Entity\Account;
 
 use Doctrine\ORM\Query;
 
@@ -60,15 +62,48 @@ class EntryManager extends AbstractManager
         return $this->getBy('account', $account, $array);
     }
 
-    public function deleteByIds($ids, $asso_id)
+    public function deleteByIds($ids, $wrap_id)
     {
         $qb = $this->_em->createQueryBuilder();
 
         $qb ->delete($this->_entityName, 'e')
             ->where($qb->expr()->in('e.id', $ids))
-            ->andWhere('e.account IN(SELECT a.id FROM Asso\BookBundle\Entity\Account AS a WHERE a.wrap = :asso_id)')
-                ->setParameter('asso_id', $asso_id);
+            ->andWhere('e.account IN(SELECT a.id FROM Asso\BookBundle\Entity\Account AS a WHERE a.wrap = :wrap_id)')
+                ->setParameter('wrap_id', $wrap_id);
 
         return $qb->getQuery()->execute();
+    }
+
+    public function deleteByAccount(Account $account)
+    {
+        $qb = $this->_em->createQueryBuilder()
+            ->delete($this->_entityName, 'e')
+            ->where('e.account = :account')
+                ->setParameter('account', $account);
+
+        return $qb->getQuery()->execute();
+    }
+
+    public function countByAccount(Account $account)
+    {
+        $qb = $this->createQueryBuilder('e');
+
+        $qb ->select($qb->expr()->count('e'))
+            ->where('e.account = :account')
+                ->setParameter('account', $account);
+
+        return (int) $qb->getQuery()->getSingleScalarResult();
+    }
+
+    public function filter(array $list_ids, $wrap_id)
+    {
+        $qb = $this->_em->createQueryBuilder();
+
+        $qb ->select('e.id')
+            ->where($qb->expr()->in('e.id', $list_ids))
+            ->andWhere('e.account IN(SELECT a.id FROM Asso\BookBundle\Entity\Account AS a WHERE a.wrap = :wrap_id)')
+                ->setParameter('wrap_id', $wrap_id);
+
+        return $qb->getQuery()->getScalarResult();
     }
 }

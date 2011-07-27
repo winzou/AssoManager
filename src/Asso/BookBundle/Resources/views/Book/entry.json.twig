@@ -1,0 +1,11 @@
+{
+	'<input type="checkbox" name="entry_chk[]" class="entry_chk" value="{{ entry.id }}" />',
+	{{ entry.date|date('d/m/Y')|json_encode }},
+	{{ entry.label|json_encode }},
+	{{ entry.account.name|json_encode }},
+	'{% if entry.user.username is defined %}<a href="{{ path('asso_user_profile_show', {'username': entry.user.username}) }}">{{ entry.user.username }}</a>{% endif %}',
+	'{% if entry.amount < 0 %}{{ entry.amount }}{% endif %}',
+	'{% if entry.amount >= 0 %}{{ entry.amount }}{% endif %}',
+	'<a class="asso_book_ajx_delete" href="{{ path('asso_book_delete_entry', {'id': entry.id}) }}">Supprimer</a> -
+						<a href="{{ path('asso_book_edit_entry', {'id': entry.id}) }}">Modifier</a>'
+}

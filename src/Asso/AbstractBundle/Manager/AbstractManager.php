@@ -54,7 +54,7 @@ abstract class AbstractManager extends EntityRepository
      * @param $this->_entityName $entity
      * @throws \InvalidArgumentException
      */
-    public function delete($entity)
+    public function delete($entity, $andFlush = true)
     {
         if( ! $entity instanceof $this->_entityName )
         {
@@ -62,7 +62,11 @@ abstract class AbstractManager extends EntityRepository
         }
 
         $this->_em->remove($entity);
-        $this->_em->flush();
+
+        if( $andFlush )
+        {
+            $this->_em->flush();
+        }
     }
 
     /**

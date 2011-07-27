@@ -52,10 +52,11 @@ ul, ol {
 
 #container nav li {
 	float: left;
-    background-color: #CCCCFF;
-    border-right: 1px solid white;
 }
+
 #container nav li a {
+	background-color: #CCCCFF;
+    border-right: 1px solid white;
 	height: 2em;
 	display: block;
 	padding-left: 0.7em;
@@ -110,4 +111,13 @@ tr:nth-child(even) {
 }
 tr:nth-child(odd) {
 	background: #EEEEEE;
+}
+
+
+
+
+
+
+#content fieldset {
+	margin: 1em auto;
 }
