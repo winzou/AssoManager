@@ -2,7 +2,7 @@
 					<td><input type="checkbox" name="entry_chk[]" class="entry_chk" value="{{ entry.id }}" /></td>
 					<td>{{ entry.date|date('d/m/Y') }}</td>
 					<td>{{ entry.label }} ({{ entry.id }})</td>
-					<td>{{ entry.account.name }}</td>
+					<td>{{ entry.category.name }}</td>
 					<td>{% if entry.user.username is defined %}<a href="{{ path('asso_user_profile_show', {'username': entry.user.username}) }}">{{ entry.user.username }}</a>{% endif %}</td>
 					<td>{% if entry.amount < 0 %}{{ entry.amount }}{% endif %}</td>
 					<td>{% if entry.amount >= 0 %}{{ entry.amount }}{% endif %}</td>

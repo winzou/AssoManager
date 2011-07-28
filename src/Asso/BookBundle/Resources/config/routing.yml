@@ -18,7 +18,7 @@ asso_book_delete_entry:
 
 asso_book_delete_account:
     pattern:  /deleteAccount/{id}
-    defaults: { _controller: AssoBookBundle:Book:delete_account }
+    defaults: { _controller: AssoBookBundle:Book:delete_account, id: 0 }
 
 asso_book_edit_entry:
     pattern:  /editEntry/{id}

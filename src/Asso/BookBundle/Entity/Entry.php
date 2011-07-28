@@ -34,6 +34,12 @@ class Entry
     protected $account;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Asso\BookBundle\Entity\Category")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    protected $category;
+
+    /**
      * @ORM\Column(type="date")
      *
      * @Assert\NotBlank
@@ -87,6 +93,23 @@ class Entry
     public function setAccount(Account $account)
     {
         $this->account = $account;
+    }
+
+	/**
+     * Get Category
+     * @return Category
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+    /**
+     * Set Category
+     * @param Category $category
+     */
+    public function setCategory(Category $category)
+    {
+        $this->category = $category;
     }
 
     /**

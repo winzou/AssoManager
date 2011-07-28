@@ -1,40 +1,39 @@
 
-var asso_book_ajx = {
+var Asso_book_ajx = function(init_ids) {
 	
-	'ids': {},
+	var that = this;
+	
+	this.ids = init_ids;
 		
-	'is_active': function() {
+	this.is_active = function() {
 		return true;
-	},
+	};
 	
-	'init': function(init_ids) {
-		
-		this.ids = init_ids;
-		
-		if( this.is_active() ) {
-			this.listen_delete_links();
-			this.listen_new_links();
+	this.init = function() {
+		if( that.is_active() ) {
+			that.listen_delete_links();
+			that.listen_new_links();
 		}
-	},
+	};
 	
-	'listen_delete_links': function() {
+	this.listen_delete_links = function() {
 		// delete links for each entry
-		$(this.ids.delete_link).click(function() {
-	        asso_am_ajx.confirm($(this), $(this).attr('href') + '.json', asso_book_datatables.delete_entry);
+		$(that.ids.delete_link).click(function() {
+	        asso_am_ajx.confirm($(this), $(this).attr('href') + '.json', abook_dt.delete_entry);
 	        return false;
 	    });
-	},
+	};
 	
-	'listen_new_links': function() {
+	this.listen_new_links = function() {
 		// submit button to add an entry
-	    $(this.ids.new_button).click(function() {
-	        $form = $(asso_book_ajx.ids.new_form);
-	        asso_am_ajx.form_submit($form, $form.attr('action') + '.json', asso_book_ajx.new_post, asso_book_ajx.new_pre);
+	    $(that.ids.new_button).click(function() {
+	        $form = $(that.ids.new_form);
+	        asso_am_ajx.form_submit($form, $form.attr('action') + '.json', that.new_post, that.new_pre);
 	        return false;
 	    });
-	},
+	};
 	
-	'new_post': function(data, statusText, xhr, $form) {
+	this.new_post = function(data, statusText, xhr, $form) {
 		if(data.code == true) {
 			// display the message
 			alert(data.notice);
@@ -42,25 +41,40 @@ var asso_book_ajx = {
 			// reset the form
 			$form.resetForm();
 			
-			asso_book_datatables.add_entry( asso_am_datatables.tr2array(data.tr) );
+			abook_dt.add_entry( asso_am_datatables.tr2array(data.tr) );
 		}
 		else {
 			alert(data.error);
 		}
-	},
+	};
 	
-	'new_pre': function(formData, jqForm, options) {
+	this.new_pre = function(formData, jqForm, options) {
 		// just add the 'new' value so that PHP will know we want to add an entry
 		formData.push({'name': 'new', 'value':'true' });
-	}
+	};
+	
+	this.set_account = function(id) {
+		$(that.ids.new_account_id).children().each(function() {
+			if($(this).val() == id) {
+				$(this).attr('selected', 'selected');
+			}
+			else {
+				$(this).removeAttr('selected');
+			}
+		});
+	};
 };
+
+var abook_ajx = new Asso_book_ajx({
+	'delete_link': '.asso_book_ajx_delete',
+	'new_button':  'input#asso_book_new',
+	'new_form':	   'form#asso_book_ajx_new',
+	'new_account_id': '#asso_book_entry_new_account',
+	'new_account_form': 
+});
 
 $(document).ready(function() {
 
-    asso_book_ajx.init({
-    	'delete_link': '.asso_book_ajx_delete',
-    	'new_button':  'input#asso_book_new',
-    	'new_form':	   'form#asso_book_ajx_new'
-    });
+    abook_ajx.init();
     
 });

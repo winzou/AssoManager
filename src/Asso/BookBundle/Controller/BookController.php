@@ -103,8 +103,11 @@ class BookController extends AbstractController
 
         $entries = $book->getEntries( $account );
 
-        $form        = $this->createForm( new EntryType($assoId) , $this->get('asso_book.entry_manager')->create() );
-        $formAccount = $this->createForm( new AccountType , $this->get('asso_book.account_manager')->create() );
+        $entryForm = $book->createEntry();
+        $entryForm->setAccount($account);
+
+        $form        = $this->createForm( new EntryType($assoId) , $entryForm );
+        $formAccount = $this->createForm( new AccountType , $book->createAccount() );
 
         return $this->render( 'AssoBookBundle:Book:list_entries', array(
             'entries'     => $entries,
@@ -223,11 +226,11 @@ class BookController extends AbstractController
      */
     public function new_accountAction()
     {
-        $account = $this->get('asso_book.account_manager')->create();
+        $account = $this->get('asso_book.service')->createAccount();
         $account->setWrap($this->getAsso());
 
         $form        = $this->createForm( new AccountType , $account );
-        $formHandler = $this->get('asso_book.forms.account_handler');
+        $formHandler = $this->get('asso_book.forms.account');
 
         if( $formHandler->process($form) )
         {
@@ -238,7 +241,7 @@ class BookController extends AbstractController
             );
         }
 
-        return $this->render('AssoBookBundle:Book:new_account', array(
+        return $this->render('AssoBookBundle:Book:list_entries', array(
             'form' => $form->createView()
         ));
     }
@@ -246,15 +249,21 @@ class BookController extends AbstractController
 	/**
      * @Secure(roles="ROLE_TREASURER")
      */
-    public function delete_accountAction( Account $account )
+    public function delete_accountAction( $id )
     {
+        $book = $this->get('asso_book.service');
+
+        if( $id == 0 AND $this->getRequest()->query->has('asso_book_delete_account') )
+        {
+            $id = $this->getRequest()->query->get('asso_book_delete_account');
+        }
+
         // check existence and permission
-        if( $account->getWrap()->getId() != $this->getAssoId() )
+        if( ! $account = $book->getAccount($id)
+        OR $account->getWrap()->getId() != $this->getAssoId() )
         {
             throw new AccessDeniedException('User doesnt have access to this account, or this account doesnt exist.');
         }
-
-        $book = $this->get('asso_book.service');
 
         // post request: we really want to do this action
         if( $this->get('request')->getMethod() == 'POST' )

@@ -9,18 +9,44 @@
 		{{ form_errors(formAccount) }}
 	</p>
 
-	<form action="{{ path('asso_book_new_account') }}" method="post" {{ form_enctype(formAccount) }}>
-    	<fieldset>
-    		<legend>Comptes</legend>
-        	<ul class="asso_buttons">
-        	    {% for account in accounts %}
-        	    	<li>
-        	    		<a href="{{ path('asso_book_list_entries', {'id': account.id}) }}" class="asso_button {% if account.id == cur_account.id %}asso_button_checked{% endif %} asso_book_account_switch" data-id="{{ account.id }}">{{ account.name }}</a>
-        	    		<a href="{{ path('asso_book_delete_account', {'id': account.id}) }}" class="asso_button asso_button_delete">X</a>
-        	    	</li>
-        	    {% endfor %}
-        	</ul>
-        </fieldset>
+
+	<fieldset style="float:left;">
+		<legend>Liste des comptes</legend>
+    	<ul class="asso_buttons">
+    	    {% for account in accounts %}
+    	    	<li>
+    	    		<a href="{{ path('asso_book_list_entries', {'id': account.id}) }}" class="asso_button {% if account.id == cur_account.id %}asso_button_checked{% endif %} asso_book_account_switch" data-id="{{ account.id }}">{{ account.name }}</a>
+    	    		<a href="{{ path('asso_book_delete_account', {'id': account.id}) }}" class="asso_button asso_button_delete">X</a>
+    	    	</li>
+    	    {% endfor %}
+    	</ul>
+    </fieldset>
+
+    <fieldset style="float:left;">
+    	<legend>Actions sur les comptes</legend>
+
+    	<form action="{{ path('asso_book_new_account') }}" method="post" {{ form_enctype(formAccount) }}>
+        	<div>
+            	{{ form_widget(formAccount.name, { 'attr': {'placeholder': 'Nouveau compte...'} }) }}
+            	{{ form_errors(formAccount.name) }}
+            	{{ form_rest(formAccount) }}
+            	<input type="submit" value="Créer" />
+            </div>
+        </form>
+		<hr />
+        <form action="{{ path('asso_book_delete_account') }}" method="get">
+        	<div>
+        		<select name="asso_book_delete_account">
+        			<option value="0">Sélectionnez un compte...</option>
+        			{% for account in accounts %}
+            	    	<option value="{{ account.id }}">{{ account.name }}</option>
+            	    {% endfor %}
+        		</select>
+        		<input type="submit" value="Supprimer..." />
+        	</div>
+        </form>
+
+    </fieldset>
 	</form>
 
 	<form action="{{ path('asso_book_actions') }}" method="post" {{ form_enctype(form) }} novalidate="novalidate" id="asso_book_ajx_new">
@@ -30,7 +56,7 @@
 			<col class="wbb_tbl_check" />
 			<col class="wbb_tbl_date" />
 			<col class="wbb_tbl_label" />
-			<col class="wbb_tbl_account" />
+			<col class="wbb_tbl_category" />
 			<col class="wbb_tbl_user" />
 			<col class="wbb_tbl_debit" />
 			<col class="wbb_tbl_credit" />
@@ -40,21 +66,41 @@
 			<tr>
 				<th><input type="checkbox" class="asso_ajx_checkbox" name="entry_chk" /></th>
 				<th>Date</th>
-				<th>Label</th>
-				<th>Account</th>
-				<th>User</th>
-				<th>Debit</th>
-				<th>Credit</th>
+				<th>Libellé</th>
+				<th>Catégorie</th>
+				<th>Membre</th>
+				<th>Débit</th>
+				<th>Crédit</th>
 				<th>Actions</th>
 			</tr>
 			<tr>
 					<td></td>
-					<td>{{ form_widget(form.date, { 'attr': {'placeholder': 'Date'} }) }} {{ form_errors(form.date) }}</td>
-					<td>{{ form_widget(form.label, { 'attr': {'placeholder': 'Libelle'} }) }} {{ form_errors(form.label) }}</td>
-					<td>{{ form_widget(form.account, { 'attr': {'placeholder': 'Compte'} }) }} {{ form_errors(form.account) }}</td>
-					<td>{{ form_widget(form.user, { 'attr': {'placeholder': 'Membre'} }) }} {{ form_errors(form.user) }}</td>
-					<td colspan="2">{{ form_widget(form.amount, { 'attr': {'placeholder': 'Debit'} }) }} {{ form_errors(form.amount) }}</td>
-					<td>{{ form_rest(form) }} <input type="submit" name="new" id="asso_book_new" /></td>
+					<td>
+					    {{ form_widget(form.date, { 'attr': {'placeholder': 'Date'} }) }}
+					    {{ form_errors(form.date) }}
+					</td>
+					<td>
+					    {{ form_widget(form.label, { 'attr': {'placeholder': 'Libellé'} }) }}
+					    {{ form_errors(form.label) }}
+					</td>
+					<td>
+					    {{ form_widget(form.category, { 'attr': {'placeholder': 'Catégorie'} }) }}
+					    {{ form_errors(form.category) }}
+					</td>
+					<td>
+					    {{ form_widget(form.user, { 'attr': {'placeholder': 'Membre'} }) }}
+					    {{ form_errors(form.user) }}
+					</td>
+					<td colspan="2">
+					    {{ form_widget(form.amount, { 'attr': {'placeholder': 'Montant'} }) }}
+					    {{ form_errors(form.amount) }}
+					</td>
+					<td>
+						{{ form_widget(form.account, { 'attr': {'style': 'display:none;'} }) }}
+						{{ form_errors(form.account) }}
+					    {{ form_rest(form) }}
+					    <input type="submit" name="new" id="asso_book_new" />
+					</td>
 
 			</tr>
 		</thead>
@@ -63,7 +109,14 @@
 				{% include "AssoBookBundle:Book:entry.html.twig" %}
 			{% else %}
 				<tr>
-					<td colspan="8">No entry found.</td>
+					<td>Aucune opérations trouvées.</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
 				</tr>
 			{% endfor %}
 		</tbody>

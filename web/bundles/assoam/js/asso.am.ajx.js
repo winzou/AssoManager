@@ -57,7 +57,7 @@ var asso_am_ajx = {
 				if(!json.code) {
 					alert( json[0].message ? json[0].message : 'Something went terribly wrong, server side.');
 				}
-				else { asso_book_datatables.delete_entry(trigger);
+				else {
 					callback(trigger);
 				}
 			    //$("#result").html(result);

@@ -87,33 +87,33 @@ class BookService
             $this->am->update($entry->getAccount(), false);
         }
 
-        return $this->em->update($entry);
+        $this->em->update($entry);
     }
 
     public function updateAccount(Account $account)
     {
-        return $this->am->update($account);
+        $this->am->update($account);
     }
 
     public function deleteEntry(Entry $entry)
     {
-        return $this->em->delete($entry);
+        $this->em->delete($entry);
     }
 
     public function deleteEntries($ids, $asso_id)
     {
-        return $this->em->deleteByIds($ids, $asso_id);
+        $this->em->deleteByIds($ids, $asso_id);
     }
 
     public function deleteAccount(Account $account)
     {
-        return ( $this->em->deleteByAccount($account, false)
-            AND $this->am->delete($account) );
+        $this->em->deleteByAccount($account, false);
+        $this->am->delete($account);
     }
 
     public function deleteAccountsByWrap($wrap)
     {
-        return $this->am->deleteByWrap($wrap);
+        $this->am->deleteByWrap($wrap);
     }
 
     public function countEntries(Account $account)

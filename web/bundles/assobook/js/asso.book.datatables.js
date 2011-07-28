@@ -1,29 +1,28 @@
 
 
-var asso_book_datatables = {
+var Asso_book_datatables = function(init_ids) {
 	
-	'datatable': null,
-	'accounts':  [],
+	var that = this;
 	
-	'ids': {},
+	this.datatable = null;
+	this.accounts  = [];
+	this.ids       = init_ids;
 	
-	'is_active': function() {
-		return $(this.ids.table).length;
-	},
 	
-	'init': function(init_ids) {
-		
-		this.ids = init_ids;
-		
-		if( this.is_active() ) {
-			this.make_datatable();
-			this.save_datatable_content();
-			this.listen_switch_clicks();
+	this.is_active = function() {
+		return $(that.ids.table).length;
+	};
+	
+	this.init = function() {
+		if( that.is_active() ) {
+			that.make_datatable();
+			that.save_datatable_content();
+			that.listen_switch_clicks();
 		}
-	},
+	};
 	
-	'make_datatable': function() {
-		this.datatable = $(this.ids.table).dataTable( $.extend({}, asso_am_datatables.defaultOptions, {
+	this.make_datatable = function() {
+		that.datatable = $(that.ids.table).dataTable( $.extend({}, asso_am_datatables.defaultOptions, {
 			'bSortCellsTop': true,
 			'aaSorting':     [[1,'desc']],
 			'aoColumns': [
@@ -37,66 +36,71 @@ var asso_book_datatables = {
 	                      { 'bSearchable': false, 'bSortable': false }
 	                     ]
 		}) );
-	},
+	};
 	
-	'save_datatable_content': function() {
-		this.accounts[$(this.ids.table).attr('data-id')] = this.datatable.fnGetData();
-	},
+	this.save_datatable_content = function() {
+		that.accounts[$(that.ids.table).attr('data-id')] = that.datatable.fnGetData();
+	};
 	
-	'listen_switch_clicks': function() {
-		$(this.ids.switch_links).click(function() {
+	this.listen_switch_clicks = function() {
+		$(that.ids.switch_links).click(function() {
 			var clicked_id = $(this).attr('data-id');
 			
 			// if click on the already selected account, do nothing
-			if(clicked_id == $(asso_book_datatables.ids.table).attr('data-id')) {
+			if(clicked_id == $(that.ids.table).attr('data-id')) {
 				return false;
 			}
 			
 			// save the data
-			asso_book_datatables.save_datatable_content();
+			that.save_datatable_content();
 			
 			// if we have already the data, display it
-			if(asso_book_datatables.accounts[clicked_id]) {
+			if(that.accounts[clicked_id]) {
 				// clear the table
-				asso_book_datatables.datatable.fnClearTable( false );
+				that.datatable.fnClearTable( false );
 				
 				// update the table
-				asso_book_datatables.datatable.fnAddData( asso_book_datatables.accounts[clicked_id] );
+				that.datatable.fnAddData( that.accounts[clicked_id] );
 			}
 			// otherwise we go and retrieve it from the server
 			else {
 				// load the new data and update the table with it
 				$.get($(this).attr('href'), function(data) {
 					// clear the table
-					asso_book_datatables.datatable.fnClearTable( false );
+					that.datatable.fnClearTable( false );
 					
 					// update the table
-					asso_book_datatables.datatable.fnAddData( asso_am_datatables.table2array( $(data).children() ) );
+					that.datatable.fnAddData( asso_am_datatables.table2array( $(data).children() ) );
 				});
 			}
 			
-			$(asso_book_datatables.ids.table).attr('data-id', clicked_id);
+			// don't forget to change the value of the form
+			abook_ajx.set_account(clicked_id);
+			
+			$(that.ids.table).attr('data-id', clicked_id);
 			$(this).addClass('asso_button_checked');
 			$(this).parent().siblings().children().removeClass('asso_button_checked');
 			
 			return false;
 		});
-	},
+	};
 	
-	'delete_entry': function(trigger) {
-		this.datatable.fnDeleteRow( $(trigger).closest('tr')[0] );
-	},
+	this.delete_entry = function(trigger) {
+		that.datatable.fnDeleteRow( $(trigger).closest('tr')[0] );
+	};
 	
-	'add_entry': function(entry) {
-		this.datatable.fnAddData(entry);
-	}
+	this.add_entry = function(entry) {
+		that.datatable.fnAddData(entry);
+	};
 };
 
-$(document).ready(function() {
+var abook_dt = new Asso_book_datatables({
+	'table':        '#asso_book_entries_table',
+	'switch_links': 'a.asso_book_account_switch'
+});
 
-	asso_book_datatables.init({
-		'table':        '#asso_book_entries_table',
-		'switch_links': 'a.asso_book_account_switch'
-	});
+$(document).ready(function() {
+	
+	abook_dt.init();
 	
 });

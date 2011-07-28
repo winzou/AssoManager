@@ -52,7 +52,7 @@ class AccountHandler extends AbstractFormHandler
         $this->accountManager->update($Account);
     }
 
-    protected function getClass()
+    public function getClass()
     {
         return $this->accountManager->getClass();
     }
