@@ -1,18 +1,21 @@
-.asso_button {
+.asso_button, .fast_confirm button, input[type=submit] {
 	background-image: -webkit-linear-gradient(top, whiteSmoke, #F1F1F1);
     background-image: -moz-linear-gradient(top, whiteSmoke, #F1F1F1);
     background-image: -ms-linear-gradient(top, whiteSmoke, #F1F1F1);
-	display: block;
-	float: left;
-	border-radius: 2px;
+	-webkit-box-shadow: #CCC 0px 0px 0px, #CCC -1px 0px 0px, #AAA 0px 3px 3px 0px;
+    -moz-box-shadow: #CCC 0px 0px 0px, #CCC -1px 0px 0px, #AAA 0px 3px 3px 0px;
+    box-shadow: #CCC 0px 0px 0px, #CCC -1px 0px 0px, #AAA 0px 3px 3px 0px;
+	border-radius: 5px;
 	text-align: center;
 	min-width: 4em;
-	padding: 2px 0.3em;
-	border: 1px solid rgba(0, 0, 0, 0.1);
+	padding: 0.2em 0.8em;
+	cursor: pointer;
+	border: 1px solid rgba(0, 0, 0, 0.3);
 	text-decoration: none;
+	margin-left: 0.8em;
 }
 
-.asso_button:hover {
+.asso_button:hover, .fast_confirm button:hover, input[type=submit]:hover {
     background-image: -webkit-linear-gradient(top, #EAEAEA, #E0E0E0);
     background-image: -moz-linear-gradient(top, #EAEAEA, #E0E0E0);
     background-image: -ms-linear-gradient(top, #EAEAEA, #E0E0E0);

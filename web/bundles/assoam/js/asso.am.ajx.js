@@ -65,10 +65,10 @@ var asso_am_ajx = {
 		});
 	},
 	
-	'confirm': function($this, url, callback) {
+	'confirm': function($this, url, message, callback) {
 		$this.fastConfirm({
 			position:     "right",
-			questionText: "Are you sure?",
+			questionText: message ? message : "Etes-vous certain ?",
 			unique:       true,
 			onProceed:    function(trigger) {
 				asso_am_ajx.call(trigger, url, callback);

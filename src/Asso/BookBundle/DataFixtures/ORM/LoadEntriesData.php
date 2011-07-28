@@ -11,7 +11,7 @@ class LoadEntriesData implements FixtureInterface
 {
     public function load($manager)
     {
-        $asso = $manager->getRepository('Asso\\AMBundle\\Entity\\Asso')->find(1);
+        $asso = $manager->getRepository('Asso\\UserBundle\\Entity\\User')->findOneBy(array('usernameCanonical' => 'winzou'))->getAssos()->first();
 
         foreach(array('Compte Bancaire', 'Caisse', 'Epargne') as $i => $account)
         {

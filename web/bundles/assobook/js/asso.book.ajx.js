@@ -12,19 +12,19 @@ var Asso_book_ajx = function(init_ids) {
 	this.init = function() {
 		if( that.is_active() ) {
 			that.listen_delete_links();
-			that.listen_new_links();
+			that.listen_new_button();
 		}
 	};
 	
 	this.listen_delete_links = function() {
 		// delete links for each entry
 		$(that.ids.delete_link).click(function() {
-	        asso_am_ajx.confirm($(this), $(this).attr('href') + '.json', abook_dt.delete_entry);
+	        asso_am_ajx.confirm($(this), $(this).attr('href') + '.json', null, abook_dt.delete_entry);
 	        return false;
 	    });
 	};
 	
-	this.listen_new_links = function() {
+	this.listen_new_button = function() {
 		// submit button to add an entry
 	    $(that.ids.new_button).click(function() {
 	        $form = $(that.ids.new_form);
@@ -66,11 +66,10 @@ var Asso_book_ajx = function(init_ids) {
 };
 
 var abook_ajx = new Asso_book_ajx({
-	'delete_link': '.asso_book_ajx_delete',
-	'new_button':  'input#asso_book_new',
-	'new_form':	   'form#asso_book_ajx_new',
-	'new_account_id': '#asso_book_entry_new_account',
-	'new_account_form': 
+	'delete_link':    '.asso_book_ajx_delete',
+	'new_button':     'input#asso_book_new',
+	'new_form':	      'form#asso_book_ajx_new',
+	'new_account_id': '#asso_book_entry_new_account'
 });
 
 $(document).ready(function() {

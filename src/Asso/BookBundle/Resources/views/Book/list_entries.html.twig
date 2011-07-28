@@ -16,7 +16,6 @@
     	    {% for account in accounts %}
     	    	<li>
     	    		<a href="{{ path('asso_book_list_entries', {'id': account.id}) }}" class="asso_button {% if account.id == cur_account.id %}asso_button_checked{% endif %} asso_book_account_switch" data-id="{{ account.id }}">{{ account.name }}</a>
-    	    		<a href="{{ path('asso_book_delete_account', {'id': account.id}) }}" class="asso_button asso_button_delete">X</a>
     	    	</li>
     	    {% endfor %}
     	</ul>
@@ -25,7 +24,7 @@
     <fieldset style="float:left;">
     	<legend>Actions sur les comptes</legend>
 
-    	<form action="{{ path('asso_book_new_account') }}" method="post" {{ form_enctype(formAccount) }}>
+    	<form action="{{ path('asso_book_new_account') }}" method="post" {{ form_enctype(formAccount) }} id="asso_book_account_new">
         	<div>
             	{{ form_widget(formAccount.name, { 'attr': {'placeholder': 'Nouveau compte...'} }) }}
             	{{ form_errors(formAccount.name) }}
@@ -109,9 +108,9 @@
 				{% include "AssoBookBundle:Book:entry.html.twig" %}
 			{% else %}
 				<tr>
+					<td></td>
+					<td></td>
 					<td>Aucune opérations trouvées.</td>
-					<td></td>
-					<td></td>
 					<td></td>
 					<td></td>
 					<td></td>
