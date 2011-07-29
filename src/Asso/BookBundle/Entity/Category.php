@@ -22,6 +22,7 @@ class Category
 
     /**
      * @ORM\ManyToOne(targetEntity="Asso\AMBundle\Entity\Asso")
+     * @ORM\JoinColumn(nullable=false)
      */
     protected $wrap;
 
