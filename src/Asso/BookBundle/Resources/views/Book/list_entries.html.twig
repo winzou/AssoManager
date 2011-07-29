@@ -50,6 +50,7 @@
 
 	<form action="{{ path('asso_book_actions') }}" method="post" {{ form_enctype(form) }} novalidate="novalidate" id="asso_book_ajx_new">
 
+	<div style="clear:both;">
 	<table class="asso_book_datatables" id="asso_book_entries_table" data-id="{{ cur_account.id }}">
 		<colgroup>
 			<col class="wbb_tbl_check" />
@@ -125,6 +126,7 @@
 			</tr>
 		</tfoot>
 	</table>
+	</div>
 
 	</form>
 
