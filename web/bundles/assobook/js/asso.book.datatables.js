@@ -15,7 +15,7 @@ var Asso_book_datatables = function(init_ids) {
 	
 	this.init = function() {
 		if( that.is_active() ) {
-			//that.make_datatable();
+			that.make_datatable();
 			that.save_datatable_content();
 			that.listen_switch_clicks();
 		}
