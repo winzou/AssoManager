@@ -5,6 +5,7 @@ var asso_am_datatables = {
 		'sPaginationType': 'full_numbers',
 		'bSortClasses':    false,
 		'bAutoWidth':      true,
+		'bJQueryUI':       true,
 		'aaSorting':       []
 	},
 	

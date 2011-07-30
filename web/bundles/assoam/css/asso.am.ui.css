@@ -1,61 +1,32 @@
-.asso_button, .fast_confirm button, input[type=submit] {
-	background-image: -webkit-linear-gradient(top, whiteSmoke, #F1F1F1);
-    background-image: -moz-linear-gradient(top, whiteSmoke, #F1F1F1);
-    background-image: -ms-linear-gradient(top, whiteSmoke, #F1F1F1);
-	-webkit-box-shadow: #CCC 0px 0px 0px, #CCC -1px 0px 0px, #AAA 0px 3px 3px 0px;
-    -moz-box-shadow: #CCC 0px 0px 0px, #CCC -1px 0px 0px, #AAA 0px 3px 3px 0px;
-    box-shadow: #CCC 0px 0px 0px, #CCC -1px 0px 0px, #AAA 0px 3px 3px 0px;
-	border-radius: 5px;
-	text-align: center;
-	min-width: 4em;
-	padding: 0.2em 0.8em;
-	cursor: pointer;
-	border: 1px solid rgba(0, 0, 0, 0.3);
-	text-decoration: none;
-	margin-left: 0.8em;
+.asso-button {
+   outline: 0; 
+   margin: 0.2em; 
+   padding: .4em 1em; 
+   text-decoration:none !important; 
+   cursor:pointer; 
+   position: relative; 
+   text-align: center; 
+   zoom: 1;
 }
 
-.asso_button:hover, .fast_confirm button:hover, input[type=submit]:hover {
-    background-image: -webkit-linear-gradient(top, #EAEAEA, #E0E0E0);
-    background-image: -moz-linear-gradient(top, #EAEAEA, #E0E0E0);
-    background-image: -ms-linear-gradient(top, #EAEAEA, #E0E0E0);
-}
-
-.asso_button_delete {
-	background-image: -webkit-linear-gradient(top, #FFAAAA, #F1F1F1);
-    background-image: -moz-linear-gradient(top, #FFAAAA, #F1F1F1);
-    background-image: -ms-linear-gradient(top, #FFAAAA, #F1F1F1);
-    min-width: 1em;
-    width: 1em;
-    padding: 2px 0;
-    margin-left: -1px;
-    margin-right: 0.8em;
-}
-
-.asso_button_delete:hover {
-    background-image: -webkit-linear-gradient(top, #FF7777, #F1F1F1);
-    background-image: -moz-linear-gradient(top, #FF7777, #F1F1F1);
-    background-image: -ms-linear-gradient(top, #FF7777, #F1F1F1);
-}
-
-.asso_button_checked {
-	background-image: -webkit-linear-gradient(top, #DDD, #E0E0E0);
-    background-image: -moz-linear-gradient(top, #DDD, #E0E0E0);
-    background-image: -ms-linear-gradient(top, #DDD, #E0E0E0);
-}
-
-.asso_button_checked:hover {
-    background-image: -webkit-linear-gradient(top, #EAEAEA, #E0E0E0);
-    background-image: -moz-linear-gradient(top, #EAEAEA, #E0E0E0);
-    background-image: -ms-linear-gradient(top, #EAEAEA, #E0E0E0);
-}
-
-ul.asso_buttons {
-    margin: 0;
+ul.asso-buttons-list {
+    margin: 0.5em;
     padding: 0;
     list-style-type: none;
 }
 
-ul.asso_buttons li {
+ul.asso-buttons-list li {
     float: left;
+	margin-bottom: 0.5em;
+}
+
+.asso-float {
+	float: left;
+}
+.asso-float-right {
+	float: right;
+}
+
+.asso-clear {
+	clear: both;
 }

@@ -255,7 +255,14 @@ class BookController extends AbstractController
 
         if( $id == 0 AND $this->getRequest()->query->has('asso_book_delete_account') )
         {
-            $id = $this->getRequest()->query->get('asso_book_delete_account');
+            $id = (int) $this->getRequest()->query->get('asso_book_delete_account');
+        }
+        
+        if( $id == 0 )
+        {
+            // no account selected
+            $this->get('session')->setFlash('asso_book_error', 'book.flash.account.delete.select');
+            return $this->redirect( $this->generateUrl('asso_book_list_entries') );
         }
 
         // check existence and permission

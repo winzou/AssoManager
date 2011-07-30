@@ -7,7 +7,11 @@
 					<td>{% if entry.amount < 0 %}{{ entry.amount }}{% endif %}</td>
 					<td>{% if entry.amount >= 0 %}{{ entry.amount }}{% endif %}</td>
 					<td>
-						<a class="asso_book_ajx_delete" href="{{ path('asso_book_delete_entry', {'id': entry.id}) }}">Supprimer</a> -
-						<a href="{{ path('asso_book_edit_entry', {'id': entry.id}) }}">Modifier</a>
+						<a class="asso_book_ajx_delete" href="{{ path('asso_book_delete_entry', {'id': entry.id}) }}">
+							Supprimer
+						</a> -
+						<a href="{{ path('asso_book_edit_entry', {'id': entry.id}) }}">
+							Modifier
+						</a>
 					</td>
 				</tr>

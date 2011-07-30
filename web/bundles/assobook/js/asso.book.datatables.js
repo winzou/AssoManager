@@ -15,7 +15,7 @@ var Asso_book_datatables = function(init_ids) {
 	
 	this.init = function() {
 		if( that.is_active() ) {
-			that.make_datatable();
+			//that.make_datatable();
 			that.save_datatable_content();
 			that.listen_switch_clicks();
 		}
@@ -39,7 +39,9 @@ var Asso_book_datatables = function(init_ids) {
 	};
 	
 	this.save_datatable_content = function() {
-		that.accounts[$(that.ids.table).attr('data-id')] = that.datatable.fnGetData();
+	    if(that.datatable) {
+	        that.accounts[$(that.ids.table).attr('data-id')] = that.datatable.fnGetData();
+        }
 	};
 	
 	this.listen_switch_clicks = function() {
@@ -78,8 +80,8 @@ var Asso_book_datatables = function(init_ids) {
 			abook_ajx.set_account(clicked_id);
 			
 			$(that.ids.table).attr('data-id', clicked_id);
-			$(this).addClass('asso_button_checked');
-			$(this).parent().siblings().children().removeClass('asso_button_checked');
+			$(this).addClass('ui-state-active');
+			$(this).parent().siblings().children().removeClass('ui-state-active');
 			
 			return false;
 		});
