@@ -1,37 +1,20 @@
 <?php
 
-/*
- * This file is part of AssoBookBundle.
- *
- * AssoBookBundle is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * AssoBookBundle is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+namespace Asso\MaterialBundle;
 
-namespace Asso\BookBundle;
-
-use Asso\BookBundle\Manager\EntryManager;
-use Asso\BookBundle\Manager\AccountManager;
+use Asso\MaterialBundle\Manager\EntryManager;
+use Asso\MaterialBundle\Manager\AccountManager;
 
 /**
- * Base book service
+ * Base Material service
  * @author winzou
  */
-class BookService
+class MaterialService
 {
-    /** @var Asso\BookBundle\Manager\EntryManager */
+    /** @var Asso\MaterialBundle\Manager\EntryManager */
     protected $em;
 
-    /** @var Asso\BookBundle\Manager\AccountManager */
+    /** @var Asso\MaterialBundle\Manager\AccountManager */
     protected $am;
 
 

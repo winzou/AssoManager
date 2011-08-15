@@ -85,32 +85,18 @@ ul, ol {
 
 
 
-#content table
-{
-    border: 1px solid black;
+#content table {
+    border-left: 1px solid black;
+    border-right: 1px solid black;
     border-collapse: collapse;
-    margin: 0.5em auto;
+    width: 100%;
+}
+#content th, #content thead td, #content tfoot td {
+	border: 1px solid black;
 }
 
-#content td, #content th
-{
-    border: 1px solid black;
-    padding: 0.2em;
-}
-
-#content thead th, #content tfoot th
-{
-    text-align: center;
-    font-weight: bold;
-    background-color: #E6E0EC;
-    padding: 0.2em;
-}
-
-tr:nth-child(even) {
-	background: #FAFAFA;
-}
-tr:nth-child(odd) {
-	background: #EEEEEE;
+#content td, #content th {
+    border-left: 1px solid black;
 }
 
 
@@ -119,5 +105,5 @@ tr:nth-child(odd) {
 
 
 #content fieldset {
-	margin: 1em auto;
+	padding: 0.5em;
 }

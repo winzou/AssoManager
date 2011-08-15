@@ -18,15 +18,20 @@ security:
             anonymous: true
 
         main:
-            pattern:            .*
+            pattern:         .*
             form_login:
-                provider:       fos_userbundle
-                login_path:     /login
-                check_path:     /login_check
+                provider:    fos_userbundle
+                login_path:  /login
+                check_path:  /login_check
+                remember_me: true
+            remember_me:
+                key:         %secret%
+                lifetime:    3600
+                path:        /
             logout:
-                path:           /logout
-                target:         /
-            anonymous:          true
+                path:        /logout
+                target:      /
+            anonymous:       true
 
     acl:
         connection: default

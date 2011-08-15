@@ -1,3 +1,7 @@
-.wbb_tbl_debit, .wbb_tbl_credit {
-	text-align: right;
+.asso-book-table {
+	padding-top: 2em;
+}
+
+#asso_book_entries_table tfoot input {
+	width: auto;
 }
