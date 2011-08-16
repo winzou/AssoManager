@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="Asso\MaterialBundle\Manager\MaterialManager")
+ * @ORM\Entity(repositoryClass="Asso\MaterialBundle\Entity\MaterialRepository")
  * @ORM\Table(name="ass_material")
  */
 class Material

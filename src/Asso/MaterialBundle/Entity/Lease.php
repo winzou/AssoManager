@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="Asso\MaterialBundle\Manager\LeaseManager")
+ * @ORM\Entity(repositoryClass="Asso\MaterialBundle\Entity\LeaseRepository")
  * @ORM\Table(name="ass_material_lease")
  */
 class Lease

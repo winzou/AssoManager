@@ -1,8 +1,8 @@
 <?php
 
-namespace Asso\BookBundle\Entity;
+namespace Asso\MaterialBundle\Entity;
 
-use Asso\AbstractBundle\Manager\AbstractRepository;
+use Asso\AbstractBundle\Entity\AbstractRepository;
 use Asso\BookBundle\Entity\Account;
 
 /**
