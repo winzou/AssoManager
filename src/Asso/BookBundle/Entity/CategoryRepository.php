@@ -17,16 +17,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Asso\BookBundle\Manager;
+namespace Asso\BookBundle\Entity;
 
-use Asso\AbstractBundle\Manager\AbstractManager;
+use Asso\AbstractBundle\Manager\AbstractRepository;
 use Asso\BookBundle\Entity\Category;
 
 /**
  * CategoryManager
  * @author winzou
  */
-class CategoryManager extends AbstractManager
+class CategoryRepository extends AbstractRepository
 {
     /**
      * Return a querybuilder for EntityChoiceList

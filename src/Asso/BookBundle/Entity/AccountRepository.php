@@ -17,16 +17,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Asso\BookBundle\Manager;
+namespace Asso\BookBundle\Entity;
 
-use Asso\AbstractBundle\Manager\AbstractManager;
+use Asso\AbstractBundle\Manager\AbstractRepository;
 use Asso\BookBundle\Entity\Account;
 
 /**
  * AccountManager
  * @author winzou
  */
-class AccountManager extends AbstractManager
+class AccountRepository extends AbstractRepository
 {
     /**
      * Delete accounts linked to this wrap
@@ -37,7 +37,7 @@ class AccountManager extends AbstractManager
         $wraps = (int) $wrap > 0 ? (array) $wrap : $wrap;
 
         $qb = $this->createQueryBuilder();
-        $qb ->delete($this->class, 'a')
+        $qb ->delete($this->_entityName, 'a')
             ->join('a.entries', 'e')
             ->where($qb->expr()->in('a.wrap', $wraps));
 
@@ -46,15 +46,10 @@ class AccountManager extends AbstractManager
 
     /**
      * Check if the wrap is already flushed
-     * @see Asso\AbstractBundle\Manager.AbstractManager::update()
+     * @see Asso\AbstractBundle\Entity\AbstractRepository::update()
      */
-    public function update($account, $andFlush = true)
+    public function update(Account $account, $andFlush = true)
     {
-        if( ! $account instanceof $this->_entityName )
-        {
-            throw new \InvalidArgumentException('Except instanceof "'.$this->_entityName.'", received instanceof "'.get_class($entity).'".');
-        }
-
         if( is_object($account->getWrap()) AND ! $account->getWrap()->getId() )
         {
             throw new \Exception('Wrap has to be flushed before adding an account.');
@@ -66,6 +61,7 @@ class AccountManager extends AbstractManager
     /**
      * Return a querybuilder for EntityChoiceList
      * @param integer $wrap_id
+     * @return Doctrine\ORM\QueryBuilder
      */
     public function getQueryChoicelist($wrap_id)
     {

@@ -17,10 +17,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Asso\BookBundle\Manager;
+namespace Asso\BookBundle\Entity;
 
-use Asso\AbstractBundle\Manager\AbstractManager;
-
+use Asso\AbstractBundle\Manager\AbstractRepository;
 use Asso\BookBundle\Entity\Entry;
 use Asso\BookBundle\Entity\Account;
 
@@ -30,7 +29,7 @@ use Doctrine\ORM\Query;
  * EntryManager
  * @author winzou
  */
-class EntryManager extends AbstractManager
+class EntryRepository extends AbstractRepository
 {
     /**
      * Return a list of entries belonging to the given critaeria
@@ -69,7 +68,7 @@ class EntryManager extends AbstractManager
         $qb ->delete($this->_entityName, 'e')
             ->where($qb->expr()->in('e.id', $ids))
             ->andWhere('e.account IN(SELECT a.id FROM Asso\BookBundle\Entity\Account AS a WHERE a.wrap = :wrap_id)')
-                ->setParameter('wrap_id', $wrap_id);
+                ->setParameter('wrap_id', $wrap_id, PDO::PARAM_INT);
 
         return $qb->getQuery()->execute();
     }
@@ -95,6 +94,12 @@ class EntryManager extends AbstractManager
         return (int) $qb->getQuery()->getSingleScalarResult();
     }
 
+    /**
+     * Filter a list of entry ids by selecting only those matching the wrap_id
+     * Enter description here ...
+     * @param array $list_ids
+     * @param unknown_type $wrap_id
+     */
     public function filter(array $list_ids, $wrap_id)
     {
         $qb = $this->_em->createQueryBuilder();
@@ -102,7 +107,7 @@ class EntryManager extends AbstractManager
         $qb ->select('e.id')
             ->where($qb->expr()->in('e.id', $list_ids))
             ->andWhere('e.account IN(SELECT a.id FROM Asso\BookBundle\Entity\Account AS a WHERE a.wrap = :wrap_id)')
-                ->setParameter('wrap_id', $wrap_id);
+                ->setParameter('wrap_id', $wrap_id, PDO::PARAM_INT);
 
         return $qb->getQuery()->getScalarResult();
     }

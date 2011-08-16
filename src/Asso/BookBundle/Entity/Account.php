@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="Asso\BookBundle\Manager\AccountManager")
+ * @ORM\Entity(repositoryClass="Asso\BookBundle\Entity\AccountRepository")
  * @ORM\Table(name="ass_book_account")
  */
 class Account
