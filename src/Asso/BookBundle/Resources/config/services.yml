@@ -1,9 +1,6 @@
 parameters:
-    asso_book.entry.manager.class: Asso\BookBundle\Manager\EntryManager
-    asso_book.entry.entity.class:  Asso\BookBundle\Entity\Entry
-    
-    asso_book.account.manager.class: Asso\BookBundle\Manager\AccountManager
-    asso_book.account.entity.class:  Asso\BookBundle\Entity\Account
+    asso_book.entry.entity.class:   Asso\BookBundle\Entity\Entry
+    asso_book.account.entity.class: Asso\BookBundle\Entity\Account
 
 services:
     asso_book.entry_repository:

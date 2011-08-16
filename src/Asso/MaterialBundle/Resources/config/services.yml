@@ -1,19 +1,16 @@
 parameters:
-    asso_material.material.manager.class: Asso\MaterialBundle\Manager\MaterialManager
-    asso_material.material.entity.class:  Asso\MaterialBundle\Entity\Material
-    
-    asso_material.lease.manager.class: Asso\MaterialBundle\Manager\LeaseManager
-    asso_material.lease.entity.class:  Asso\MaterialBundle\Entity\Lease
+    asso_material.material.entity.class: Asso\MaterialBundle\Entity\Material
+    asso_material.lease.entity.class:    Asso\MaterialBundle\Entity\Lease
 
 services:
-    asso_material.material_manager:
+    asso_material.material_repository:
         parent:    asso_abstract.repo
         arguments: [%asso_material.material.entity.class%]
         
-    asso_material.lease_manager:
+    asso_material.lease_repository:
         parent:    asso_abstract.repo
         arguments: [%asso_material.lease.entity.class%]
 
     asso_material.service:
         class:     Asso\MaterialBundle\MaterialService
-        arguments: [@asso_material.material_manager, @asso_material.lease_manager]
+        arguments: [@asso_material.material_repository, @asso_material.lease_repository]

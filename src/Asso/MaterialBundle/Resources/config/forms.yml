@@ -6,9 +6,9 @@ services:
     asso_material.forms.material:
         class:     %asso_material.forms.material.class%
         scope:     request
-        arguments: [@request, @asso_material.material_manager]
+        arguments: [@request, @asso_material.material_repository]
 
     asso_material.forms.lease:
         class:     %asso_material.forms.lease.class%
         scope:     request
-        arguments: [@request, @asso_material.lease_manager]
+        arguments: [@request, @asso_material.lease_repository]
