@@ -56,10 +56,7 @@ abstract class AbstractRepository extends EntityRepository
      */
     public function delete($entity, $andFlush = true)
     {
-        if( ! $entity instanceof $this->_entityName )
-        {
-            throw new \InvalidArgumentException('Expect instanceof "'.$this->_entityName.'", received instanceof "'.get_class($entity).'".');
-        }
+        $this->_isHandled($entity);
 
         $this->_em->remove($entity);
 
@@ -78,10 +75,7 @@ abstract class AbstractRepository extends EntityRepository
      */
     public function update($entity, $andFlush = true)
     {
-        if( ! $entity instanceof $this->_entityName )
-        {
-            throw new \InvalidArgumentException('Expect instanceof "'.$this->_entityName.'", received instanceof "'.get_class($entity).'".');
-        }
+        $this->_isHandled($entity);
 
         $this->_em->persist($entity);
 
@@ -90,6 +84,16 @@ abstract class AbstractRepository extends EntityRepository
             $this->_em->flush();
         }
     }
+
+	/**
+     * Return the supported class
+     * @return string
+     */
+    public function getClass()
+    {
+        return $this->_entityName;
+    }
+
 
     /**
      * Add requested associations to given QueryBuilder
@@ -114,11 +118,18 @@ abstract class AbstractRepository extends EntityRepository
     }
 
     /**
-     * Return the supported class
-     * @return string
+     * Check if the given $object is handled by this repository
+     * @param mixed $object
+     * @return bool
+     * @throws \InvalidArgumentException
      */
-    public function getClass()
+    protected function _isHandled($object)
     {
-        return $this->_entityName;
+        if( ! $object instanceof $this->_entityName )
+        {
+            throw new \InvalidArgumentException('Expect instanceof "'.$this->_entityName.'", received instanceof "'.get_class($object).'".');
+        }
+
+        return true;
     }
 }

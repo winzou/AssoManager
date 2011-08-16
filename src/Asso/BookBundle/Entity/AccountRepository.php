@@ -19,7 +19,7 @@
 
 namespace Asso\BookBundle\Entity;
 
-use Asso\AbstractBundle\Manager\AbstractRepository;
+use Asso\AbstractBundle\Entity\AbstractRepository;
 use Asso\BookBundle\Entity\Account;
 
 /**
@@ -48,7 +48,7 @@ class AccountRepository extends AbstractRepository
      * Check if the wrap is already flushed
      * @see Asso\AbstractBundle\Entity\AbstractRepository::update()
      */
-    public function update(Account $account, $andFlush = true)
+    public function update($account, $andFlush = true)
     {
         if( is_object($account->getWrap()) AND ! $account->getWrap()->getId() )
         {

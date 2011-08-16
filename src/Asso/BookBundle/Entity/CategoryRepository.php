@@ -19,7 +19,7 @@
 
 namespace Asso\BookBundle\Entity;
 
-use Asso\AbstractBundle\Manager\AbstractRepository;
+use Asso\AbstractBundle\Entity\AbstractRepository;
 use Asso\BookBundle\Entity\Category;
 
 /**
