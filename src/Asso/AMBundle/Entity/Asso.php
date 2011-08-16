@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="Asso\AMBundle\Manager\AssoManager")
+ * @ORM\Entity(repositoryClass="Asso\AMBundle\Entity\AssoRepository")
  * @ORM\Table(name="ass_asso")
  */
 class Asso
