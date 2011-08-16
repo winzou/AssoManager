@@ -1,6 +1,6 @@
 <?php
 
-namespace Asso\AbstractBundle\Manager;
+namespace Asso\AbstractBundle\Entity;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query;
@@ -11,10 +11,10 @@ use Doctrine\ORM\NoResultException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * Abstract Entity Manager
+ * Abstract Entity Repository
  * @author winzou
  */
-abstract class AbstractManager extends EntityRepository
+abstract class AbstractRepository extends EntityRepository
 {
     /**
      * Return one row with all associations done
@@ -58,7 +58,7 @@ abstract class AbstractManager extends EntityRepository
     {
         if( ! $entity instanceof $this->_entityName )
         {
-            throw new \InvalidArgumentException('Except instanceof "'.$this->_entityName.'", received instanceof "'.get_class($entity).'".');
+            throw new \InvalidArgumentException('Expect instanceof "'.$this->_entityName.'", received instanceof "'.get_class($entity).'".');
         }
 
         $this->_em->remove($entity);
@@ -80,7 +80,7 @@ abstract class AbstractManager extends EntityRepository
     {
         if( ! $entity instanceof $this->_entityName )
         {
-            throw new \InvalidArgumentException('Except instanceof "'.$this->_entityName.'", received instanceof "'.get_class($entity).'".');
+            throw new \InvalidArgumentException('Expect instanceof "'.$this->_entityName.'", received instanceof "'.get_class($entity).'".');
         }
 
         $this->_em->persist($entity);
