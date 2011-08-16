@@ -19,8 +19,8 @@
 
 namespace Asso\BookBundle;
 
-use Asso\BookBundle\Manager\EntryManager;
-use Asso\BookBundle\Manager\AccountManager;
+use Asso\BookBundle\Entity\EntryRepository;
+use Asso\BookBundle\Entity\AccountRepository;
 
 use Asso\BookBundle\Entity\Entry;
 use Asso\BookBundle\Entity\Account;
@@ -31,20 +31,20 @@ use Asso\BookBundle\Entity\Account;
  */
 class BookService
 {
-    /** @var Asso\BookBundle\Manager\EntryManager */
+    /** @var Asso\BookBundle\Entity\EntryRepository */
     protected $em;
 
-    /** @var Asso\BookBundle\Manager\AccountManager */
+    /** @var Asso\BookBundle\Entity\AccountRepository */
     protected $am;
 
 
     /**
      * Constructor.
      *
-     * @param EntryManager $em
-     * @param AccountManager $am
+     * @param EntryRepository $em
+     * @param AccountRepository $am
      */
-    public function __construct(EntryManager $em, AccountManager $am)
+    public function __construct(EntryRepository $em, AccountRepository $am)
     {
         $this->em = $em;
         $this->am = $am;

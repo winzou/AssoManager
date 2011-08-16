@@ -6,14 +6,14 @@ parameters:
     asso_book.account.entity.class:  Asso\BookBundle\Entity\Account
 
 services:
-    asso_book.entry_manager:
+    asso_book.entry_repository:
         parent:    asso_abstract.repo
         arguments: [%asso_book.entry.entity.class%]
         
-    asso_book.account_manager:
+    asso_book.account_repository:
         parent:    asso_abstract.repo
         arguments: [%asso_book.account.entity.class%]
 
     asso_book.service:
         class:     Asso\BookBundle\BookService
-        arguments: [@asso_book.entry_manager, @asso_book.account_manager]
+        arguments: [@asso_book.entry_repository, @asso_book.account_repository]

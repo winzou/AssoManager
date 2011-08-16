@@ -7,12 +7,12 @@ services:
     asso_book.forms.entry:
         class:     %asso_book.forms.entry.class%
         scope:     request
-        arguments: [@request, @asso_book.entry_manager]
+        arguments: [@request, @asso_book.entry_repository]
 
     asso_book.forms.account:
         class:     %asso_book.forms.account.class%
         scope:     request
-        arguments: [@request, @asso_book.account_manager]
+        arguments: [@request, @asso_book.account_repository]
 
     asso_book.forms.account_delete:
         class:     %asso_book.forms.account_delete.class%
